@@ -1,6 +1,7 @@
-import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
+﻿import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { PayElementServiceProxy, PayElementEditDto, ComboboxItemDto, GLAccountComboBoxItemDto } from '@shared/service-proxies/service-proxies';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AppConsts } from '@shared/AppConsts';
 import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base";
 
@@ -63,9 +64,10 @@ export class PayelementEditComponent extends PayrollComponentBase {
             $(this.codeInput.nativeElement).focus();
     }
 
-    save(): void {
+    save(payElementEditForm): void {
         var input = new PayElementEditDto();
         input = this.payelement;
+        console.log(input);
         this.saving = true;
         this._payelementService.createOrUpdatePayElement(input)
             .finally(() => this.saving = false)
