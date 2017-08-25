@@ -18,7 +18,6 @@
                         <input #codeInput type="text" name="payItemCode" [disabled]="payelement.id" class="form-control input-ltr" [ngClass]="{'edited':payelement.payItemCode}" [(ngModel)]="payelement.payItemCode" required maxlength="6">
                         <label>{{l("PayItemCode")}}</label>
                     </div>
-
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #nameInput type="text" name="Name" class="form-control input-ltr" [ngClass]="{'edited':payelement.name}" [(ngModel)]="payelement.name" required maxlength="128">
                         <label>{{l("Name")}}</label>
@@ -34,13 +33,13 @@
                         <label>{{l("Usage")}}</label>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #usageComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.itemGroup}" [(ngModel)]="payelement.itemGroup">
+                        <select #payItemGroupComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.payItemGroupId}" [(ngModel)]="payelement.payItemGroupId" [disabled]="payelement.payItemGroupId">
                             <option *ngFor="let itemGroup of itemGroupList" [value]="itemGroup.value">{{itemGroup.displayText}}</option>
                         </select>
                         <label>{{l("ItemGroup")}}</label>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #usageComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.reportCodes}" [(ngModel)]="payelement.reportCodes">
+                        <select #reportCodeComboBox name="reportCodeComboBox" class="form-control edited" [ngClass]="{'edited':payelement.reportCodeId}" [(ngModel)]="payelement.reportCodeId">
                             <option *ngFor="let reportCodes of reportCodesList" [value]="reportCodes.value">{{reportCodes.displayText}}</option>
                         </select>
                         <label>{{l("ReportCodes")}}</label>
