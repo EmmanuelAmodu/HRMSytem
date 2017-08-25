@@ -16544,7 +16544,7 @@ export class PayElement implements IPayElement {
     employeeePayItemId: number;
     interestRate: number;
     payReportCode: PayReportCode;
-    payReportCodeId: number;
+    reportCodeId: number;
     preset: boolean;
     schemeTitle: string;
     itemSerialNo: number;
@@ -16592,7 +16592,7 @@ export class PayElement implements IPayElement {
             this.employeeePayItemId = data["employeeePayItemId"];
             this.interestRate = data["interestRate"];
             this.payReportCode = data["payReportCode"] ? PayReportCode.fromJS(data["payReportCode"]) : <any>undefined;
-            this.payReportCodeId = data["payReportCodeId"];
+            this.reportCodeId = data["reportCodeId"];
             this.preset = data["preset"];
             this.schemeTitle = data["schemeTitle"];
             this.itemSerialNo = data["itemSerialNo"];
@@ -16671,7 +16671,7 @@ export class PayElement implements IPayElement {
         data["employeeePayItemId"] = this.employeeePayItemId;
         data["interestRate"] = this.interestRate;
         data["payReportCode"] = this.payReportCode ? this.payReportCode.toJSON() : <any>undefined;
-        data["payReportCodeId"] = this.payReportCodeId;
+        data["reportCodeId"] = this.reportCodeId;
         data["preset"] = this.preset;
         data["schemeTitle"] = this.schemeTitle;
         data["itemSerialNo"] = this.itemSerialNo;
@@ -16744,7 +16744,7 @@ export interface IPayElement {
     employeeePayItemId: number;
     interestRate: number;
     payReportCode: PayReportCode;
-    payReportCodeId: number;
+    reportCodeId: number;
     preset: boolean;
     schemeTitle: string;
     itemSerialNo: number;
