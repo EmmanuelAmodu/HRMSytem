@@ -1,0 +1,18 @@
+﻿<div class="page-actions">
+  <div class="btn-group">
+    <button type="button" class="btn green-haze btn-circle dropdown-toggle btn-sm" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+      <span class="hidden-sm hidden-xs">{{actionTitle}}&nbsp;</span>
+      <i class="fa fa-angle-down"></i>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <ng-template ngFor let-menuItem [ngForOf]="menu.items" let-moduleMenuItemIndex="index">
+        <li *ngIf="showMenuItem(menuItem)" routerLinkActive="active" [ngClass]="{'start': moduleMenuItemIndex == 0}">
+          <a [routerLink]="[menuItem.route]" (click)="selectModule(menuItem.name)">
+            <i class="{{menuItem.icon}}"></i>
+            <span class="title">{{l(menuItem.name)}}</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</div>

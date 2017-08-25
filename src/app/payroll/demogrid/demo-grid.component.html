@@ -1,0 +1,9 @@
+﻿<ej-grid id="Grid" [dataSource]="gridData" allowPaging="true" [toolbarSettings]="toolbarItems" [editSettings]="editSettings">
+  <e-columns>
+    <e-column field="OrderID" [isPrimaryKey]="true" headerText="OrderID"></e-column>
+    <e-column field="CustomerID" headerText="CustomerID"></e-column>
+    <e-column field="Freight" headerText="Freight" editType="numericedit"></e-column>
+    <e-column field="ShipCountry" headerText="ShipCountry" editType="dropdownedit"></e-column>
+    <e-column field="OrderDate" headerText="OrderDate" editType="datepicker" format="{0:dd/MM/yyyy}"></e-column>
+  </e-columns>
+</ej-grid>

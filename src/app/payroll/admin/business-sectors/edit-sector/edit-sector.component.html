@@ -1,0 +1,34 @@
+﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+     aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content" [busyIf]="loading">
+            <form *ngIf="active" #sectorEditForm="ngForm" novalidate (submit)="save()">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <span *ngIf="sector.id">{{l("EditBusinessSector")}}: {{sector.name}}</span>
+                        <span *ngIf="!sector.id">{{l("CreateNewBusinessSector")}}</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #codeInput type="text" name="SectorCode" [disabled]="sector.id" class="form-control input-ltr" [ngClass]="{'edited':sector.sectorCode}" [(ngModel)]="sector.sectorCode" required maxlength="15">
+                        <label>{{l("SectorCode")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #nameInput type="text" name="Name" class="form-control input-ltr" [ngClass]="{'edited':sector.name}" [(ngModel)]="sector.name" required maxlength="128">
+                        <label>{{l("Name")}}</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" class="btn btn-primary blue" [disabled]="!sectorEditForm.form.valid || saving"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

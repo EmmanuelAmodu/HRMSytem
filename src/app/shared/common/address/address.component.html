@@ -1,0 +1,95 @@
+﻿<h3 class="form-section">{{l("Address")}}</h3>
+<hr />
+<div [formGroup]="address">
+    <div class="form-group" [busyIf]="countryLoading">
+        <label class="col-md-3 control-label">{{l("Country")}}</label>
+        <div class="col-md-9">
+            <select class="form-control" formControlName="countryId">
+                <option *ngFor="let c of countries" [value]="c.value">
+                    {{ c.displayText }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">{{l("Street")}}</label>
+        <div class="col-md-9">
+            <input type="text" formControlName="streetLine1" class="form-control input-ltr" placeholder="Street and number, P.O.Box, c/o....">
+            <input type="text" formControlName="streetLine2" class="form-control input-ltr" placeholder="Apartment, suite, unit, building, block, floor,etc">
+        </div>
+    </div>
+    <div class="form-group" [busyIf]="stateLoading">
+        <label class="col-md-3 control-label">{{l("State")}}</label>
+        <div class="col-md-9">
+            <select class="form-control" formControlName="stateId">
+                <option *ngFor="let s of states" [value]="s.value">
+                    {{ s.displayText }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group" [busyIf]="cityLoading">
+        <label class="col-md-3 control-label">{{l("City")}}</label>
+        <div class="col-md-9">
+            <select class="form-control" formControlName="cityId">
+                <option *ngFor="let c of cities" [value]="c.value">
+                    {{ c.displayText }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">{{l("PostalCode")}}</label>
+        <div class="col-md-9">
+            <input type="text" formControlName="postalCode" class="form-control input-ltr" placeholder="Postal code, Zip code, etc">
+        </div>
+    </div>
+</div>
+<hr />
+
+<!--
+<h3 class="form-section">{{l("Address")}}</h3>
+<div class="form-group form-md-line-input" [busyIf]="countryLoading">
+    <label class="col-md-2 control-label">{{l("Country")}}</label>
+    <div class="col-md-10">
+        <select class="form-control" name="Country" id="selCountry" [(ngModel)]="address.countryId" [ngClass]="{'edited':address.countryId}" required (ngModelChange)="countryChanged()">
+            <option *ngFor="let c of countries" [value]="c.value">
+                {{ c.displayText }}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">{{l("Street")}}</label>
+    <div class="col-md-10">
+        <input type="text" name="streetLine1" class="form-control input-ltr" [ngClass]="{'edited':address.streetLine1}" [(ngModel)]="address.streetLine1" required maxlength="256">
+        <input type="text" name="streetLine2" class="form-control input-ltr" [ngClass]="{'edited':address.streetLine2}" [(ngModel)]="address.streetLine2" maxlength="256">
+    </div>
+</div>
+<div class="form-group form-md-line-input" [busyIf]="cityLoading">
+    <label class="col-md-2 control-label">{{l("City")}}</label>
+    <div class="col-md-10">
+        <select class="form-control" name="City"  id="selCity" [(ngModel)]="address.cityId" [ngClass]="{'edited':address.cityId}" required (ngModelChange)="cityChanged()">
+            <option *ngFor="let c of cities" [value]="c.value">
+                {{ c.displayText }}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group form-md-line-input" [busyIf]="stateLoading">
+    <label class="col-md-2 control-label">{{l("State")}}</label>
+    <div class="col-md-10">
+        <select class="form-control" name="State"  id="selState" [(ngModel)]="address.stateId" [ngClass]="{'edited':address.stateId}" required (ngModelChange)="stateChanged()">
+            <option *ngFor="let s of states" [value]="s.value">
+                {{ s.displayText }}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">{{l("PostalCode")}}</label>
+    <div class="col-md-10">
+        <input type="text" name="PostalCode" class="form-control input-ltr" [ngClass]="{'edited':address.postalCode}" [(ngModel)]="address.postalCode" maxlength="20">
+    </div>
+</div>
+-->

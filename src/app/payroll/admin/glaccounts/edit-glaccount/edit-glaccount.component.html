@@ -1,0 +1,41 @@
+﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+     aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content" [busyIf]="loading">
+            <form *ngIf="active" #glAccountEditForm="ngForm" novalidate (submit)="save()">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <span *ngIf="account.id">{{l("EditGLAccount")}}: {{account.name}}</span>
+                        <span *ngIf="!account.id">{{l("CreateNewGLAccount")}}</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #codeInput type="text" name="AccountNumber" [disabled]="account.id" class="form-control input-ltr" [ngClass]="{'edited':account.accountNumber}" [(ngModel)]="account.accountNumber" required maxlength="20">
+                        <label>{{l("AccountNumber")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #nameInput type="text" name="Name" class="form-control input-ltr" [ngClass]="{'edited':account.name}" [(ngModel)]="account.name" required maxlength="128">
+                        <label>{{l("Name")}}</label>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #accountTypeCombobox name="accountSubTypeCombo" class="form-control edited" [ngClass]="{'edited':account.subType}" [(ngModel)]="account.subType">
+                            <option *ngFor="let accountType of accountSubTypes" [value]="accountType.value">{{accountType.displayText}}</option>
+                        </select>
+                        <label>{{l("AccountType")}}</label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" class="btn btn-primary blue" [disabled]="!glAccountEditForm.form.valid || saving"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
