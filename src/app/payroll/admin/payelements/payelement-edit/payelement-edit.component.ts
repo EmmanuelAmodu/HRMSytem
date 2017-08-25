@@ -26,6 +26,8 @@ export class PayelementEditComponent extends PayrollComponentBase {
     private loading: boolean = false;
 
     payelement: PayElementEditDto = new PayElementEditDto();
+    itemGroupList: ComboboxItemDto[] = [];
+    reportCodesList: ComboboxItemDto[] = [];
     usageList: ComboboxItemDto[] = [];
     behaviourList: ComboboxItemDto[] = [];
     glAccountList: GLAccountComboBoxItemDto[] = [];
@@ -43,10 +45,12 @@ export class PayelementEditComponent extends PayrollComponentBase {
         this.loading = true;
         this._payelementService.getPayElementForEdit(accountId).subscribe(result => {
             this.payelement = result;
+            this.itemGroupList = result.payItemGroupComboBoxItems;
             this.usageList = result.usageComboBoxItems;
             this.behaviourList = result.behaviourComboBoxItems;
             this.glAccountList = result.glAccountComboBoxItems;
             this.glAccount2List = result.glAccount2ComboBoxItems;
+            this.reportCodesList = result.reportCodeComboBoxItems;
             this.loading = false;
             this.modal.show();
         });
