@@ -1,17 +1,17 @@
-﻿<div [@routerTransition]>
+<div [@routerTransition]>
     <div class="row margin-bottom-5">
         <div class="col-xs-6">
             <div class="page-head">
                 <div class="page-title">
                     <h1>
-                        <span>{{l("PayElements")}}</span> <small>{{l("PayElementsHeaderInfo")}}</small>
+                        <span>{{l("CostCenters")}}</span> <small>{{l("CostCentersHeaderInfo")}}</small>
                     </h1>
                 </div>
             </div>
         </div>
         <div class="col-xs-6 text-right">
             <button (click)="exportToExcel()" class="btn btn-default"><i class="fa fa-file-excel-o"></i> {{l("ExportToExcel")}}</button>
-            <button (click)="createPayElement()" *ngIf="isGranted('Payroll.Administration.CostCenter.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewPayElement")}}</button>
+            <button (click)="createPayElement()" *ngIf="isGranted('Payroll.Administration.CostCenter.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewCostCenter")}}</button>
         </div>
     </div>
     <!--<Primeng-Datatable-Start>-->
@@ -54,8 +54,7 @@
                     </div>
                 </ng-template>
             </p-column>
-            <p-column field="id"  [style]="{'width':'100px'}" header="{{l('ID')}}"></p-column>
-            <p-column field="costCenterCode" header="{{l('cost Center Code')}}"></p-column>
+            <p-column field="costCenterCode" header="{{l('CostCenterCode')}}" [style]="{'width':'120px'}"></p-column>
             <p-column field="name" header="{{l('Name')}}"></p-column>
         </p-dataTable>
         <div class="primeng-paging-container">
