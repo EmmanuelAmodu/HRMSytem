@@ -1,6 +1,6 @@
-import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
+﻿import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { PayElementServiceProxy, PayElementEditDto, ComboboxItemDto, GLAccountComboBoxItemDto } from '@shared/service-proxies/service-proxies';
+import { PayElementServiceProxy, PayElementEditDto, ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base";
 
@@ -26,10 +26,12 @@ export class PayelementEditComponent extends PayrollComponentBase {
     private loading: boolean = false;
 
     payelement: PayElementEditDto = new PayElementEditDto();
+    itemGroupList: ComboboxItemDto[] = [];
+    reportCodesList: ComboboxItemDto[] = [];
     usageList: ComboboxItemDto[] = [];
     behaviourList: ComboboxItemDto[] = [];
-    glAccountList: GLAccountComboBoxItemDto[] = [];
-    glAccount2List: GLAccountComboBoxItemDto[] = [];
+    glAccountList: ComboboxItemDto[] = [];
+    glAccount2List: ComboboxItemDto[] = [];
 
     constructor(
         injector: Injector,
@@ -43,13 +45,23 @@ export class PayelementEditComponent extends PayrollComponentBase {
         this.loading = true;
         this._payelementService.getPayElementForEdit(accountId).subscribe(result => {
             this.payelement = result;
+            this.itemGroupList = result.payItemGroupComboBoxItems;
             this.usageList = result.usageComboBoxItems;
             this.behaviourList = result.behaviourComboBoxItems;
-            this.glAccountList = result.glAccountComboBoxItems;
-            this.glAccount2List = result.glAccount2ComboBoxItems;
+            this.filterGLAccount(result.payItemGroupId);
+            this.reportCodesList = result.reportCodeComboBoxItems;
             this.loading = false;
             this.modal.show();
         });
+    }
+
+    filterGLAccount(Item: number): void {
+        this.loading = true;
+        this._payelementService.getGLAccountComboBoxItems(Item).subscribe(result => {
+            this.glAccountList = result.items;
+            this.glAccount2List = result.items;
+            this.loading = false;
+        })
     }
 
     setFocus(): void {
@@ -60,7 +72,7 @@ export class PayelementEditComponent extends PayrollComponentBase {
     }
 
     save(): void {
-        var input = new PayElementEditDto();
+        let input = new PayElementEditDto();
         input = this.payelement;
         this.saving = true;
         this._payelementService.createOrUpdatePayElement(input)

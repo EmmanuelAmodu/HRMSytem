@@ -42,7 +42,7 @@ export class PayelementListComponent extends PayrollComponentBase{
             this.primengDatatableHelper.totalRecordsCount = data.totalCount;
             this.primengDatatableHelper.records = data.items;
             this.primengDatatableHelper.hideLoadingIndicator();
-        });
+            });
     }
 
     editRecord(id: number): void {

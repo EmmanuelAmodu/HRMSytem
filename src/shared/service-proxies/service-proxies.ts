@@ -5434,6 +5434,56 @@ export class PayElementServiceProxy {
     /**
      * @return Success
      */
+    getGLAccountComboBoxItems(payItemGroupId: number): Observable<ListResultDtoOfComboboxItemDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayElement/GetGLAccountComboBoxItems?";
+        if (payItemGroupId !== undefined)
+            url_ += "payItemGroupId=" + encodeURIComponent("" + payItemGroupId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetGLAccountComboBoxItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetGLAccountComboBoxItems(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetGLAccountComboBoxItems(response: Response): Observable<ListResultDtoOfComboboxItemDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfComboboxItemDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfComboboxItemDto.fromJS(resultData200) : new ListResultDtoOfComboboxItemDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfComboboxItemDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     createOrUpdatePayElement(input: PayElementEditDto): Observable<void> {
         let url_ = this.baseUrl + "/api/services/payroll/PayElement/CreateOrUpdatePayElement";
         url_ = url_.replace(/[?&]$/, "");
@@ -5626,8 +5676,8 @@ export class PayElementServiceProxy {
     /**
      * @return Success
      */
-    getPayElementById(id: number): Observable<PayElement> {
-        let url_ = this.baseUrl + "/api/services/payroll/PayElement/GetPayElementById?";
+    getPayElementAsync(id: number): Observable<PayElement> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayElement/GetPayElementAsync?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -5644,11 +5694,11 @@ export class PayElementServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetPayElementById(response_);
+            return this.processGetPayElementAsync(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processGetPayElementById(response_);
+                    return this.processGetPayElementAsync(response_);
                 } catch (e) {
                     return <Observable<PayElement>><any>Observable.throw(e);
                 }
@@ -5657,7 +5707,7 @@ export class PayElementServiceProxy {
         });
     }
 
-    protected processGetPayElementById(response: Response): Observable<PayElement> {
+    protected processGetPayElementAsync(response: Response): Observable<PayElement> {
         const status = response.status; 
 
         if (status === 200) {
@@ -6162,8 +6212,8 @@ export class PensionAdminServiceProxy {
     /**
      * @return Success
      */
-    getPensionAdminById(id: number): Observable<PensionAdministrator> {
-        let url_ = this.baseUrl + "/api/services/payroll/PensionAdmin/GetPensionAdminById?";
+    getPensionAdminAsync(id: number): Observable<PensionAdministrator> {
+        let url_ = this.baseUrl + "/api/services/payroll/PensionAdmin/GetPensionAdminAsync?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -6180,11 +6230,11 @@ export class PensionAdminServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetPensionAdminById(response_);
+            return this.processGetPensionAdminAsync(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processGetPensionAdminById(response_);
+                    return this.processGetPensionAdminAsync(response_);
                 } catch (e) {
                     return <Observable<PensionAdministrator>><any>Observable.throw(e);
                 }
@@ -6193,7 +6243,7 @@ export class PensionAdminServiceProxy {
         });
     }
 
-    protected processGetPensionAdminById(response: Response): Observable<PensionAdministrator> {
+    protected processGetPensionAdminAsync(response: Response): Observable<PensionAdministrator> {
         const status = response.status; 
 
         if (status === 200) {
@@ -7364,8 +7414,8 @@ export class SalaryBankServiceProxy {
     /**
      * @return Success
      */
-    getBankById(id: number): Observable<SalaryBank> {
-        let url_ = this.baseUrl + "/api/services/payroll/SalaryBank/GetBankById?";
+    getBankAsync(id: number): Observable<SalaryBank> {
+        let url_ = this.baseUrl + "/api/services/payroll/SalaryBank/GetBankAsync?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -7382,11 +7432,11 @@ export class SalaryBankServiceProxy {
         };
 
         return this.http.request(url_, options_).flatMap((response_) => {
-            return this.processGetBankById(response_);
+            return this.processGetBankAsync(response_);
         }).catch((response_: any) => {
             if (response_ instanceof Response) {
                 try {
-                    return this.processGetBankById(response_);
+                    return this.processGetBankAsync(response_);
                 } catch (e) {
                     return <Observable<SalaryBank>><any>Observable.throw(e);
                 }
@@ -7395,7 +7445,7 @@ export class SalaryBankServiceProxy {
         });
     }
 
-    protected processGetBankById(response: Response): Observable<SalaryBank> {
+    protected processGetBankAsync(response: Response): Observable<SalaryBank> {
         const status = response.status; 
 
         if (status === 200) {
@@ -16314,6 +16364,7 @@ export class PayElementEditDto implements IPayElementEditDto {
     name: string;
     shortName: string;
     payItemGroupId: number;
+    payItemGroupComboBoxItems: ComboboxItemDto[];
     usage: PayElementEditDtoUsage;
     usageComboBoxItems: ComboboxItemDto[];
     behaviour: PayElementEditDtoBehaviour;
@@ -16323,12 +16374,11 @@ export class PayElementEditDto implements IPayElementEditDto {
     employeeePayItemId: number;
     interestRate: number;
     reportCodeId: number;
+    reportCodeComboBoxItems: ComboboxItemDto[];
     schemeTitle: string;
     itemSerialNo: number;
     glAccountId: number;
-    glAccountComboBoxItems: GLAccountComboBoxItemDto[];
     glAccount2Id: number;
-    glAccount2ComboBoxItems: GLAccountComboBoxItemDto[];
     preset: boolean;
     inActive: boolean;
 
@@ -16348,6 +16398,11 @@ export class PayElementEditDto implements IPayElementEditDto {
             this.name = data["name"];
             this.shortName = data["shortName"];
             this.payItemGroupId = data["payItemGroupId"];
+            if (data["payItemGroupComboBoxItems"] && data["payItemGroupComboBoxItems"].constructor === Array) {
+                this.payItemGroupComboBoxItems = [];
+                for (let item of data["payItemGroupComboBoxItems"])
+                    this.payItemGroupComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
             this.usage = data["usage"];
             if (data["usageComboBoxItems"] && data["usageComboBoxItems"].constructor === Array) {
                 this.usageComboBoxItems = [];
@@ -16365,20 +16420,15 @@ export class PayElementEditDto implements IPayElementEditDto {
             this.employeeePayItemId = data["employeeePayItemId"];
             this.interestRate = data["interestRate"];
             this.reportCodeId = data["reportCodeId"];
+            if (data["reportCodeComboBoxItems"] && data["reportCodeComboBoxItems"].constructor === Array) {
+                this.reportCodeComboBoxItems = [];
+                for (let item of data["reportCodeComboBoxItems"])
+                    this.reportCodeComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
             this.schemeTitle = data["schemeTitle"];
             this.itemSerialNo = data["itemSerialNo"];
             this.glAccountId = data["glAccountId"];
-            if (data["glAccountComboBoxItems"] && data["glAccountComboBoxItems"].constructor === Array) {
-                this.glAccountComboBoxItems = [];
-                for (let item of data["glAccountComboBoxItems"])
-                    this.glAccountComboBoxItems.push(GLAccountComboBoxItemDto.fromJS(item));
-            }
             this.glAccount2Id = data["glAccount2Id"];
-            if (data["glAccount2ComboBoxItems"] && data["glAccount2ComboBoxItems"].constructor === Array) {
-                this.glAccount2ComboBoxItems = [];
-                for (let item of data["glAccount2ComboBoxItems"])
-                    this.glAccount2ComboBoxItems.push(GLAccountComboBoxItemDto.fromJS(item));
-            }
             this.preset = data["preset"];
             this.inActive = data["inActive"];
         }
@@ -16397,6 +16447,11 @@ export class PayElementEditDto implements IPayElementEditDto {
         data["name"] = this.name;
         data["shortName"] = this.shortName;
         data["payItemGroupId"] = this.payItemGroupId;
+        if (this.payItemGroupComboBoxItems && this.payItemGroupComboBoxItems.constructor === Array) {
+            data["payItemGroupComboBoxItems"] = [];
+            for (let item of this.payItemGroupComboBoxItems)
+                data["payItemGroupComboBoxItems"].push(item.toJSON());
+        }
         data["usage"] = this.usage;
         if (this.usageComboBoxItems && this.usageComboBoxItems.constructor === Array) {
             data["usageComboBoxItems"] = [];
@@ -16414,20 +16469,15 @@ export class PayElementEditDto implements IPayElementEditDto {
         data["employeeePayItemId"] = this.employeeePayItemId;
         data["interestRate"] = this.interestRate;
         data["reportCodeId"] = this.reportCodeId;
+        if (this.reportCodeComboBoxItems && this.reportCodeComboBoxItems.constructor === Array) {
+            data["reportCodeComboBoxItems"] = [];
+            for (let item of this.reportCodeComboBoxItems)
+                data["reportCodeComboBoxItems"].push(item.toJSON());
+        }
         data["schemeTitle"] = this.schemeTitle;
         data["itemSerialNo"] = this.itemSerialNo;
         data["glAccountId"] = this.glAccountId;
-        if (this.glAccountComboBoxItems && this.glAccountComboBoxItems.constructor === Array) {
-            data["glAccountComboBoxItems"] = [];
-            for (let item of this.glAccountComboBoxItems)
-                data["glAccountComboBoxItems"].push(item.toJSON());
-        }
         data["glAccount2Id"] = this.glAccount2Id;
-        if (this.glAccount2ComboBoxItems && this.glAccount2ComboBoxItems.constructor === Array) {
-            data["glAccount2ComboBoxItems"] = [];
-            for (let item of this.glAccount2ComboBoxItems)
-                data["glAccount2ComboBoxItems"].push(item.toJSON());
-        }
         data["preset"] = this.preset;
         data["inActive"] = this.inActive;
         return data; 
@@ -16440,6 +16490,7 @@ export interface IPayElementEditDto {
     name: string;
     shortName: string;
     payItemGroupId: number;
+    payItemGroupComboBoxItems: ComboboxItemDto[];
     usage: PayElementEditDtoUsage;
     usageComboBoxItems: ComboboxItemDto[];
     behaviour: PayElementEditDtoBehaviour;
@@ -16449,61 +16500,13 @@ export interface IPayElementEditDto {
     employeeePayItemId: number;
     interestRate: number;
     reportCodeId: number;
+    reportCodeComboBoxItems: ComboboxItemDto[];
     schemeTitle: string;
     itemSerialNo: number;
     glAccountId: number;
-    glAccountComboBoxItems: GLAccountComboBoxItemDto[];
     glAccount2Id: number;
-    glAccount2ComboBoxItems: GLAccountComboBoxItemDto[];
     preset: boolean;
     inActive: boolean;
-}
-
-export class GLAccountComboBoxItemDto implements IGLAccountComboBoxItemDto {
-    value: string;
-    displayText: string;
-    subType: GLAccountComboBoxItemDtoSubType;
-    isSelected: boolean;
-
-    constructor(data?: IGLAccountComboBoxItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.value = data["value"];
-            this.displayText = data["displayText"];
-            this.subType = data["subType"];
-            this.isSelected = data["isSelected"];
-        }
-    }
-
-    static fromJS(data: any): GLAccountComboBoxItemDto {
-        let result = new GLAccountComboBoxItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["value"] = this.value;
-        data["displayText"] = this.displayText;
-        data["subType"] = this.subType;
-        data["isSelected"] = this.isSelected;
-        return data; 
-    }
-}
-
-export interface IGLAccountComboBoxItemDto {
-    value: string;
-    displayText: string;
-    subType: GLAccountComboBoxItemDtoSubType;
-    isSelected: boolean;
 }
 
 export class PayElement implements IPayElement {
@@ -16520,7 +16523,7 @@ export class PayElement implements IPayElement {
     employeeePayItemId: number;
     interestRate: number;
     payReportCode: PayReportCode;
-    payReportCodeId: number;
+    reportCodeId: number;
     preset: boolean;
     schemeTitle: string;
     itemSerialNo: number;
@@ -16568,7 +16571,7 @@ export class PayElement implements IPayElement {
             this.employeeePayItemId = data["employeeePayItemId"];
             this.interestRate = data["interestRate"];
             this.payReportCode = data["payReportCode"] ? PayReportCode.fromJS(data["payReportCode"]) : <any>undefined;
-            this.payReportCodeId = data["payReportCodeId"];
+            this.reportCodeId = data["reportCodeId"];
             this.preset = data["preset"];
             this.schemeTitle = data["schemeTitle"];
             this.itemSerialNo = data["itemSerialNo"];
@@ -16647,7 +16650,7 @@ export class PayElement implements IPayElement {
         data["employeeePayItemId"] = this.employeeePayItemId;
         data["interestRate"] = this.interestRate;
         data["payReportCode"] = this.payReportCode ? this.payReportCode.toJSON() : <any>undefined;
-        data["payReportCodeId"] = this.payReportCodeId;
+        data["reportCodeId"] = this.reportCodeId;
         data["preset"] = this.preset;
         data["schemeTitle"] = this.schemeTitle;
         data["itemSerialNo"] = this.itemSerialNo;
@@ -16720,7 +16723,7 @@ export interface IPayElement {
     employeeePayItemId: number;
     interestRate: number;
     payReportCode: PayReportCode;
-    payReportCodeId: number;
+    reportCodeId: number;
     preset: boolean;
     schemeTitle: string;
     itemSerialNo: number;
@@ -18245,17 +18248,19 @@ export class PersonnelData implements IPersonnelData {
     personalEmail: string;
     mobilePhone: string;
     officePhone: string;
-    department: string;
+    departmentId: number;
+    department: StaffDepartment;
     departmentDate: moment.Moment;
-    costCenter: string;
+    costCenterId: number;
+    costCenter: CostCenter;
     costCenterDate: moment.Moment;
-    location: string;
+    locationId: number;
+    location: StaffLocation;
     locationDate: moment.Moment;
-    salaryGroup: string;
+    salaryGroupId: number;
+    salaryGroup: SalaryGroup;
     salaryStep: number;
     salaryGroupDate: moment.Moment;
-    jobTitle: string;
-    jobTitleDate: moment.Moment;
     dateOfBirth: moment.Moment;
     employmentType: string;
     dateEmployed: moment.Moment;
@@ -18322,17 +18327,19 @@ export class PersonnelData implements IPersonnelData {
             this.personalEmail = data["personalEmail"];
             this.mobilePhone = data["mobilePhone"];
             this.officePhone = data["officePhone"];
-            this.department = data["department"];
+            this.departmentId = data["departmentId"];
+            this.department = data["department"] ? StaffDepartment.fromJS(data["department"]) : <any>undefined;
             this.departmentDate = data["departmentDate"] ? moment(data["departmentDate"].toString()) : <any>undefined;
-            this.costCenter = data["costCenter"];
+            this.costCenterId = data["costCenterId"];
+            this.costCenter = data["costCenter"] ? CostCenter.fromJS(data["costCenter"]) : <any>undefined;
             this.costCenterDate = data["costCenterDate"] ? moment(data["costCenterDate"].toString()) : <any>undefined;
-            this.location = data["location"];
+            this.locationId = data["locationId"];
+            this.location = data["location"] ? StaffLocation.fromJS(data["location"]) : <any>undefined;
             this.locationDate = data["locationDate"] ? moment(data["locationDate"].toString()) : <any>undefined;
-            this.salaryGroup = data["salaryGroup"];
+            this.salaryGroupId = data["salaryGroupId"];
+            this.salaryGroup = data["salaryGroup"] ? SalaryGroup.fromJS(data["salaryGroup"]) : <any>undefined;
             this.salaryStep = data["salaryStep"];
             this.salaryGroupDate = data["salaryGroupDate"] ? moment(data["salaryGroupDate"].toString()) : <any>undefined;
-            this.jobTitle = data["jobTitle"];
-            this.jobTitleDate = data["jobTitleDate"] ? moment(data["jobTitleDate"].toString()) : <any>undefined;
             this.dateOfBirth = data["dateOfBirth"] ? moment(data["dateOfBirth"].toString()) : <any>undefined;
             this.employmentType = data["employmentType"];
             this.dateEmployed = data["dateEmployed"] ? moment(data["dateEmployed"].toString()) : <any>undefined;
@@ -18406,17 +18413,19 @@ export class PersonnelData implements IPersonnelData {
         data["personalEmail"] = this.personalEmail;
         data["mobilePhone"] = this.mobilePhone;
         data["officePhone"] = this.officePhone;
-        data["department"] = this.department;
+        data["departmentId"] = this.departmentId;
+        data["department"] = this.department ? this.department.toJSON() : <any>undefined;
         data["departmentDate"] = this.departmentDate ? this.departmentDate.toISOString() : <any>undefined;
-        data["costCenter"] = this.costCenter;
+        data["costCenterId"] = this.costCenterId;
+        data["costCenter"] = this.costCenter ? this.costCenter.toJSON() : <any>undefined;
         data["costCenterDate"] = this.costCenterDate ? this.costCenterDate.toISOString() : <any>undefined;
-        data["location"] = this.location;
+        data["locationId"] = this.locationId;
+        data["location"] = this.location ? this.location.toJSON() : <any>undefined;
         data["locationDate"] = this.locationDate ? this.locationDate.toISOString() : <any>undefined;
-        data["salaryGroup"] = this.salaryGroup;
+        data["salaryGroupId"] = this.salaryGroupId;
+        data["salaryGroup"] = this.salaryGroup ? this.salaryGroup.toJSON() : <any>undefined;
         data["salaryStep"] = this.salaryStep;
         data["salaryGroupDate"] = this.salaryGroupDate ? this.salaryGroupDate.toISOString() : <any>undefined;
-        data["jobTitle"] = this.jobTitle;
-        data["jobTitleDate"] = this.jobTitleDate ? this.jobTitleDate.toISOString() : <any>undefined;
         data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
         data["employmentType"] = this.employmentType;
         data["dateEmployed"] = this.dateEmployed ? this.dateEmployed.toISOString() : <any>undefined;
@@ -18484,17 +18493,19 @@ export interface IPersonnelData {
     personalEmail: string;
     mobilePhone: string;
     officePhone: string;
-    department: string;
+    departmentId: number;
+    department: StaffDepartment;
     departmentDate: moment.Moment;
-    costCenter: string;
+    costCenterId: number;
+    costCenter: CostCenter;
     costCenterDate: moment.Moment;
-    location: string;
+    locationId: number;
+    location: StaffLocation;
     locationDate: moment.Moment;
-    salaryGroup: string;
+    salaryGroupId: number;
+    salaryGroup: SalaryGroup;
     salaryStep: number;
     salaryGroupDate: moment.Moment;
-    jobTitle: string;
-    jobTitleDate: moment.Moment;
     dateOfBirth: moment.Moment;
     employmentType: string;
     dateEmployed: moment.Moment;
@@ -18540,7 +18551,7 @@ export interface IPersonnelData {
 
 export class PMSgroup implements IPMSgroup {
     pmSgroupCode: string;
-    description: string;
+    name: string;
     customer: Customer;
     customerId: number;
     staffMode: PMSgroupStaffMode;
@@ -18582,7 +18593,7 @@ export class PMSgroup implements IPMSgroup {
     init(data?: any) {
         if (data) {
             this.pmSgroupCode = data["pmSgroupCode"];
-            this.description = data["description"];
+            this.name = data["name"];
             this.customer = data["customer"] ? Customer.fromJS(data["customer"]) : <any>undefined;
             this.customerId = data["customerId"];
             this.staffMode = data["staffMode"];
@@ -18635,7 +18646,7 @@ export class PMSgroup implements IPMSgroup {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["pmSgroupCode"] = this.pmSgroupCode;
-        data["description"] = this.description;
+        data["name"] = this.name;
         data["customer"] = this.customer ? this.customer.toJSON() : <any>undefined;
         data["customerId"] = this.customerId;
         data["staffMode"] = this.staffMode;
@@ -18682,7 +18693,7 @@ export class PMSgroup implements IPMSgroup {
 
 export interface IPMSgroup {
     pmSgroupCode: string;
-    description: string;
+    name: string;
     customer: Customer;
     customerId: number;
     staffMode: PMSgroupStaffMode;
@@ -18717,7 +18728,7 @@ export class SalaryGroup implements ISalaryGroup {
     pmSgroup: PMSgroup;
     pmSgroupId: number;
     salaryGroupCode: string;
-    description: string;
+    name: string;
     stepsLimit: number;
     leaveDays: number;
     medicalLimit: number;
@@ -18745,7 +18756,7 @@ export class SalaryGroup implements ISalaryGroup {
             this.pmSgroup = data["pmSgroup"] ? PMSgroup.fromJS(data["pmSgroup"]) : <any>undefined;
             this.pmSgroupId = data["pmSgroupId"];
             this.salaryGroupCode = data["salaryGroupCode"];
-            this.description = data["description"];
+            this.name = data["name"];
             this.stepsLimit = data["stepsLimit"];
             this.leaveDays = data["leaveDays"];
             this.medicalLimit = data["medicalLimit"];
@@ -18780,7 +18791,7 @@ export class SalaryGroup implements ISalaryGroup {
         data["pmSgroup"] = this.pmSgroup ? this.pmSgroup.toJSON() : <any>undefined;
         data["pmSgroupId"] = this.pmSgroupId;
         data["salaryGroupCode"] = this.salaryGroupCode;
-        data["description"] = this.description;
+        data["name"] = this.name;
         data["stepsLimit"] = this.stepsLimit;
         data["leaveDays"] = this.leaveDays;
         data["medicalLimit"] = this.medicalLimit;
@@ -18809,7 +18820,7 @@ export interface ISalaryGroup {
     pmSgroup: PMSgroup;
     pmSgroupId: number;
     salaryGroupCode: string;
-    description: string;
+    name: string;
     stepsLimit: number;
     leaveDays: number;
     medicalLimit: number;
@@ -18830,11 +18841,11 @@ export class PayPeriod implements IPayPeriod {
     periodID: string;
     startDate: moment.Moment;
     endDate: moment.Moment;
-    payComputed: number;
-    payFailed: number;
-    payClosed: number;
-    canCompute: number;
-    canClose: number;
+    payComputed: boolean;
+    payFailed: boolean;
+    payClosed: boolean;
+    canCompute: boolean;
+    canClose: boolean;
     closeTag: string;
     tenantId: number;
     lastModificationTime: moment.Moment;
@@ -18909,11 +18920,11 @@ export interface IPayPeriod {
     periodID: string;
     startDate: moment.Moment;
     endDate: moment.Moment;
-    payComputed: number;
-    payFailed: number;
-    payClosed: number;
-    canCompute: number;
-    canClose: number;
+    payComputed: boolean;
+    payFailed: boolean;
+    payClosed: boolean;
+    canCompute: boolean;
+    canClose: boolean;
     closeTag: string;
     tenantId: number;
     lastModificationTime: moment.Moment;
@@ -19474,8 +19485,8 @@ export class Customer implements ICustomer {
     businessSectorId: number;
     creditDays: number;
     otherInfo: string;
-    preset: number;
-    inActive: number;
+    preset: boolean;
+    inActive: boolean;
     tenantId: number;
     lastModificationTime: moment.Moment;
     lastModifierUserId: number;
@@ -19577,8 +19588,8 @@ export interface ICustomer {
     businessSectorId: number;
     creditDays: number;
     otherInfo: string;
-    preset: number;
-    inActive: number;
+    preset: boolean;
+    inActive: boolean;
     tenantId: number;
     lastModificationTime: moment.Moment;
     lastModifierUserId: number;
@@ -24624,10 +24635,10 @@ export interface IGetLatestWebLogsOutput {
 }
 
 export enum SubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum IncomeStatisticsDateInterval {
@@ -24688,24 +24699,24 @@ export enum ChatMessageDtoReadState {
 }
 
 export enum GLAccountListDtoSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum GLAccountEditDtoSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum GLAccountSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum UserNotificationState {
@@ -24747,13 +24758,6 @@ export enum PayElementEditDtoBehaviour {
     _3 = 3, 
     _4 = 4, 
     _5 = 5, 
-}
-
-export enum GLAccountComboBoxItemDtoSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
 }
 
 export enum PayElementUsage {

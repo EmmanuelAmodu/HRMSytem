@@ -1,4 +1,4 @@
-<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
      aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog">
         <div class="modal-content" [busyIf]="loading">
@@ -13,12 +13,10 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #codeInput type="text" name="payItemCode" [disabled]="payelement.id" class="form-control input-ltr" [ngClass]="{'edited':payelement.payItemCode}" [(ngModel)]="payelement.payItemCode" required maxlength="6">
                         <label>{{l("PayItemCode")}}</label>
                     </div>
-
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #nameInput type="text" name="Name" class="form-control input-ltr" [ngClass]="{'edited':payelement.name}" [(ngModel)]="payelement.name" required maxlength="128">
                         <label>{{l("Name")}}</label>
@@ -32,6 +30,18 @@
                             <option *ngFor="let usage of usageList" [value]="usage.value">{{usage.displayText}}</option>
                         </select>
                         <label>{{l("Usage")}}</label>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #payItemGroupComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.payItemGroupId}" [(ngModel)]="payelement.payItemGroupId" (change)="filterGLAccount(payItemGroupComboBox.value)" [disabled]="payelement.id">
+                            <option *ngFor="let itemGroup of itemGroupList" [value]="itemGroup.value">{{itemGroup.displayText}}</option>
+                        </select>
+                        <label>{{l("ItemGroup")}}</label>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #reportCodeComboBox name="reportCodeComboBox" class="form-control edited" [ngClass]="{'edited':payelement.reportCodeId}" [(ngModel)]="payelement.reportCodeId">
+                            <option *ngFor="let reportCodes of reportCodesList" [value]="reportCodes.value">{{reportCodes.displayText}}</option>
+                        </select>
+                        <label>{{l("ReportCodes")}}</label>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <select #behaviourComboBox name="behaviourComboBox" class="form-control edited" [ngClass]="{'edited':payelement.behaviour}" [(ngModel)]="payelement.behaviour">
