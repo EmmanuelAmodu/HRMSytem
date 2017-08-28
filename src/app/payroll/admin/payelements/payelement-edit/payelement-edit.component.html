@@ -13,7 +13,6 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #codeInput type="text" name="payItemCode" [disabled]="payelement.id" class="form-control input-ltr" [ngClass]="{'edited':payelement.payItemCode}" [(ngModel)]="payelement.payItemCode" required maxlength="6">
                         <label>{{l("PayItemCode")}}</label>
@@ -33,7 +32,7 @@
                         <label>{{l("Usage")}}</label>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #payItemGroupComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.payItemGroupId}" [(ngModel)]="payelement.payItemGroupId" (change)="filterGLA(payItemGroupComboBox.value)" [disabled]="payelement.id">
+                        <select #payItemGroupComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.payItemGroupId}" [(ngModel)]="payelement.payItemGroupId" (change)="filterGLAccount(payItemGroupComboBox.value)" [disabled]="payelement.id">
                             <option *ngFor="let itemGroup of itemGroupList" [value]="itemGroup.value">{{itemGroup.displayText}}</option>
                         </select>
                         <label>{{l("ItemGroup")}}</label>

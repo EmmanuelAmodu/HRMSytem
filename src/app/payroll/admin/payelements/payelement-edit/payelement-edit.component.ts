@@ -48,14 +48,14 @@ export class PayelementEditComponent extends PayrollComponentBase {
             this.itemGroupList = result.payItemGroupComboBoxItems;
             this.usageList = result.usageComboBoxItems;
             this.behaviourList = result.behaviourComboBoxItems;
-            this.filterGLA(result.payItemGroupId);
+            this.filterGLAccount(result.payItemGroupId);
             this.reportCodesList = result.reportCodeComboBoxItems;
             this.loading = false;
             this.modal.show();
         });
     }
 
-    filterGLA(Item: number): void {
+    filterGLAccount(Item: number): void {
         this.loading = true;
         this._payelementService.getGLAccountComboBoxItems(Item).subscribe(result => {
             this.glAccountList = result.items;
