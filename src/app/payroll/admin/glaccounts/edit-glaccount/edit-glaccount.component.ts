@@ -39,7 +39,7 @@ export class EditGlaccountComponent extends PayrollComponentBase {
             this.account = result;
             this.accountSubTypes = result.subTypeComboBoxItems;
             if (!result.subType)
-                this.account.subType = GLAccountEditDtoSubType._11;
+                this.account.subType = GLAccountEditDtoSubType._1;
             this.loading = false;
             this.modal.show();
         });

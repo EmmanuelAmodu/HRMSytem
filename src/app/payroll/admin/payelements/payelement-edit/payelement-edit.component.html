@@ -33,7 +33,7 @@
                         <label>{{l("Usage")}}</label>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #payItemGroupComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.payItemGroupId}" [(ngModel)]="payelement.payItemGroupId" [disabled]="payelement.payItemGroupId">
+                        <select #payItemGroupComboBox name="payItemGroupComboBox" class="form-control edited" [ngClass]="{'edited':payelement.payItemGroupId}" [(ngModel)]="payelement.payItemGroupId" (change)="filterGLA(payItemGroupComboBox.value)" [disabled]="payelement.id">
                             <option *ngFor="let itemGroup of itemGroupList" [value]="itemGroup.value">{{itemGroup.displayText}}</option>
                         </select>
                         <label>{{l("ItemGroup")}}</label>
