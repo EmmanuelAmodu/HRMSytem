@@ -22,6 +22,8 @@ import { PensionAdminEditComponent } from './pension-admins/pension-admin-edit/p
 import { DataTableModule, PaginatorModule } from "primeng/primeng";
 import { PayelementListComponent } from './payelements/payelement-list/payelement-list.component';
 import { PayelementEditComponent } from './payelements/payelement-edit/payelement-edit.component';
+import { CostCenterListComponent } from './costcenters/src/app/payroll/admin/costcenters/cost-center-list/cost-center-list.component';
+import { CostCenterEditComponent } from './costcenters/src/app/payroll/admin/costcenters/cost-center-edit/cost-center-edit.component';
 
 @NgModule({
     imports: [
@@ -53,7 +55,9 @@ import { PayelementEditComponent } from './payelements/payelement-edit/payelemen
         PensionAdminListComponent,
         PensionAdminEditComponent,
         PayelementListComponent,
-        PayelementEditComponent
+        PayelementEditComponent,
+        CostCenterListComponent,
+        CostCenterEditComponent
     ],
     providers: [
     ]
