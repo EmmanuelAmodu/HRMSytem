@@ -1,4 +1,4 @@
-import { SideBarMenu } from '@app/shared/layout/side-bar-menu';
+﻿import { SideBarMenu } from '@app/shared/layout/side-bar-menu';
 import { SideBarMenuItem } from '@app/shared/layout/side-bar-menu-item';
 
 export class PayrollMenu {
@@ -12,7 +12,7 @@ export class PayrollMenu {
             new SideBarMenuItem("Business Sectors", "Payroll.Administration.BusinessSector", "fa fa-asterisk", "/app/payroll/admin/sectors"),
             new SideBarMenuItem("Salary Banks", "Payroll.Administration.SalaryBank", "fa fa-bank", "/app/payroll/admin/banks"),
             new SideBarMenuItem("GL Accounts", "Payroll.Administration.GLAccount", "fa fa-asterisk", "/app/payroll/admin/glaccounts"),
-            new SideBarMenuItem("Cost Centers", "Payroll.Administration.CostCenter", "fa fa-asterisk", "/app/admin/organization-units"),
+            new SideBarMenuItem("Cost Centers", "Payroll.Administration.CostCenter", "fa fa-asterisk", "/app/payroll/admin/costcenters"),
             new SideBarMenuItem("Pay Elements", "Payroll.Administration.PayElement", "fa fa-circle", "/app/payroll/admin/payelements"),
             new SideBarMenuItem("Payroll Regions", "Payroll.Administration.Region", "fa fa-circle-o", "/app/admin/organization-units"),
             new SideBarMenuItem("Customers", "Payroll.Administration.Customer", "icon-people", "/app/admin/organization-units"),
