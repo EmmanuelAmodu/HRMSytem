@@ -5434,6 +5434,56 @@ export class PayElementServiceProxy {
     /**
      * @return Success
      */
+    getGLAccountComboBoxItems(payItemGroupId: number): Observable<ListResultDtoOfComboboxItemDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayElement/GetGLAccountComboBoxItems?";
+        if (payItemGroupId !== undefined)
+            url_ += "payItemGroupId=" + encodeURIComponent("" + payItemGroupId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetGLAccountComboBoxItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetGLAccountComboBoxItems(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetGLAccountComboBoxItems(response: Response): Observable<ListResultDtoOfComboboxItemDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfComboboxItemDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfComboboxItemDto.fromJS(resultData200) : new ListResultDtoOfComboboxItemDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfComboboxItemDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     createOrUpdatePayElement(input: PayElementEditDto): Observable<void> {
         let url_ = this.baseUrl + "/api/services/payroll/PayElement/CreateOrUpdatePayElement";
         url_ = url_.replace(/[?&]$/, "");
@@ -16328,9 +16378,7 @@ export class PayElementEditDto implements IPayElementEditDto {
     schemeTitle: string;
     itemSerialNo: number;
     glAccountId: number;
-    glAccountComboBoxItems: GLAccountComboBoxItemDto[];
     glAccount2Id: number;
-    glAccount2ComboBoxItems: GLAccountComboBoxItemDto[];
     preset: boolean;
     inActive: boolean;
 
@@ -16380,17 +16428,7 @@ export class PayElementEditDto implements IPayElementEditDto {
             this.schemeTitle = data["schemeTitle"];
             this.itemSerialNo = data["itemSerialNo"];
             this.glAccountId = data["glAccountId"];
-            if (data["glAccountComboBoxItems"] && data["glAccountComboBoxItems"].constructor === Array) {
-                this.glAccountComboBoxItems = [];
-                for (let item of data["glAccountComboBoxItems"])
-                    this.glAccountComboBoxItems.push(GLAccountComboBoxItemDto.fromJS(item));
-            }
             this.glAccount2Id = data["glAccount2Id"];
-            if (data["glAccount2ComboBoxItems"] && data["glAccount2ComboBoxItems"].constructor === Array) {
-                this.glAccount2ComboBoxItems = [];
-                for (let item of data["glAccount2ComboBoxItems"])
-                    this.glAccount2ComboBoxItems.push(GLAccountComboBoxItemDto.fromJS(item));
-            }
             this.preset = data["preset"];
             this.inActive = data["inActive"];
         }
@@ -16439,17 +16477,7 @@ export class PayElementEditDto implements IPayElementEditDto {
         data["schemeTitle"] = this.schemeTitle;
         data["itemSerialNo"] = this.itemSerialNo;
         data["glAccountId"] = this.glAccountId;
-        if (this.glAccountComboBoxItems && this.glAccountComboBoxItems.constructor === Array) {
-            data["glAccountComboBoxItems"] = [];
-            for (let item of this.glAccountComboBoxItems)
-                data["glAccountComboBoxItems"].push(item.toJSON());
-        }
         data["glAccount2Id"] = this.glAccount2Id;
-        if (this.glAccount2ComboBoxItems && this.glAccount2ComboBoxItems.constructor === Array) {
-            data["glAccount2ComboBoxItems"] = [];
-            for (let item of this.glAccount2ComboBoxItems)
-                data["glAccount2ComboBoxItems"].push(item.toJSON());
-        }
         data["preset"] = this.preset;
         data["inActive"] = this.inActive;
         return data; 
@@ -16476,58 +16504,9 @@ export interface IPayElementEditDto {
     schemeTitle: string;
     itemSerialNo: number;
     glAccountId: number;
-    glAccountComboBoxItems: GLAccountComboBoxItemDto[];
     glAccount2Id: number;
-    glAccount2ComboBoxItems: GLAccountComboBoxItemDto[];
     preset: boolean;
     inActive: boolean;
-}
-
-export class GLAccountComboBoxItemDto implements IGLAccountComboBoxItemDto {
-    value: string;
-    displayText: string;
-    subType: GLAccountComboBoxItemDtoSubType;
-    isSelected: boolean;
-
-    constructor(data?: IGLAccountComboBoxItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.value = data["value"];
-            this.displayText = data["displayText"];
-            this.subType = data["subType"];
-            this.isSelected = data["isSelected"];
-        }
-    }
-
-    static fromJS(data: any): GLAccountComboBoxItemDto {
-        let result = new GLAccountComboBoxItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["value"] = this.value;
-        data["displayText"] = this.displayText;
-        data["subType"] = this.subType;
-        data["isSelected"] = this.isSelected;
-        return data; 
-    }
-}
-
-export interface IGLAccountComboBoxItemDto {
-    value: string;
-    displayText: string;
-    subType: GLAccountComboBoxItemDtoSubType;
-    isSelected: boolean;
 }
 
 export class PayElement implements IPayElement {
@@ -24656,10 +24635,10 @@ export interface IGetLatestWebLogsOutput {
 }
 
 export enum SubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum IncomeStatisticsDateInterval {
@@ -24720,24 +24699,24 @@ export enum ChatMessageDtoReadState {
 }
 
 export enum GLAccountListDtoSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum GLAccountEditDtoSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum GLAccountSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum UserNotificationState {
@@ -24779,13 +24758,6 @@ export enum PayElementEditDtoBehaviour {
     _3 = 3, 
     _4 = 4, 
     _5 = 5, 
-}
-
-export enum GLAccountComboBoxItemDtoSubType {
-    _11 = 11, 
-    _12 = 12, 
-    _13 = 13, 
-    _14 = 14, 
 }
 
 export enum PayElementUsage {

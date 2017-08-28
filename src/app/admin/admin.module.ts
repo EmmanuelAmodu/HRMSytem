@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -34,6 +34,7 @@ import { HostDashboardComponent } from './dashboard/host-dashboard.component'
 import { EditionComboComponent } from './shared/edition-combo.component';
 import { DataTableModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
+import { EditTextModalComponent } from "app/admin/languages/edit-text-modal.component";
 
 @NgModule({
     imports: [
@@ -70,7 +71,8 @@ import { PaginatorModule } from 'primeng/primeng';
         CreateOrEditLanguageModalComponent,
         TenantSettingsComponent,
         HostDashboardComponent,
-        EditionComboComponent
+        EditionComboComponent,
+        EditTextModalComponent
     ],
     exports: [
     ],
