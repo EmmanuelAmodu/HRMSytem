@@ -1,4 +1,4 @@
-<div [@routerTransition]>
+﻿<div [@routerTransition]>
     <div class="row margin-bottom-5">
         <div class="col-xs-6">
             <div class="page-head">
@@ -11,7 +11,7 @@
         </div>
         <div class="col-xs-6 text-right">
             <button (click)="exportToExcel()" class="btn btn-default"><i class="fa fa-file-excel-o"></i> {{l("ExportToExcel")}}</button>
-            <button (click)="createPayElement()" *ngIf="isGranted('Payroll.Administration.CostCenter.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewCostCenter")}}</button>
+            <button (click)="createCostCenter()" *ngIf="isGranted('Payroll.Administration.CostCenter.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewCostCenter")}}</button>
         </div>
     </div>
     <!--<Primeng-Datatable-Start>-->

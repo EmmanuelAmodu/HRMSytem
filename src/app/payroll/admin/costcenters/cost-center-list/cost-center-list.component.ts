@@ -72,7 +72,7 @@ export class CostCenterListComponent extends PayrollComponentBase {
             });
     }
 
-    createPayElement(): void {
+    createCostCenter(): void {
         this.editModal.show();
     }
 }
