@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -9,7 +9,6 @@ import { PayrollAdminRoutingModule } from './payroll-admin-routing.module'
 import { UtilsModule } from '@shared/utils/utils.module'
 import { AppCommonModule } from '@app/shared/common/app-common.module';
 import { EJAngular2Module } from 'ej-angular2'; 
-
 
 import { BankListComponent } from './banks/bank-list/bank-list.component';
 import { EditBankComponent } from './banks/edit-bank/edit-bank.component';
@@ -24,6 +23,12 @@ import { PayelementListComponent } from './payelements/payelement-list/payelemen
 import { PayelementEditComponent } from './payelements/payelement-edit/payelement-edit.component';
 import { CostCenterListComponent } from "app/payroll/admin/costcenters/cost-center-list/cost-center-list.component";
 import { CostCenterEditComponent } from "app/payroll/admin/costcenters/cost-center-edit/cost-center-edit.component";
+import { PayrollRegionListComponent } from './regions/src/app/payroll/admin/regions/payroll-region-list/payroll-region-list.component';
+import { PayrollRegionEditComponent } from './regions/src/app/payroll/admin/regions/payroll-region-edit/payroll-region-edit.component';
+import { PayrollReportgroupListComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportgroup-list/payroll-reportgroup-list.component';
+import { PayrollReportgroupEditComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportgroup-edit/payroll-reportgroup-edit.component';
+import { PayrollReportitemListComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportitem-list/payroll-reportitem-list.component';
+import { PayrollReportitemEditComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportitem-edit/payroll-reportitem-edit.component';
 
 @NgModule({
     imports: [
@@ -57,7 +62,13 @@ import { CostCenterEditComponent } from "app/payroll/admin/costcenters/cost-cent
         PayelementListComponent,
         PayelementEditComponent,
         CostCenterListComponent,
-        CostCenterEditComponent
+        CostCenterEditComponent,
+        PayrollRegionListComponent,
+        PayrollRegionEditComponent,
+        PayrollReportgroupListComponent,
+        PayrollReportgroupEditComponent,
+        PayrollReportitemListComponent,
+        PayrollReportitemEditComponent
     ],
     providers: [
     ]

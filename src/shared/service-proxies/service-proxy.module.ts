@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import * as ApiServiceProxies from './service-proxies';
 
@@ -39,7 +39,13 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.GLAccountServiceProxy,
         ApiServiceProxies.CostCenterServiceProxy,
         ApiServiceProxies.PayElementServiceProxy,
-        ApiServiceProxies.PensionAdminServiceProxy
+        ApiServiceProxies.PensionAdminServiceProxy,
+        ApiServiceProxies.PayrollRegionServiceProxy,
+        ApiServiceProxies.PayrollReportGroupServiceProxy,
+        ApiServiceProxies.PayrollReportItemServiceProxy
+
+
+
     ]
 })
 export class ServiceProxyModule { }

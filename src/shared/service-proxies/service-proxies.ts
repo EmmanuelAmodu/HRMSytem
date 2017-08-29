@@ -5999,6 +5999,1086 @@ export class PaymentServiceProxy {
 }
 
 @Injectable()
+export class PayrollRegionServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollRegions(nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPayrollRegionListDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/GetPayrollRegions?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollRegions(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollRegions(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPayrollRegionListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPayrollRegionListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollRegions(response: Response): Observable<PagedResultDtoOfPayrollRegionListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfPayrollRegionListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPayrollRegionListDto.fromJS(resultData200) : new PagedResultDtoOfPayrollRegionListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfPayrollRegionListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdatePayrollRegion(input: PayrollRegionEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/CreateOrUpdatePayrollRegion";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdatePayrollRegion(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdatePayrollRegion(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdatePayrollRegion(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deletePayrollRegion(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/DeletePayrollRegion?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeletePayrollRegion(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeletePayrollRegion(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeletePayrollRegion(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollRegionsToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/GetPayrollRegionsToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollRegionsToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollRegionsToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollRegionsToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllPayrollRegions(): Observable<PayrollRegion[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/GetAllPayrollRegions";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAllPayrollRegions(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAllPayrollRegions(response_);
+                } catch (e) {
+                    return <Observable<PayrollRegion[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollRegion[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAllPayrollRegions(response: Response): Observable<PayrollRegion[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollRegion[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(PayrollRegion.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollRegion[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollRegionAsync(id: number): Observable<PayrollRegion> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/GetPayrollRegionAsync?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollRegionAsync(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollRegionAsync(response_);
+                } catch (e) {
+                    return <Observable<PayrollRegion>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollRegion>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollRegionAsync(response: Response): Observable<PayrollRegion> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollRegion = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PayrollRegion.fromJS(resultData200) : new PayrollRegion();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollRegion>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollRegionForEdit(id: number): Observable<PayrollRegionEditDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollRegion/GetPayrollRegionForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollRegionForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollRegionForEdit(response_);
+                } catch (e) {
+                    return <Observable<PayrollRegionEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollRegionEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollRegionForEdit(response: Response): Observable<PayrollRegionEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollRegionEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PayrollRegionEditDto.fromJS(resultData200) : new PayrollRegionEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollRegionEditDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class PayrollReportGroupServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportGroups(nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPayrollReportGroupListDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/GetPayrollReportGroups?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportGroups(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportGroups(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPayrollReportGroupListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPayrollReportGroupListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportGroups(response: Response): Observable<PagedResultDtoOfPayrollReportGroupListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfPayrollReportGroupListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPayrollReportGroupListDto.fromJS(resultData200) : new PagedResultDtoOfPayrollReportGroupListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfPayrollReportGroupListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdatePayrollReportGroup(input: PayrollReportGroupEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/CreateOrUpdatePayrollReportGroup";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdatePayrollReportGroup(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdatePayrollReportGroup(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdatePayrollReportGroup(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deletePayrollReportGroup(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/DeletePayrollReportGroup?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeletePayrollReportGroup(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeletePayrollReportGroup(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeletePayrollReportGroup(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportGroupsToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/GetPayrollReportGroupsToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportGroupsToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportGroupsToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportGroupsToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllPayrollReportGroups(): Observable<PayrollReportGroup[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/GetAllPayrollReportGroups";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAllPayrollReportGroups(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAllPayrollReportGroups(response_);
+                } catch (e) {
+                    return <Observable<PayrollReportGroup[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollReportGroup[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAllPayrollReportGroups(response: Response): Observable<PayrollReportGroup[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollReportGroup[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(PayrollReportGroup.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollReportGroup[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportGroupAsync(id: number): Observable<PayrollReportGroup> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/GetPayrollReportGroupAsync?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportGroupAsync(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportGroupAsync(response_);
+                } catch (e) {
+                    return <Observable<PayrollReportGroup>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollReportGroup>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportGroupAsync(response: Response): Observable<PayrollReportGroup> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollReportGroup = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PayrollReportGroup.fromJS(resultData200) : new PayrollReportGroup();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollReportGroup>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportGroupForEdit(id: number): Observable<PayrollReportGroupEditDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportGroup/GetPayrollReportGroupForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportGroupForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportGroupForEdit(response_);
+                } catch (e) {
+                    return <Observable<PayrollReportGroupEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollReportGroupEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportGroupForEdit(response: Response): Observable<PayrollReportGroupEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollReportGroupEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PayrollReportGroupEditDto.fromJS(resultData200) : new PayrollReportGroupEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollReportGroupEditDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class PayrollReportItemServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportItems(nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPayrollReportItemListDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/GetPayrollReportItems?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportItems(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPayrollReportItemListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPayrollReportItemListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportItems(response: Response): Observable<PagedResultDtoOfPayrollReportItemListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfPayrollReportItemListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPayrollReportItemListDto.fromJS(resultData200) : new PagedResultDtoOfPayrollReportItemListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfPayrollReportItemListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdatePayrollReportItem(input: PayrollReportItemEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/CreateOrUpdatePayrollReportItem";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdatePayrollReportItem(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdatePayrollReportItem(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdatePayrollReportItem(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deletePayrollReportItem(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/DeletePayrollReportItem?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeletePayrollReportItem(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeletePayrollReportItem(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeletePayrollReportItem(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportItemsToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/GetPayrollReportItemsToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportItemsToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportItemsToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportItemsToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllPayrollReportItems(): Observable<PayrollReportItem[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/GetAllPayrollReportItems";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAllPayrollReportItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAllPayrollReportItems(response_);
+                } catch (e) {
+                    return <Observable<PayrollReportItem[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollReportItem[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAllPayrollReportItems(response: Response): Observable<PayrollReportItem[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollReportItem[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(PayrollReportItem.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollReportItem[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportItemAsync(id: number): Observable<PayrollReportItem> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/GetPayrollReportItemAsync?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportItemAsync(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportItemAsync(response_);
+                } catch (e) {
+                    return <Observable<PayrollReportItem>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollReportItem>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportItemAsync(response: Response): Observable<PayrollReportItem> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollReportItem = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PayrollReportItem.fromJS(resultData200) : new PayrollReportItem();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollReportItem>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPayrollReportItemForEdit(id: number): Observable<PayrollReportItemEditDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/GetPayrollReportItemForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPayrollReportItemForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPayrollReportItemForEdit(response_);
+                } catch (e) {
+                    return <Observable<PayrollReportItemEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PayrollReportItemEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPayrollReportItemForEdit(response: Response): Observable<PayrollReportItemEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PayrollReportItemEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PayrollReportItemEditDto.fromJS(resultData200) : new PayrollReportItemEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PayrollReportItemEditDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class PensionAdminServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -16373,8 +17453,8 @@ export class PayElementEditDto implements IPayElementEditDto {
     excludeFromArrears: boolean;
     employeeePayItemId: number;
     interestRate: number;
-    reportCodeId: number;
-    reportCodeComboBoxItems: ComboboxItemDto[];
+    reportItemId: number;
+    reportItemComboBoxItems: ComboboxItemDto[];
     schemeTitle: string;
     itemSerialNo: number;
     glAccountId: number;
@@ -16419,11 +17499,11 @@ export class PayElementEditDto implements IPayElementEditDto {
             this.excludeFromArrears = data["excludeFromArrears"];
             this.employeeePayItemId = data["employeeePayItemId"];
             this.interestRate = data["interestRate"];
-            this.reportCodeId = data["reportCodeId"];
-            if (data["reportCodeComboBoxItems"] && data["reportCodeComboBoxItems"].constructor === Array) {
-                this.reportCodeComboBoxItems = [];
-                for (let item of data["reportCodeComboBoxItems"])
-                    this.reportCodeComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            this.reportItemId = data["reportItemId"];
+            if (data["reportItemComboBoxItems"] && data["reportItemComboBoxItems"].constructor === Array) {
+                this.reportItemComboBoxItems = [];
+                for (let item of data["reportItemComboBoxItems"])
+                    this.reportItemComboBoxItems.push(ComboboxItemDto.fromJS(item));
             }
             this.schemeTitle = data["schemeTitle"];
             this.itemSerialNo = data["itemSerialNo"];
@@ -16468,11 +17548,11 @@ export class PayElementEditDto implements IPayElementEditDto {
         data["excludeFromArrears"] = this.excludeFromArrears;
         data["employeeePayItemId"] = this.employeeePayItemId;
         data["interestRate"] = this.interestRate;
-        data["reportCodeId"] = this.reportCodeId;
-        if (this.reportCodeComboBoxItems && this.reportCodeComboBoxItems.constructor === Array) {
-            data["reportCodeComboBoxItems"] = [];
-            for (let item of this.reportCodeComboBoxItems)
-                data["reportCodeComboBoxItems"].push(item.toJSON());
+        data["reportItemId"] = this.reportItemId;
+        if (this.reportItemComboBoxItems && this.reportItemComboBoxItems.constructor === Array) {
+            data["reportItemComboBoxItems"] = [];
+            for (let item of this.reportItemComboBoxItems)
+                data["reportItemComboBoxItems"].push(item.toJSON());
         }
         data["schemeTitle"] = this.schemeTitle;
         data["itemSerialNo"] = this.itemSerialNo;
@@ -16499,8 +17579,8 @@ export interface IPayElementEditDto {
     excludeFromArrears: boolean;
     employeeePayItemId: number;
     interestRate: number;
-    reportCodeId: number;
-    reportCodeComboBoxItems: ComboboxItemDto[];
+    reportItemId: number;
+    reportItemComboBoxItems: ComboboxItemDto[];
     schemeTitle: string;
     itemSerialNo: number;
     glAccountId: number;
@@ -16522,8 +17602,8 @@ export class PayElement implements IPayElement {
     employeeePayItem: PayElement;
     employeeePayItemId: number;
     interestRate: number;
-    payReportCode: PayReportCode;
-    reportCodeId: number;
+    payReportItem: PayrollReportItem;
+    reportItemId: number;
     preset: boolean;
     schemeTitle: string;
     itemSerialNo: number;
@@ -16570,8 +17650,8 @@ export class PayElement implements IPayElement {
             this.employeeePayItem = data["employeeePayItem"] ? PayElement.fromJS(data["employeeePayItem"]) : <any>undefined;
             this.employeeePayItemId = data["employeeePayItemId"];
             this.interestRate = data["interestRate"];
-            this.payReportCode = data["payReportCode"] ? PayReportCode.fromJS(data["payReportCode"]) : <any>undefined;
-            this.reportCodeId = data["reportCodeId"];
+            this.payReportItem = data["payReportItem"] ? PayrollReportItem.fromJS(data["payReportItem"]) : <any>undefined;
+            this.reportItemId = data["reportItemId"];
             this.preset = data["preset"];
             this.schemeTitle = data["schemeTitle"];
             this.itemSerialNo = data["itemSerialNo"];
@@ -16649,8 +17729,8 @@ export class PayElement implements IPayElement {
         data["employeeePayItem"] = this.employeeePayItem ? this.employeeePayItem.toJSON() : <any>undefined;
         data["employeeePayItemId"] = this.employeeePayItemId;
         data["interestRate"] = this.interestRate;
-        data["payReportCode"] = this.payReportCode ? this.payReportCode.toJSON() : <any>undefined;
-        data["reportCodeId"] = this.reportCodeId;
+        data["payReportItem"] = this.payReportItem ? this.payReportItem.toJSON() : <any>undefined;
+        data["reportItemId"] = this.reportItemId;
         data["preset"] = this.preset;
         data["schemeTitle"] = this.schemeTitle;
         data["itemSerialNo"] = this.itemSerialNo;
@@ -16722,8 +17802,8 @@ export interface IPayElement {
     employeeePayItem: PayElement;
     employeeePayItemId: number;
     interestRate: number;
-    payReportCode: PayReportCode;
-    reportCodeId: number;
+    payReportItem: PayrollReportItem;
+    reportItemId: number;
     preset: boolean;
     schemeTitle: string;
     itemSerialNo: number;
@@ -16827,11 +17907,11 @@ export interface IPayItemGroup {
     id: number;
 }
 
-export class PayReportCode implements IPayReportCode {
-    payReportGroup: PayReportGroup;
-    payReportGroupId: number;
+export class PayrollReportItem implements IPayrollReportItem {
+    payrollReportGroup: PayrollReportGroup;
+    payrollReportGroupId: number;
     name: string;
-    serialNumber: number;
+    ordinalPosition: number;
     inActive: boolean;
     payElements: PayElement[];
     tenantId: number;
@@ -16841,7 +17921,7 @@ export class PayReportCode implements IPayReportCode {
     creatorUserId: number;
     id: number;
 
-    constructor(data?: IPayReportCode) {
+    constructor(data?: IPayrollReportItem) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -16852,10 +17932,10 @@ export class PayReportCode implements IPayReportCode {
 
     init(data?: any) {
         if (data) {
-            this.payReportGroup = data["payReportGroup"] ? PayReportGroup.fromJS(data["payReportGroup"]) : <any>undefined;
-            this.payReportGroupId = data["payReportGroupId"];
+            this.payrollReportGroup = data["payrollReportGroup"] ? PayrollReportGroup.fromJS(data["payrollReportGroup"]) : <any>undefined;
+            this.payrollReportGroupId = data["payrollReportGroupId"];
             this.name = data["name"];
-            this.serialNumber = data["serialNumber"];
+            this.ordinalPosition = data["ordinalPosition"];
             this.inActive = data["inActive"];
             if (data["payElements"] && data["payElements"].constructor === Array) {
                 this.payElements = [];
@@ -16871,18 +17951,18 @@ export class PayReportCode implements IPayReportCode {
         }
     }
 
-    static fromJS(data: any): PayReportCode {
-        let result = new PayReportCode();
+    static fromJS(data: any): PayrollReportItem {
+        let result = new PayrollReportItem();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["payReportGroup"] = this.payReportGroup ? this.payReportGroup.toJSON() : <any>undefined;
-        data["payReportGroupId"] = this.payReportGroupId;
+        data["payrollReportGroup"] = this.payrollReportGroup ? this.payrollReportGroup.toJSON() : <any>undefined;
+        data["payrollReportGroupId"] = this.payrollReportGroupId;
         data["name"] = this.name;
-        data["serialNumber"] = this.serialNumber;
+        data["ordinalPosition"] = this.ordinalPosition;
         data["inActive"] = this.inActive;
         if (this.payElements && this.payElements.constructor === Array) {
             data["payElements"] = [];
@@ -16899,11 +17979,11 @@ export class PayReportCode implements IPayReportCode {
     }
 }
 
-export interface IPayReportCode {
-    payReportGroup: PayReportGroup;
-    payReportGroupId: number;
+export interface IPayrollReportItem {
+    payrollReportGroup: PayrollReportGroup;
+    payrollReportGroupId: number;
     name: string;
-    serialNumber: number;
+    ordinalPosition: number;
     inActive: boolean;
     payElements: PayElement[];
     tenantId: number;
@@ -17750,11 +18830,11 @@ export interface IPMSpayMethod {
     id: number;
 }
 
-export class PayReportGroup implements IPayReportGroup {
+export class PayrollReportGroup implements IPayrollReportGroup {
     name: string;
     totalCaption: string;
     inActive: boolean;
-    payReportCodes: PayReportCode[];
+    reportItems: PayrollReportItem[];
     tenantId: number;
     lastModificationTime: moment.Moment;
     lastModifierUserId: number;
@@ -17762,7 +18842,7 @@ export class PayReportGroup implements IPayReportGroup {
     creatorUserId: number;
     id: number;
 
-    constructor(data?: IPayReportGroup) {
+    constructor(data?: IPayrollReportGroup) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -17776,10 +18856,10 @@ export class PayReportGroup implements IPayReportGroup {
             this.name = data["name"];
             this.totalCaption = data["totalCaption"];
             this.inActive = data["inActive"];
-            if (data["payReportCodes"] && data["payReportCodes"].constructor === Array) {
-                this.payReportCodes = [];
-                for (let item of data["payReportCodes"])
-                    this.payReportCodes.push(PayReportCode.fromJS(item));
+            if (data["reportItems"] && data["reportItems"].constructor === Array) {
+                this.reportItems = [];
+                for (let item of data["reportItems"])
+                    this.reportItems.push(PayrollReportItem.fromJS(item));
             }
             this.tenantId = data["tenantId"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
@@ -17790,8 +18870,8 @@ export class PayReportGroup implements IPayReportGroup {
         }
     }
 
-    static fromJS(data: any): PayReportGroup {
-        let result = new PayReportGroup();
+    static fromJS(data: any): PayrollReportGroup {
+        let result = new PayrollReportGroup();
         result.init(data);
         return result;
     }
@@ -17801,10 +18881,10 @@ export class PayReportGroup implements IPayReportGroup {
         data["name"] = this.name;
         data["totalCaption"] = this.totalCaption;
         data["inActive"] = this.inActive;
-        if (this.payReportCodes && this.payReportCodes.constructor === Array) {
-            data["payReportCodes"] = [];
-            for (let item of this.payReportCodes)
-                data["payReportCodes"].push(item.toJSON());
+        if (this.reportItems && this.reportItems.constructor === Array) {
+            data["reportItems"] = [];
+            for (let item of this.reportItems)
+                data["reportItems"].push(item.toJSON());
         }
         data["tenantId"] = this.tenantId;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
@@ -17816,11 +18896,11 @@ export class PayReportGroup implements IPayReportGroup {
     }
 }
 
-export interface IPayReportGroup {
+export interface IPayrollReportGroup {
     name: string;
     totalCaption: string;
     inActive: boolean;
-    payReportCodes: PayReportCode[];
+    reportItems: PayrollReportItem[];
     tenantId: number;
     lastModificationTime: moment.Moment;
     lastModifierUserId: number;
@@ -20096,6 +21176,397 @@ export interface ISubscriptionPaymentListDto {
     creationTime: moment.Moment;
     creatorUserId: number;
     id: number;
+}
+
+export class PagedResultDtoOfPayrollRegionListDto implements IPagedResultDtoOfPayrollRegionListDto {
+    totalCount: number;
+    items: PayrollRegionListDto[];
+
+    constructor(data?: IPagedResultDtoOfPayrollRegionListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PayrollRegionListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPayrollRegionListDto {
+        let result = new PagedResultDtoOfPayrollRegionListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPayrollRegionListDto {
+    totalCount: number;
+    items: PayrollRegionListDto[];
+}
+
+export class PayrollRegionListDto implements IPayrollRegionListDto {
+    name: string;
+    id: number;
+
+    constructor(data?: IPayrollRegionListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PayrollRegionListDto {
+        let result = new PayrollRegionListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPayrollRegionListDto {
+    name: string;
+    id: number;
+}
+
+export class PayrollRegionEditDto implements IPayrollRegionEditDto {
+    id: number;
+    name: string;
+
+    constructor(data?: IPayrollRegionEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+        }
+    }
+
+    static fromJS(data: any): PayrollRegionEditDto {
+        let result = new PayrollRegionEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+}
+
+export interface IPayrollRegionEditDto {
+    id: number;
+    name: string;
+}
+
+export class PagedResultDtoOfPayrollReportGroupListDto implements IPagedResultDtoOfPayrollReportGroupListDto {
+    totalCount: number;
+    items: PayrollReportGroupListDto[];
+
+    constructor(data?: IPagedResultDtoOfPayrollReportGroupListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PayrollReportGroupListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPayrollReportGroupListDto {
+        let result = new PagedResultDtoOfPayrollReportGroupListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPayrollReportGroupListDto {
+    totalCount: number;
+    items: PayrollReportGroupListDto[];
+}
+
+export class PayrollReportGroupListDto implements IPayrollReportGroupListDto {
+    name: string;
+    totalCaption: string;
+    id: number;
+
+    constructor(data?: IPayrollReportGroupListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.totalCaption = data["totalCaption"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PayrollReportGroupListDto {
+        let result = new PayrollReportGroupListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["totalCaption"] = this.totalCaption;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPayrollReportGroupListDto {
+    name: string;
+    totalCaption: string;
+    id: number;
+}
+
+export class PayrollReportGroupEditDto implements IPayrollReportGroupEditDto {
+    id: number;
+    name: string;
+    totalCaption: string;
+
+    constructor(data?: IPayrollReportGroupEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.totalCaption = data["totalCaption"];
+        }
+    }
+
+    static fromJS(data: any): PayrollReportGroupEditDto {
+        let result = new PayrollReportGroupEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["totalCaption"] = this.totalCaption;
+        return data; 
+    }
+}
+
+export interface IPayrollReportGroupEditDto {
+    id: number;
+    name: string;
+    totalCaption: string;
+}
+
+export class PagedResultDtoOfPayrollReportItemListDto implements IPagedResultDtoOfPayrollReportItemListDto {
+    totalCount: number;
+    items: PayrollReportItemListDto[];
+
+    constructor(data?: IPagedResultDtoOfPayrollReportItemListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PayrollReportItemListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPayrollReportItemListDto {
+        let result = new PagedResultDtoOfPayrollReportItemListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPayrollReportItemListDto {
+    totalCount: number;
+    items: PayrollReportItemListDto[];
+}
+
+export class PayrollReportItemListDto implements IPayrollReportItemListDto {
+    name: string;
+    ordinalPosition: number;
+    id: number;
+
+    constructor(data?: IPayrollReportItemListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.ordinalPosition = data["ordinalPosition"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PayrollReportItemListDto {
+        let result = new PayrollReportItemListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["ordinalPosition"] = this.ordinalPosition;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPayrollReportItemListDto {
+    name: string;
+    ordinalPosition: number;
+    id: number;
+}
+
+export class PayrollReportItemEditDto implements IPayrollReportItemEditDto {
+    id: number;
+    name: string;
+    ordinalPosition: number;
+
+    constructor(data?: IPayrollReportItemEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.ordinalPosition = data["ordinalPosition"];
+        }
+    }
+
+    static fromJS(data: any): PayrollReportItemEditDto {
+        let result = new PayrollReportItemEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["ordinalPosition"] = this.ordinalPosition;
+        return data; 
+    }
+}
+
+export interface IPayrollReportItemEditDto {
+    id: number;
+    name: string;
+    ordinalPosition: number;
 }
 
 export class PagedResultDtoOfPensionAdminListDto implements IPagedResultDtoOfPensionAdminListDto {

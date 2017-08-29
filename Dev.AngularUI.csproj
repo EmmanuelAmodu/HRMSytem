@@ -20,6 +20,8 @@
     <None Remove="yarn.lock" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\app\payroll\admin\regions\" />
+    <Folder Include="src\app\payroll\admin\payroll-report\" />
     <Folder Include="src\app\payroll\admin\payelements\" />
     <Folder Include="src\assets\common\scripts\horizontal-timeline\" />
     <Folder Include="src\assets\metronic\admin\layout4\media\users\" />
