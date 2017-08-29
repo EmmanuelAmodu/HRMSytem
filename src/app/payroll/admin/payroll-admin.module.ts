@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -21,14 +21,14 @@ import { PensionAdminEditComponent } from './pension-admins/pension-admin-edit/p
 import { DataTableModule, PaginatorModule } from "primeng/primeng";
 import { PayelementListComponent } from './payelements/payelement-list/payelement-list.component';
 import { PayelementEditComponent } from './payelements/payelement-edit/payelement-edit.component';
-import { CostCenterListComponent } from "app/payroll/admin/costcenters/cost-center-list/cost-center-list.component";
-import { CostCenterEditComponent } from "app/payroll/admin/costcenters/cost-center-edit/cost-center-edit.component";
-import { PayrollRegionListComponent } from './regions/src/app/payroll/admin/regions/payroll-region-list/payroll-region-list.component';
-import { PayrollRegionEditComponent } from './regions/src/app/payroll/admin/regions/payroll-region-edit/payroll-region-edit.component';
-import { PayrollReportgroupListComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportgroup-list/payroll-reportgroup-list.component';
-import { PayrollReportgroupEditComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportgroup-edit/payroll-reportgroup-edit.component';
-import { PayrollReportitemListComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportitem-list/payroll-reportitem-list.component';
-import { PayrollReportitemEditComponent } from './payroll-report/src/app/payroll/admin/payroll-report/payroll-reportitem-edit/payroll-reportitem-edit.component';
+import { CostCenterListComponent } from "./costcenters/cost-center-list/cost-center-list.component";
+import { CostCenterEditComponent } from "./costcenters/cost-center-edit/cost-center-edit.component";
+import { PayrollRegionListComponent } from './regions/payroll-region-list/payroll-region-list.component';
+import { PayrollRegionEditComponent } from './regions/payroll-region-edit/payroll-region-edit.component';
+import { PayrollReportgroupListComponent } from './payroll-report/payroll-reportgroup-list/payroll-reportgroup-list.component';
+import { PayrollReportgroupEditComponent } from './payroll-report/payroll-reportgroup-edit/payroll-reportgroup-edit.component';
+import { PayrollReportitemListComponent } from './payroll-report/payroll-reportitem-list/payroll-reportitem-list.component';
+import { PayrollReportitemEditComponent } from './payroll-report/payroll-reportitem-edit/payroll-reportitem-edit.component';
 
 @NgModule({
     imports: [

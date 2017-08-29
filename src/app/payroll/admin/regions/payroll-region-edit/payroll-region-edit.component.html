@@ -1,3 +1,29 @@
-<p>
-  payroll-region-edit works!
-</p>
+﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+     aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content" [busyIf]="loading">
+            <form *ngIf="active" #payrollRegionEditForm="ngForm" novalidate (submit)="save()">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <span *ngIf="payrollRegions.id">{{l("EditPayrollRegion")}}: {{payrollRegions.name}}</span>
+                        <span *ngIf="!payrollRegions.id">{{l("CreateNewPayrollRegion")}}</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #nameInput type="text" name="payrollRegionName" class="form-control input-ltr" [ngClass]="{'edited':payrollRegions.name}" [(ngModel)]="payrollRegions.name" required maxlength="15">
+                        <label>{{l("PayrollRegionName")}}</label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" class="btn btn-primary blue" [disabled]="!payrollRegionEditForm.form.valid || saving"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
