@@ -18,12 +18,6 @@
                         <label>{{l("PayrollReportItemName")}}</label>
                     </div>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <input #ordinalPositionInput type="text" name="payrollReportItemOrdinalPosition" class="form-control input-ltr" [ngClass]="{'edited':payrollReportItem.ordinalPosition}" [(ngModel)]="payrollReportItem.ordinalPosition" required maxlength="15">
-                        <label>{{l("PayrollReportItemOrdinalPosition")}}</label>
-                    </div>
-                </div>
 
                 <div class="modal-footer">
                     <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>

@@ -45,7 +45,6 @@ export class PayrollReportgroupEditComponent extends PayrollComponentBase {
     }
 
     setFocus(): void {
-        console.log(this.payrollReportGroup.id);
         if (this.payrollReportGroup.id)
             $(this.nameInput.nativeElement).focus();
         else

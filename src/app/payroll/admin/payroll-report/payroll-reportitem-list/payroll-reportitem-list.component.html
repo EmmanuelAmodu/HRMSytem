@@ -38,11 +38,11 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a *ngIf="permission.isGranted('Payroll.Administration.Reportitem.Edit')"
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Region.Edit')"
                                    (click)="editRecord(record.id)">{{l('Edit')}}</a>
                             </li>
                             <li>
-                                <a *ngIf="permission.isGranted('Payroll.Administration.Reportitem.Delete')"
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Region.Delete')"
                                    (click)="deleteRecord(record.id)">{{l('Delete')}}</a>
                             </li>
                         </ul>

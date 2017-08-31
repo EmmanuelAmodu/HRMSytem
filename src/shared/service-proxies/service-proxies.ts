@@ -6732,8 +6732,10 @@ export class PayrollReportItemServiceProxy {
     /**
      * @return Success
      */
-    getPayrollReportItems(nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPayrollReportItemListDto> {
+    getPayrollReportItems(reportGroupId: number, nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPayrollReportItemListDto> {
         let url_ = this.baseUrl + "/api/services/payroll/PayrollReportItem/GetPayrollReportItems?";
+        if (reportGroupId !== undefined)
+            url_ += "ReportGroupId=" + encodeURIComponent("" + reportGroupId) + "&"; 
         if (nameFilter !== undefined)
             url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
         if (sorting !== undefined)
@@ -21528,6 +21530,7 @@ export interface IPayrollReportItemListDto {
 
 export class PayrollReportItemEditDto implements IPayrollReportItemEditDto {
     id: number;
+    payrollReportGroupId: number;
     name: string;
     ordinalPosition: number;
 
@@ -21543,6 +21546,7 @@ export class PayrollReportItemEditDto implements IPayrollReportItemEditDto {
     init(data?: any) {
         if (data) {
             this.id = data["id"];
+            this.payrollReportGroupId = data["payrollReportGroupId"];
             this.name = data["name"];
             this.ordinalPosition = data["ordinalPosition"];
         }
@@ -21557,6 +21561,7 @@ export class PayrollReportItemEditDto implements IPayrollReportItemEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["payrollReportGroupId"] = this.payrollReportGroupId;
         data["name"] = this.name;
         data["ordinalPosition"] = this.ordinalPosition;
         return data; 
@@ -21565,6 +21570,7 @@ export class PayrollReportItemEditDto implements IPayrollReportItemEditDto {
 
 export interface IPayrollReportItemEditDto {
     id: number;
+    payrollReportGroupId: number;
     name: string;
     ordinalPosition: number;
 }

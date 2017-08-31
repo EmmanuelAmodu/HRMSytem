@@ -20,7 +20,7 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
     @ViewChild('editPayrollReportItemModal') editModal: PayrollReportitemEditComponent;
     @ViewChild('dataTable') dataTable: DataTable;
     @ViewChild('paginator') paginator: Paginator;
-    groupId: string;
+    groupId: number;
 
     constructor(
         injector: Injector,
@@ -34,7 +34,7 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
 
     ngOnInit(): void {
         this._route.paramMap.subscribe(params => {
-            this.groupId = params.get("id");
+            this.groupId = parseInt(params.get("id"));
         })
     }
 
@@ -67,6 +67,7 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
     getPayrollReportItems(event?: LazyLoadEvent): void {
         this.primengDatatableHelper.showLoadingIndicator();
         this._payrollReportItemService.getPayrollReportItems(
+            this.groupId,
             "",
             this.primengDatatableHelper.getSorting(this.dataTable),
             this.primengDatatableHelper.getMaxResultCount(this.paginator, event),
@@ -87,6 +88,7 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
     }
 
     createPayrollReportItem(): void {
+        this.editModal.groupId = this.groupId;
         this.editModal.show();
     }
 }
