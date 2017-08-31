@@ -38,7 +38,9 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
         })
     }
 
-    back(): void { this._router.navigate(['']) }
+    back(): void {
+        this._router.navigate(['/app', 'payroll', 'admin', 'payrollreportsgroups']);
+    }
 
     editRecord(id: number): void {
         this.editModal.show(id);

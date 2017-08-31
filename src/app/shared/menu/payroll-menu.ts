@@ -15,7 +15,7 @@ export class PayrollMenu {
             new SideBarMenuItem("Cost Centers", "Payroll.Administration.CostCenter", "fa fa-asterisk", "/app/payroll/admin/costcenters"),
             new SideBarMenuItem("Pay Elements", "Payroll.Administration.PayElement", "fa fa-circle", "/app/payroll/admin/payelements"),
             new SideBarMenuItem("Payroll Regions", "Payroll.Administration.Region", "fa fa-circle-o", "/app/payroll/admin/payrollregions"),
-            new SideBarMenuItem("Payroll Reports", "Payroll.Administration.Region.Region", "fa fa-circle-o", "/app/payroll/admin/payrollreportsgroups"),
+            new SideBarMenuItem("Payroll Reports", "", "fa fa-circle-o", "/app/payroll/admin/payrollreportsgroups"),
             new SideBarMenuItem("Customers", "Payroll.Administration.Customer", "icon-people", "/app/admin/organization-units"),
             new SideBarMenuItem("Personnel Group", "Payroll.Administration.PersonnelGroup", "fa fa-users", "/app/admin/organization-units"),
             new SideBarMenuItem("Pension Administrators", "Payroll.Administration.PensionAdministrator", "icon-settings", "/app/payroll/admin/pension-admins"),

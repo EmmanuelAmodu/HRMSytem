@@ -12,7 +12,7 @@ import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base"
 export class PayrollReportgroupEditComponent extends PayrollComponentBase {
 
     @ViewChild('nameInput') nameInput: ElementRef;
-    @ViewChild('ordinalPositionInput') ordinalPositionInput: ElementRef;
+    @ViewChild('totalCaptionInput') totalCaptionInput: ElementRef;
     @ViewChild('editModal') modal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -45,10 +45,11 @@ export class PayrollReportgroupEditComponent extends PayrollComponentBase {
     }
 
     setFocus(): void {
+        console.log(this.payrollReportGroup.id);
         if (this.payrollReportGroup.id)
             $(this.nameInput.nativeElement).focus();
         else
-            $(this.ordinalPositionInput.nativeElement).focus();
+            $(this.totalCaptionInput.nativeElement).focus();
     }
 
     save(): void {

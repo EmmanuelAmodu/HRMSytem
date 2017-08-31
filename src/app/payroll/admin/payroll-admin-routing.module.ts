@@ -24,7 +24,7 @@ import { PayrollReportitemListComponent } from "app/payroll/admin/payroll-report
                     { path: 'costcenters', component: CostCenterListComponent, data: { permission: 'Payroll.Administration.CostCenter' } },
                     { path: 'payrollregions', component: PayrollRegionListComponent, data: { permission: 'Payroll.Administration.Region' } },
                     { path: 'payrollreportsgroups', component: PayrollReportgroupListComponent, data: { permission: 'Payroll.Administration.Region' } },
-                    { path: 'payrollreportsitems\:id', component: PayrollReportitemListComponent, data: { permission: 'Payroll.Administration.Reportitems' } },
+                    { path: 'payrollreportsitems/:id', component: PayrollReportitemListComponent, data: { permission: 'Payroll.Administration.Region' } },
                     //{ path: 'maintenance', component: MaintenanceComponent, data: { permission: 'Common.Administration.Host.Maintenance' } },
                     //{ path: 'hostSettings', component: HostSettingsComponent, data: { permission: 'Common.Administration.Host.Settings' } },
                     //{ path: 'editions', component: EditionsComponent, data: { permission: 'Common.Editions' } },

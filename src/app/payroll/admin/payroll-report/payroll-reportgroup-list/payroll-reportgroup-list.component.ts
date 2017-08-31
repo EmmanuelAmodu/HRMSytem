@@ -6,6 +6,7 @@ import { FileDownloadService } from "shared/utils/file-download.service";
 import { PayrollReportGroupServiceProxy } from "shared/service-proxies/service-proxies";
 import { DataTable, Paginator, LazyLoadEvent } from "primeng/primeng";
 import { PayrollReportgroupEditComponent } from "app/payroll/admin/payroll-report/payroll-reportgroup-edit/payroll-reportgroup-edit.component";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'app-payroll-reportgroup-list',
@@ -23,7 +24,9 @@ export class PayrollReportgroupListComponent extends PayrollComponentBase {
     constructor(
         injector: Injector,
         private _payrollReportGroupService: PayrollReportGroupServiceProxy,
-        private _fileDownloadService: FileDownloadService
+        private _fileDownloadService: FileDownloadService,
+        private _router: Router,
+        private _currentActivatedRoute: ActivatedRoute
     ) {
         super(injector);
     }
@@ -74,5 +77,9 @@ export class PayrollReportgroupListComponent extends PayrollComponentBase {
 
     createPayrollReportGroup(): void {
         this.editModal.show();
+    }
+
+    goToItemList(id: number): void {
+        this._router.navigate(['/app', 'payroll', 'admin', 'payrollreportsitems', id]);
     }
 }

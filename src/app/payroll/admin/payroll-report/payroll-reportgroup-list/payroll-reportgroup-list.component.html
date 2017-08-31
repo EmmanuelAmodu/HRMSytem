@@ -11,7 +11,7 @@
         </div>
         <div class="col-xs-6 text-right">
             <button (click)="exportToExcel()" class="btn btn-default"><i class="fa fa-file-excel-o"></i> {{l("ExportToExcel")}}</button>
-            <button (click)="createPayrollReportGroup()" *ngIf="isGranted('Payroll.Administration.ReportGroup.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewPayrollReportGroup")}}</button>
+            <button (click)="createPayrollReportGroup()" *ngIf="isGranted('Payroll.Administration.Region.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewPayrollReportGroup")}}</button>
         </div>
     </div>
     <!--<Primeng-Datatable-Start>-->
@@ -43,12 +43,16 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a *ngIf="permission.isGranted('Payroll.Administration.ReportGroup.Edit')"
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Region.Edit')"
                                    (click)="editRecord(record.id)">{{l('Edit')}}</a>
                             </li>
                             <li>
-                                <a *ngIf="permission.isGranted('Payroll.Administration.ReportGroup.Delete')"
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Region.Delete')"
                                    (click)="deleteRecord(record.id)">{{l('Delete')}}</a>
+                            </li>
+                            <li>
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Region.Delete')"
+                                   (click)="goToItemList(record.id)">{{l('ViewList')}}</a>
                             </li>
                         </ul>
                     </div>
