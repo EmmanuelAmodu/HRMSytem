@@ -49,7 +49,7 @@ export class PayelementEditComponent extends PayrollComponentBase {
             this.usageList = result.usageComboBoxItems;
             this.behaviourList = result.behaviourComboBoxItems;
             this.filterGLAccount(result.payItemGroupId);
-            this.reportCodesList = result.reportCodeComboBoxItems;
+            this.reportCodesList = result.reportItemComboBoxItems;
             this.loading = false;
             this.modal.show();
         });

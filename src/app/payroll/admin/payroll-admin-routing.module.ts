@@ -7,6 +7,8 @@ import { PensionAdminListComponent } from "app/payroll/admin/pension-admins/pens
 import { PayelementListComponent } from "app/payroll/admin/payelements/payelement-list/payelement-list.component";
 import { CostCenterListComponent } from "app/payroll/admin/costcenters/cost-center-list/cost-center-list.component";
 import { PayrollRegionListComponent } from "app/payroll/admin/regions/payroll-region-list/payroll-region-list.component";
+import { PayrollReportgroupListComponent } from "app/payroll/admin/payroll-report/payroll-reportgroup-list/payroll-reportgroup-list.component";
+import { PayrollReportitemListComponent } from "app/payroll/admin/payroll-report/payroll-reportitem-list/payroll-reportitem-list.component";
 
 @NgModule({
     imports: [
@@ -20,7 +22,9 @@ import { PayrollRegionListComponent } from "app/payroll/admin/regions/payroll-re
                     { path: 'pension-admins', component: PensionAdminListComponent, data: { permission: 'Payroll.Administration.PensionAdministrator' } },
                     { path: 'payelements', component: PayelementListComponent, data: { permission: 'Payroll.Administration.PayElement' } },
                     { path: 'costcenters', component: CostCenterListComponent, data: { permission: 'Payroll.Administration.CostCenter' } },
-                    { path: 'payrollregions', component: PayrollRegionListComponent, data: { permission: 'Payroll.Administration.Region' } }
+                    { path: 'payrollregions', component: PayrollRegionListComponent, data: { permission: 'Payroll.Administration.Region' } },
+                    { path: 'payrollreportsgroups', component: PayrollReportgroupListComponent, data: { permission: 'Payroll.Administration.Region' } },
+                    { path: 'payrollreportsitems\:id', component: PayrollReportitemListComponent, data: { permission: 'Payroll.Administration.Reportitems' } },
                     //{ path: 'maintenance', component: MaintenanceComponent, data: { permission: 'Common.Administration.Host.Maintenance' } },
                     //{ path: 'hostSettings', component: HostSettingsComponent, data: { permission: 'Common.Administration.Host.Settings' } },
                     //{ path: 'editions', component: EditionsComponent, data: { permission: 'Common.Editions' } },
