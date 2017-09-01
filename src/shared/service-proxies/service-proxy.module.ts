@@ -42,7 +42,8 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.PensionAdminServiceProxy,
         ApiServiceProxies.PayrollRegionServiceProxy,
         ApiServiceProxies.PayrollReportGroupServiceProxy,
-        ApiServiceProxies.PayrollReportItemServiceProxy
+        ApiServiceProxies.PayrollReportItemServiceProxy,
+        ApiServiceProxies.CustomerServiceProxy
 
 
 
