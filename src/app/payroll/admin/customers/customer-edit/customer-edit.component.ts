@@ -51,6 +51,7 @@ export class CustomerEditComponent extends PayrollComponentBase implements OnCha
             financeEmailAddress: [undefined, [Validators.maxLength(128)]],
             financePhoneNumber: [undefined, [Validators.maxLength(128)]],
             businessSectorId: [undefined, [Validators.required, Validators.maxLength(128)]],
+            creditDays: [undefined, [Validators.maxLength(128)]],
             address: this.createAddressForm()
         });
     }
@@ -102,20 +103,6 @@ export class CustomerEditComponent extends PayrollComponentBase implements OnCha
         var input = this.customer;
         var address = this.address;
         const formModel = this.editForm.getRawValue(); //to include disabled controls
-
-        //input.customerNumber = formModel.customerNumber as string;
-        //input.name = formModel.name as string;
-        //input.contact = formModel.contact as string;
-        //input.emailAddress = formModel.emailAddress as string;
-        //input.telephoneNumber = formModel.telephoneNumber as string;
-        //input.execContact = formModel.execContact as string;
-        //input.execEmailAddress = formModel.execEmailAddress as string;
-        //input.execPhoneNumber = formModel.execPhoneNumber as string;
-        //input.financeContact = formModel.financeContact as string;
-        //input.financeEmailAddress = formModel.financeEmailAddress as string;
-        //input.financePhoneNumber = formModel.financePhoneNumber as string;
-        //input.businessSectorComboBoxItems = this.businessSectorComboBoxItems;
-        //input.businessSectorId = formModel.businessSectorComboBox as number;
 
         input = Object.assign(this.customer, formModel as CustomerEditDto);
         address = Object.assign(address, formModel.address as AddressEditDto);

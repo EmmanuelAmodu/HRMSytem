@@ -11,7 +11,7 @@
         </div>
         <div class="col-xs-6 text-right">
             <button (click)="exportToExcel()" class="btn btn-default"><i class="fa fa-file-excel-o"></i> {{l("ExportToExcel")}}</button>
-            <button (click)="createCustomer()" *ngIf="isGranted('Payroll.Administration.Customer.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewPensionAdmin")}}</button>
+            <button (click)="createCustomer()" *ngIf="isGranted('Payroll.Administration.Customer.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewCustomer")}}</button>
         </div>
     </div>
     <!--<Primeng-Datatable-Start>-->
@@ -60,12 +60,6 @@
             <p-column field="emailAddress" header="{{l('EmailAddress')}}"></p-column>
             <p-column field="businessSectorName" header="{{l('BusinessSectorName')}}"></p-column>
             <p-column field="creditDays" header="{{l('CreditDays')}}"></p-column>
-            <!--<p-column field="address.streetLine1" header="{{l('Street')}}1"></p-column>
-            <p-column field="address.streetLine2" header="{{l('Street')}}2"></p-column>
-            <p-column field="address.cityName" header="{{l('City')}}"></p-column>
-            <p-column field="address.stateName" header="{{l('State')}}"></p-column>
-            <p-column field="address.postalCode" header="{{l('PostalCode')}}"></p-column>
-            <p-column field="address.countryName" header="{{l('Country')}}"></p-column>-->
         </p-dataTable>
         <div class="primeng-paging-container">
             <p-paginator rows="{{primengDatatableHelper.defaultRecordsCountPerPage}}"
@@ -78,7 +72,7 @@
                 {{l('TotalRecordsCount', primengDatatableHelper.totalRecordsCount)}}
             </span>
         </div>
-        <customer-edit #editPensionAdminModal (modalSave)="getCustomers()"></customer-edit>
+        <customer-edit #editCustomerModal (modalSave)="getCustomers()"></customer-edit>
     </div>
     <!--<Primeng-Datatable-End>-->
 

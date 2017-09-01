@@ -19,7 +19,7 @@ import { CustomerEditComponent } from "app/payroll/admin/customers/customer-edit
 })
 export class CustomerListComponent extends PayrollComponentBase {
 
-    @ViewChild('editPensionAdminModal') editModal: CustomerEditComponent;
+    @ViewChild('editCustomerModal') editModal: CustomerEditComponent;
     @ViewChild('dataTable') dataTable: DataTable;
     @ViewChild('paginator') paginator: Paginator;
     input: CustomerListDto;

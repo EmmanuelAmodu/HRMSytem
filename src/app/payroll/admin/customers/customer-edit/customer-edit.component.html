@@ -14,55 +14,15 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="form-group form-md-line-input">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #codeInput type="text" formControlName="customerNumber" class="form-control input-ltr">
                         <label>{{l("CustomerNumber")}}</label>
                     </div>
 
+
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #nameInput type="text" formControlName="name" class="form-control input-ltr">
                         <label>{{l("Name")}}</label>
-                    </div>
-                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <input type="text" formControlName="contact" class="form-control input-ltr">
-                        <label>{{l("Contact")}}</label>
-                    </div>
-                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <input type="text" formControlName="emailAddress" class="form-control input-ltr">
-                        <label>{{l("EmailAddress")}}</label>
-                    </div>
-                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <input type="text" formControlName="telephoneNumber" class="form-control input-ltr">
-                        <label>{{l("TelephoneNumber")}}</label>
-                    </div>
-                    <div class="row">
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
-                            <input type="text" formControlName="execContact" class="form-control input-ltr">
-                            <label>{{l("ExecContact")}}</label>
-                        </div>
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
-                            <input type="text" formControlName="execEmailAddress" class="form-control input-ltr">
-                            <label>{{l("ExecEmailAddress")}}</label>
-                        </div>
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
-                            <input type="text" formControlName="execPhoneNumber" class="form-control input-ltr">
-                            <label>   {{l("ExecPhoneNumber")}}</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
-                            <input type="text" formControlName="financeContact" class="form-control input-ltr">
-                            <label>{{l("FinanceContact")}}</label>
-                        </div>
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
-                            <input type="text" formControlName="financeEmailAddress" class="form-control input-ltr">
-                            <label>{{l("FinanceEmailAddress")}}</label>
-                        </div>
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
-                            <input type="text" formControlName="financePhoneNumber" class="form-control input-ltr">
-                            <label>   {{l("FinancePhoneNumber")}}</label>
-                        </div>
                     </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
@@ -71,10 +31,72 @@
                         </select>
                         <label>{{l("BusinessSector")}}</label>
                     </div>
-                    
+
                     <div *ngIf="editForm.controls.address" [busyIf]="loading">
                         <edit-address [address]="editForm.controls.address"></edit-address>
                     </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint push-dowm">
+                        <input  type="text" formControlName="creditDays" class="form-control input-ltr">
+                        <label>{{l("CreditDays")}}</label>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <hr />
+                            <h4 class="form-section">{{l("Contact")}}</h4>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="contact" class="form-control input-ltr">
+                                <label>{{l("Contact")}}</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="emailAddress" class="form-control input-ltr">
+                                <label>{{l("EmailAddress")}}</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="telephoneNumber" class="form-control input-ltr">
+                                <label>{{l("TelephoneNumber")}}</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr />
+                            <h4 class="form-section">{{l("ExecutiveContactPerson")}}</h4>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="execContact" class="form-control input-ltr">
+                                <label>{{l("Contact")}}</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="execEmailAddress" class="form-control input-ltr">
+                                <label>{{l("EmailAddress")}}</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="execPhoneNumber" class="form-control input-ltr">
+                                <label>   {{l("PhoneNumber")}}</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr />
+                            <h4 class="form-section">{{l("FinanceContactPerson")}}</h4>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="financeContact" class="form-control input-ltr">
+                                <label>{{l("Name")}}</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="financeEmailAddress" class="form-control input-ltr">
+                                <label>{{l("EmailAddress")}}</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-xs-4">
+                                <input type="text" formControlName="financePhoneNumber" class="form-control input-ltr">
+                                <label>   {{l("PhoneNumber")}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
