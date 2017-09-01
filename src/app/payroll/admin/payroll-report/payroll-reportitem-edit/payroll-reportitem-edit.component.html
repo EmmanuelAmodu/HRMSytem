@@ -12,6 +12,14 @@
                         <span *ngIf="!payrollReportItem.id">{{l("CreateNewPayrollReportItem")}}</span>
                     </h4>
                 </div>
+
+                <div class="modal-body">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #ordinalPositionInput type="text" name="payrollReportItemOrdinalPosition" class="form-control input-ltr" [ngClass]="{'edited':payrollReportItem.ordinalPosition}" [(ngModel)]="payrollReportItem.ordinalPosition" required maxlength="15">
+                        <label>{{l("PayrollReportItemOrdinalPosition")}}</label>
+                    </div>
+                </div>
+
                 <div class="modal-body">
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <input #nameInput type="text" name="payrollReportItemName" class="form-control input-ltr" [ngClass]="{'edited':payrollReportItem.name}" [(ngModel)]="payrollReportItem.name" required maxlength="15">

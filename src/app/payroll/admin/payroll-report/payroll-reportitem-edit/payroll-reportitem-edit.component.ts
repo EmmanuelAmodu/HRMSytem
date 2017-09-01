@@ -3,7 +3,6 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { PayrollReportItemServiceProxy, PayrollReportItemEditDto } from "shared/service-proxies/service-proxies";
 import { AppConsts } from '@shared/AppConsts';
 import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base";
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'payroll-reportitem-edit',
@@ -13,6 +12,7 @@ import { ActivatedRoute } from "@angular/router";
 export class PayrollReportitemEditComponent extends PayrollComponentBase {
 
     @ViewChild('nameInput') nameInput: ElementRef;
+    @ViewChild('ordinalPositionInput') ordinalPositionInput: ElementRef;
     @ViewChild('editModal') modal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -23,6 +23,7 @@ export class PayrollReportitemEditComponent extends PayrollComponentBase {
 
     payrollReportItem: PayrollReportItemEditDto = new PayrollReportItemEditDto();
     name: string;
+    ordinalPosition: number;
     groupId: number;
 
     constructor(
@@ -38,6 +39,7 @@ export class PayrollReportitemEditComponent extends PayrollComponentBase {
         this._payrollReportItemService.getPayrollReportItemForEdit(id).subscribe(result => {
             this.payrollReportItem = result;
             this.name = result.name;
+            this.ordinalPosition = result.ordinalPosition;
             this.loading = false;
             this.modal.show();
         })

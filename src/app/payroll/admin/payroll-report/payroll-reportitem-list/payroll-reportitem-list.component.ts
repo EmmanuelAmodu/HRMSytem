@@ -20,6 +20,7 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
     @ViewChild('editPayrollReportItemModal') editModal: PayrollReportitemEditComponent;
     @ViewChild('dataTable') dataTable: DataTable;
     @ViewChild('paginator') paginator: Paginator;
+
     groupId: number;
 
     constructor(
@@ -43,6 +44,7 @@ export class PayrollReportitemListComponent extends PayrollComponentBase impleme
     }
 
     editRecord(id: number): void {
+        this.editModal.groupId = this.groupId;
         this.editModal.show(id);
     }
 
