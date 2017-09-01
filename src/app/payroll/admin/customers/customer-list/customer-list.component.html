@@ -1,3 +1,85 @@
-<p>
-  customer-list works!
-</p>
+﻿<div [@routerTransition]>
+    <div class="row margin-bottom-5">
+        <div class="col-xs-6">
+            <div class="page-head">
+                <div class="page-title">
+                    <h1>getCustomers
+                        <span>{{l("Customers")}}</span> <small>{{l("CustomersHeaderInfo")}}</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 text-right">
+            <button (click)="exportToExcel()" class="btn btn-default"><i class="fa fa-file-excel-o"></i> {{l("ExportToExcel")}}</button>
+            <button (click)="createCustomer()" *ngIf="isGranted('Payroll.Administration.Customer.Create')" class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewPensionAdmin")}}</button>
+        </div>
+    </div>
+    <!--<Primeng-Datatable-Start>-->
+    <div class="primeng-datatable-container"
+         [busyIf]="primengDatatableHelper.isLoading">
+        <p-dataTable #dataTable
+                     (onLazyLoad)="getCustomers($event)"
+                     [value]="primengDatatableHelper.records"
+                     rows="{{primengDatatableHelper.defaultRecordsCountPerPage}}"
+                     [paginator]="false"
+                     [lazy]="true"
+                     emptyMessage="{{l('NoData')}}"
+                     scrollable="true"
+                     ScrollWidth="100%"
+                     responsive="primengDatatableHelper.isResponsive"
+                     resizableColumns="primengDatatableHelper.resizableColumns">
+
+            <p-column field=""
+                      header="{{l('Actions')}}"
+                      [sortable]="false"
+                      [style]="{'width':'60px'}">
+                <ng-template let-record="rowData" pTemplate="body">
+                    <div class="btn-group dropdown" normalizePosition>
+                        <button class="dropdown-toggle btn btn-xs btn-primary blue"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fa fa-cog"></i><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Customer.Edit')"
+                                   (click)="editRecord(record.id)">{{l('Edit')}}</a>
+                            </li>
+                            <li>
+                                <a *ngIf="permission.isGranted('Payroll.Administration.Customer.Delete')"
+                                   (click)="deleteRecord(record.id)">{{l('Delete')}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="name" header="{{l('Name')}}"></p-column>
+            <p-column field="customerNumber" header="{{l('PustomerNumber')}}"></p-column>
+            <p-column field="contact" header="{{l('Contact')}}"></p-column>
+            <p-column field="emailAddress" header="{{l('EmailAddress')}}"></p-column>
+            <p-column field="businessSectorName" header="{{l('BusinessSectorName')}}"></p-column>
+            <p-column field="creditDays" header="{{l('CreditDays')}}"></p-column>
+            <!--<p-column field="address.streetLine1" header="{{l('Street')}}1"></p-column>
+            <p-column field="address.streetLine2" header="{{l('Street')}}2"></p-column>
+            <p-column field="address.cityName" header="{{l('City')}}"></p-column>
+            <p-column field="address.stateName" header="{{l('State')}}"></p-column>
+            <p-column field="address.postalCode" header="{{l('PostalCode')}}"></p-column>
+            <p-column field="address.countryName" header="{{l('Country')}}"></p-column>-->
+        </p-dataTable>
+        <div class="primeng-paging-container">
+            <p-paginator rows="{{primengDatatableHelper.defaultRecordsCountPerPage}}"
+                         #paginator
+                         (onPageChange)="getCustomers($event)"
+                         [totalRecords]="primengDatatableHelper.totalRecordsCount"
+                         [rowsPerPageOptions]="primengDatatableHelper.predefinedRecordsCountPerPage">
+            </p-paginator>
+            <span class="total-records-count">
+                {{l('TotalRecordsCount', primengDatatableHelper.totalRecordsCount)}}
+            </span>
+        </div>
+        <customer-edit #editPensionAdminModal (modalSave)="getCustomers()"></customer-edit>
+    </div>
+    <!--<Primeng-Datatable-End>-->
+
+</div>

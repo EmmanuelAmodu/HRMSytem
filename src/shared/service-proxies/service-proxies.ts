@@ -14664,6 +14664,7 @@ export class CustomerEditDto implements ICustomerEditDto {
     financeEmailAddress: string;
     financePhoneNumber: string;
     businessSectorId: number;
+    businessSectorComboBoxItems: ComboboxItemDto[];
     creditDays: number;
     otherInfo: string;
     preset: boolean;
@@ -14694,6 +14695,11 @@ export class CustomerEditDto implements ICustomerEditDto {
             this.financeEmailAddress = data["financeEmailAddress"];
             this.financePhoneNumber = data["financePhoneNumber"];
             this.businessSectorId = data["businessSectorId"];
+            if (data["businessSectorComboBoxItems"] && data["businessSectorComboBoxItems"].constructor === Array) {
+                this.businessSectorComboBoxItems = [];
+                for (let item of data["businessSectorComboBoxItems"])
+                    this.businessSectorComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
             this.creditDays = data["creditDays"];
             this.otherInfo = data["otherInfo"];
             this.preset = data["preset"];
@@ -14723,6 +14729,11 @@ export class CustomerEditDto implements ICustomerEditDto {
         data["financeEmailAddress"] = this.financeEmailAddress;
         data["financePhoneNumber"] = this.financePhoneNumber;
         data["businessSectorId"] = this.businessSectorId;
+        if (this.businessSectorComboBoxItems && this.businessSectorComboBoxItems.constructor === Array) {
+            data["businessSectorComboBoxItems"] = [];
+            for (let item of this.businessSectorComboBoxItems)
+                data["businessSectorComboBoxItems"].push(item.toJSON());
+        }
         data["creditDays"] = this.creditDays;
         data["otherInfo"] = this.otherInfo;
         data["preset"] = this.preset;
@@ -14746,6 +14757,7 @@ export interface ICustomerEditDto {
     financeEmailAddress: string;
     financePhoneNumber: string;
     businessSectorId: number;
+    businessSectorComboBoxItems: ComboboxItemDto[];
     creditDays: number;
     otherInfo: string;
     preset: boolean;
