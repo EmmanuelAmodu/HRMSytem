@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -29,6 +29,8 @@ import { PayrollReportgroupListComponent } from './payroll-report/payroll-report
 import { PayrollReportgroupEditComponent } from './payroll-report/payroll-reportgroup-edit/payroll-reportgroup-edit.component';
 import { PayrollReportitemListComponent } from './payroll-report/payroll-reportitem-list/payroll-reportitem-list.component';
 import { PayrollReportitemEditComponent } from './payroll-report/payroll-reportitem-edit/payroll-reportitem-edit.component';
+import { CustomerListComponent } from './customers/src/app/payroll/admin/customers/customer-list/customer-list.component';
+import { CustomerEditComponent } from './customers/src/app/payroll/admin/customers/customer-edit/customer-edit.component';
 
 @NgModule({
     imports: [
@@ -68,7 +70,9 @@ import { PayrollReportitemEditComponent } from './payroll-report/payroll-reporti
         PayrollReportgroupListComponent,
         PayrollReportgroupEditComponent,
         PayrollReportitemListComponent,
-        PayrollReportitemEditComponent
+        PayrollReportitemEditComponent,
+        CustomerListComponent,
+        CustomerEditComponent
     ],
     providers: [
     ]

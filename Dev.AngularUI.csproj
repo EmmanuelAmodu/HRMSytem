@@ -20,6 +20,7 @@
     <None Remove="yarn.lock" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\app\payroll\admin\customers\" />
     <Folder Include="src\app\payroll\admin\regions\" />
     <Folder Include="src\app\payroll\admin\payroll-report\" />
     <Folder Include="src\app\payroll\admin\payelements\" />

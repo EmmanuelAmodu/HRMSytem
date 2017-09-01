@@ -2702,6 +2702,413 @@ export class CountryServiceProxy {
 }
 
 @Injectable()
+export class CustomerServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getCustomers(nameFilter: string, businessSectorId: number, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfCustomerListDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/GetCustomers?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (businessSectorId !== undefined)
+            url_ += "BusinessSectorId=" + encodeURIComponent("" + businessSectorId) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetCustomers(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetCustomers(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfCustomerListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfCustomerListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetCustomers(response: Response): Observable<PagedResultDtoOfCustomerListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfCustomerListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfCustomerListDto.fromJS(resultData200) : new PagedResultDtoOfCustomerListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfCustomerListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdateCustomer(input: CustomerEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/CreateOrUpdateCustomer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdateCustomer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdateCustomer(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdateCustomer(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteCustomer(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/DeleteCustomer?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeleteCustomer(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteCustomer(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteCustomer(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllCustomers(): Observable<Customer[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/GetAllCustomers";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAllCustomers(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAllCustomers(response_);
+                } catch (e) {
+                    return <Observable<Customer[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<Customer[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAllCustomers(response: Response): Observable<Customer[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: Customer[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Customer.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<Customer[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getCustomerAsync(id: number): Observable<Customer> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/GetCustomerAsync?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetCustomerAsync(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetCustomerAsync(response_);
+                } catch (e) {
+                    return <Observable<Customer>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<Customer>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetCustomerAsync(response: Response): Observable<Customer> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: Customer = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Customer.fromJS(resultData200) : new Customer();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<Customer>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getCustomersToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/GetCustomersToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetCustomersToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetCustomersToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetCustomersToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getCustomerForEdit(id: number): Observable<CustomerEditDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/GetCustomerForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetCustomerForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetCustomerForEdit(response_);
+                } catch (e) {
+                    return <Observable<CustomerEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<CustomerEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetCustomerForEdit(response: Response): Observable<CustomerEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: CustomerEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? CustomerEditDto.fromJS(resultData200) : new CustomerEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<CustomerEditDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    updateCustomerStatus(input: UpdateCustomerStatusInputDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/UpdateCustomerStatus";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "put",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processUpdateCustomerStatus(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateCustomerStatus(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateCustomerStatus(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class DemoUiComponentsServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -14037,6 +14444,618 @@ export interface ICountryEditDto {
     phoneCode: number;
 }
 
+export class PagedResultDtoOfCustomerListDto implements IPagedResultDtoOfCustomerListDto {
+    totalCount: number;
+    items: CustomerListDto[];
+
+    constructor(data?: IPagedResultDtoOfCustomerListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(CustomerListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfCustomerListDto {
+        let result = new PagedResultDtoOfCustomerListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfCustomerListDto {
+    totalCount: number;
+    items: CustomerListDto[];
+}
+
+export class CustomerListDto implements ICustomerListDto {
+    customerNumber: string;
+    name: string;
+    address: AddressOutputDto;
+    contact: string;
+    emailAddress: string;
+    telephoneNumber: string;
+    execContact: string;
+    execEmailAddress: string;
+    execPhoneNumber: string;
+    financeContact: string;
+    financeEmailAddress: string;
+    financePhoneNumber: string;
+    businessSectorId: number;
+    businessSectorName: string;
+    creditDays: number;
+    inActive: boolean;
+    preset: boolean;
+    id: number;
+
+    constructor(data?: ICustomerListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.customerNumber = data["customerNumber"];
+            this.name = data["name"];
+            this.address = data["address"] ? AddressOutputDto.fromJS(data["address"]) : <any>undefined;
+            this.contact = data["contact"];
+            this.emailAddress = data["emailAddress"];
+            this.telephoneNumber = data["telephoneNumber"];
+            this.execContact = data["execContact"];
+            this.execEmailAddress = data["execEmailAddress"];
+            this.execPhoneNumber = data["execPhoneNumber"];
+            this.financeContact = data["financeContact"];
+            this.financeEmailAddress = data["financeEmailAddress"];
+            this.financePhoneNumber = data["financePhoneNumber"];
+            this.businessSectorId = data["businessSectorId"];
+            this.businessSectorName = data["businessSectorName"];
+            this.creditDays = data["creditDays"];
+            this.inActive = data["inActive"];
+            this.preset = data["preset"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CustomerListDto {
+        let result = new CustomerListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["customerNumber"] = this.customerNumber;
+        data["name"] = this.name;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["contact"] = this.contact;
+        data["emailAddress"] = this.emailAddress;
+        data["telephoneNumber"] = this.telephoneNumber;
+        data["execContact"] = this.execContact;
+        data["execEmailAddress"] = this.execEmailAddress;
+        data["execPhoneNumber"] = this.execPhoneNumber;
+        data["financeContact"] = this.financeContact;
+        data["financeEmailAddress"] = this.financeEmailAddress;
+        data["financePhoneNumber"] = this.financePhoneNumber;
+        data["businessSectorId"] = this.businessSectorId;
+        data["businessSectorName"] = this.businessSectorName;
+        data["creditDays"] = this.creditDays;
+        data["inActive"] = this.inActive;
+        data["preset"] = this.preset;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICustomerListDto {
+    customerNumber: string;
+    name: string;
+    address: AddressOutputDto;
+    contact: string;
+    emailAddress: string;
+    telephoneNumber: string;
+    execContact: string;
+    execEmailAddress: string;
+    execPhoneNumber: string;
+    financeContact: string;
+    financeEmailAddress: string;
+    financePhoneNumber: string;
+    businessSectorId: number;
+    businessSectorName: string;
+    creditDays: number;
+    inActive: boolean;
+    preset: boolean;
+    id: number;
+}
+
+export class AddressOutputDto implements IAddressOutputDto {
+    streetLine1: string;
+    streetLine2: string;
+    cityName: string;
+    postalCode: string;
+    stateName: string;
+    countryName: string;
+
+    constructor(data?: IAddressOutputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.streetLine1 = data["streetLine1"];
+            this.streetLine2 = data["streetLine2"];
+            this.cityName = data["cityName"];
+            this.postalCode = data["postalCode"];
+            this.stateName = data["stateName"];
+            this.countryName = data["countryName"];
+        }
+    }
+
+    static fromJS(data: any): AddressOutputDto {
+        let result = new AddressOutputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["streetLine1"] = this.streetLine1;
+        data["streetLine2"] = this.streetLine2;
+        data["cityName"] = this.cityName;
+        data["postalCode"] = this.postalCode;
+        data["stateName"] = this.stateName;
+        data["countryName"] = this.countryName;
+        return data; 
+    }
+}
+
+export interface IAddressOutputDto {
+    streetLine1: string;
+    streetLine2: string;
+    cityName: string;
+    postalCode: string;
+    stateName: string;
+    countryName: string;
+}
+
+export class CustomerEditDto implements ICustomerEditDto {
+    id: number;
+    customerNumber: string;
+    name: string;
+    address: AddressEditDto;
+    contact: string;
+    emailAddress: string;
+    telephoneNumber: string;
+    execContact: string;
+    execEmailAddress: string;
+    execPhoneNumber: string;
+    financeContact: string;
+    financeEmailAddress: string;
+    financePhoneNumber: string;
+    businessSectorId: number;
+    creditDays: number;
+    otherInfo: string;
+    preset: boolean;
+    inActive: boolean;
+
+    constructor(data?: ICustomerEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.customerNumber = data["customerNumber"];
+            this.name = data["name"];
+            this.address = data["address"] ? AddressEditDto.fromJS(data["address"]) : <any>undefined;
+            this.contact = data["contact"];
+            this.emailAddress = data["emailAddress"];
+            this.telephoneNumber = data["telephoneNumber"];
+            this.execContact = data["execContact"];
+            this.execEmailAddress = data["execEmailAddress"];
+            this.execPhoneNumber = data["execPhoneNumber"];
+            this.financeContact = data["financeContact"];
+            this.financeEmailAddress = data["financeEmailAddress"];
+            this.financePhoneNumber = data["financePhoneNumber"];
+            this.businessSectorId = data["businessSectorId"];
+            this.creditDays = data["creditDays"];
+            this.otherInfo = data["otherInfo"];
+            this.preset = data["preset"];
+            this.inActive = data["inActive"];
+        }
+    }
+
+    static fromJS(data: any): CustomerEditDto {
+        let result = new CustomerEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["customerNumber"] = this.customerNumber;
+        data["name"] = this.name;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["contact"] = this.contact;
+        data["emailAddress"] = this.emailAddress;
+        data["telephoneNumber"] = this.telephoneNumber;
+        data["execContact"] = this.execContact;
+        data["execEmailAddress"] = this.execEmailAddress;
+        data["execPhoneNumber"] = this.execPhoneNumber;
+        data["financeContact"] = this.financeContact;
+        data["financeEmailAddress"] = this.financeEmailAddress;
+        data["financePhoneNumber"] = this.financePhoneNumber;
+        data["businessSectorId"] = this.businessSectorId;
+        data["creditDays"] = this.creditDays;
+        data["otherInfo"] = this.otherInfo;
+        data["preset"] = this.preset;
+        data["inActive"] = this.inActive;
+        return data; 
+    }
+}
+
+export interface ICustomerEditDto {
+    id: number;
+    customerNumber: string;
+    name: string;
+    address: AddressEditDto;
+    contact: string;
+    emailAddress: string;
+    telephoneNumber: string;
+    execContact: string;
+    execEmailAddress: string;
+    execPhoneNumber: string;
+    financeContact: string;
+    financeEmailAddress: string;
+    financePhoneNumber: string;
+    businessSectorId: number;
+    creditDays: number;
+    otherInfo: string;
+    preset: boolean;
+    inActive: boolean;
+}
+
+export class AddressEditDto implements IAddressEditDto {
+    id: number;
+    streetLine1: string;
+    streetLine2: string;
+    cityId: number;
+    postalCode: string;
+    stateId: number;
+    countryId: number;
+
+    constructor(data?: IAddressEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.streetLine1 = data["streetLine1"];
+            this.streetLine2 = data["streetLine2"];
+            this.cityId = data["cityId"];
+            this.postalCode = data["postalCode"];
+            this.stateId = data["stateId"];
+            this.countryId = data["countryId"];
+        }
+    }
+
+    static fromJS(data: any): AddressEditDto {
+        let result = new AddressEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["streetLine1"] = this.streetLine1;
+        data["streetLine2"] = this.streetLine2;
+        data["cityId"] = this.cityId;
+        data["postalCode"] = this.postalCode;
+        data["stateId"] = this.stateId;
+        data["countryId"] = this.countryId;
+        return data; 
+    }
+}
+
+export interface IAddressEditDto {
+    id: number;
+    streetLine1: string;
+    streetLine2: string;
+    cityId: number;
+    postalCode: string;
+    stateId: number;
+    countryId: number;
+}
+
+export class Customer implements ICustomer {
+    customerNumber: string;
+    name: string;
+    addressId: number;
+    address: Address;
+    contact: string;
+    emailAddress: string;
+    telephoneNumber: string;
+    execContact: string;
+    execEmailAddress: string;
+    execPhoneNumber: string;
+    financeContact: string;
+    financeEmailAddress: string;
+    financePhoneNumber: string;
+    businessSector: BusinessSector;
+    businessSectorId: number;
+    creditDays: number;
+    otherInfo: string;
+    preset: boolean;
+    inActive: boolean;
+    tenantId: number;
+    lastModificationTime: moment.Moment;
+    lastModifierUserId: number;
+    creationTime: moment.Moment;
+    creatorUserId: number;
+    id: number;
+
+    constructor(data?: ICustomer) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.customerNumber = data["customerNumber"];
+            this.name = data["name"];
+            this.addressId = data["addressId"];
+            this.address = data["address"] ? Address.fromJS(data["address"]) : <any>undefined;
+            this.contact = data["contact"];
+            this.emailAddress = data["emailAddress"];
+            this.telephoneNumber = data["telephoneNumber"];
+            this.execContact = data["execContact"];
+            this.execEmailAddress = data["execEmailAddress"];
+            this.execPhoneNumber = data["execPhoneNumber"];
+            this.financeContact = data["financeContact"];
+            this.financeEmailAddress = data["financeEmailAddress"];
+            this.financePhoneNumber = data["financePhoneNumber"];
+            this.businessSector = data["businessSector"] ? BusinessSector.fromJS(data["businessSector"]) : <any>undefined;
+            this.businessSectorId = data["businessSectorId"];
+            this.creditDays = data["creditDays"];
+            this.otherInfo = data["otherInfo"];
+            this.preset = data["preset"];
+            this.inActive = data["inActive"];
+            this.tenantId = data["tenantId"];
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = data["lastModifierUserId"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = data["creatorUserId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): Customer {
+        let result = new Customer();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["customerNumber"] = this.customerNumber;
+        data["name"] = this.name;
+        data["addressId"] = this.addressId;
+        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
+        data["contact"] = this.contact;
+        data["emailAddress"] = this.emailAddress;
+        data["telephoneNumber"] = this.telephoneNumber;
+        data["execContact"] = this.execContact;
+        data["execEmailAddress"] = this.execEmailAddress;
+        data["execPhoneNumber"] = this.execPhoneNumber;
+        data["financeContact"] = this.financeContact;
+        data["financeEmailAddress"] = this.financeEmailAddress;
+        data["financePhoneNumber"] = this.financePhoneNumber;
+        data["businessSector"] = this.businessSector ? this.businessSector.toJSON() : <any>undefined;
+        data["businessSectorId"] = this.businessSectorId;
+        data["creditDays"] = this.creditDays;
+        data["otherInfo"] = this.otherInfo;
+        data["preset"] = this.preset;
+        data["inActive"] = this.inActive;
+        data["tenantId"] = this.tenantId;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICustomer {
+    customerNumber: string;
+    name: string;
+    addressId: number;
+    address: Address;
+    contact: string;
+    emailAddress: string;
+    telephoneNumber: string;
+    execContact: string;
+    execEmailAddress: string;
+    execPhoneNumber: string;
+    financeContact: string;
+    financeEmailAddress: string;
+    financePhoneNumber: string;
+    businessSector: BusinessSector;
+    businessSectorId: number;
+    creditDays: number;
+    otherInfo: string;
+    preset: boolean;
+    inActive: boolean;
+    tenantId: number;
+    lastModificationTime: moment.Moment;
+    lastModifierUserId: number;
+    creationTime: moment.Moment;
+    creatorUserId: number;
+    id: number;
+}
+
+export class Address implements IAddress {
+    streetLine1: string;
+    streetLine2: string;
+    cityId: number;
+    city: City;
+    postalCode: string;
+    stateId: number;
+    state: State;
+    countryId: number;
+    country: Country;
+    tenantId: number;
+    id: number;
+
+    constructor(data?: IAddress) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.streetLine1 = data["streetLine1"];
+            this.streetLine2 = data["streetLine2"];
+            this.cityId = data["cityId"];
+            this.city = data["city"] ? City.fromJS(data["city"]) : <any>undefined;
+            this.postalCode = data["postalCode"];
+            this.stateId = data["stateId"];
+            this.state = data["state"] ? State.fromJS(data["state"]) : <any>undefined;
+            this.countryId = data["countryId"];
+            this.country = data["country"] ? Country.fromJS(data["country"]) : <any>undefined;
+            this.tenantId = data["tenantId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): Address {
+        let result = new Address();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["streetLine1"] = this.streetLine1;
+        data["streetLine2"] = this.streetLine2;
+        data["cityId"] = this.cityId;
+        data["city"] = this.city ? this.city.toJSON() : <any>undefined;
+        data["postalCode"] = this.postalCode;
+        data["stateId"] = this.stateId;
+        data["state"] = this.state ? this.state.toJSON() : <any>undefined;
+        data["countryId"] = this.countryId;
+        data["country"] = this.country ? this.country.toJSON() : <any>undefined;
+        data["tenantId"] = this.tenantId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IAddress {
+    streetLine1: string;
+    streetLine2: string;
+    cityId: number;
+    city: City;
+    postalCode: string;
+    stateId: number;
+    state: State;
+    countryId: number;
+    country: Country;
+    tenantId: number;
+    id: number;
+}
+
+export class UpdateCustomerStatusInputDto implements IUpdateCustomerStatusInputDto {
+    inActive: boolean;
+    id: number;
+
+    constructor(data?: IUpdateCustomerStatusInputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.inActive = data["inActive"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UpdateCustomerStatusInputDto {
+        let result = new UpdateCustomerStatusInputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["inActive"] = this.inActive;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUpdateCustomerStatusInputDto {
+    inActive: boolean;
+    id: number;
+}
+
 export class DateToStringOutput implements IDateToStringOutput {
     dateString: string;
 
@@ -20312,81 +21331,6 @@ export interface ITitle {
     id: number;
 }
 
-export class Address implements IAddress {
-    streetLine1: string;
-    streetLine2: string;
-    cityId: number;
-    city: City;
-    postalCode: string;
-    stateId: number;
-    state: State;
-    countryId: number;
-    country: Country;
-    tenantId: number;
-    id: number;
-
-    constructor(data?: IAddress) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.streetLine1 = data["streetLine1"];
-            this.streetLine2 = data["streetLine2"];
-            this.cityId = data["cityId"];
-            this.city = data["city"] ? City.fromJS(data["city"]) : <any>undefined;
-            this.postalCode = data["postalCode"];
-            this.stateId = data["stateId"];
-            this.state = data["state"] ? State.fromJS(data["state"]) : <any>undefined;
-            this.countryId = data["countryId"];
-            this.country = data["country"] ? Country.fromJS(data["country"]) : <any>undefined;
-            this.tenantId = data["tenantId"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): Address {
-        let result = new Address();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["streetLine1"] = this.streetLine1;
-        data["streetLine2"] = this.streetLine2;
-        data["cityId"] = this.cityId;
-        data["city"] = this.city ? this.city.toJSON() : <any>undefined;
-        data["postalCode"] = this.postalCode;
-        data["stateId"] = this.stateId;
-        data["state"] = this.state ? this.state.toJSON() : <any>undefined;
-        data["countryId"] = this.countryId;
-        data["country"] = this.country ? this.country.toJSON() : <any>undefined;
-        data["tenantId"] = this.tenantId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IAddress {
-    streetLine1: string;
-    streetLine2: string;
-    cityId: number;
-    city: City;
-    postalCode: string;
-    stateId: number;
-    state: State;
-    countryId: number;
-    country: Country;
-    tenantId: number;
-    id: number;
-}
-
 export class NextOfKin implements INextOfKin {
     personnel: PersonnelData;
     personnelId: number;
@@ -20546,137 +21490,6 @@ export interface IGuarantor {
     mobilePhone: string;
     officePhone: string;
     tenantId: number;
-    id: number;
-}
-
-export class Customer implements ICustomer {
-    customerNumber: string;
-    name: string;
-    addressId: number;
-    address: Address;
-    contact: string;
-    emailAddress: string;
-    telephoneNumber: string;
-    execContact: string;
-    execEmailAddress: string;
-    execPhoneNumber: string;
-    financeContact: string;
-    financeEmailAddress: string;
-    financePhoneNumber: string;
-    businessSector: BusinessSector;
-    businessSectorId: number;
-    creditDays: number;
-    otherInfo: string;
-    preset: boolean;
-    inActive: boolean;
-    tenantId: number;
-    lastModificationTime: moment.Moment;
-    lastModifierUserId: number;
-    creationTime: moment.Moment;
-    creatorUserId: number;
-    id: number;
-
-    constructor(data?: ICustomer) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.customerNumber = data["customerNumber"];
-            this.name = data["name"];
-            this.addressId = data["addressId"];
-            this.address = data["address"] ? Address.fromJS(data["address"]) : <any>undefined;
-            this.contact = data["contact"];
-            this.emailAddress = data["emailAddress"];
-            this.telephoneNumber = data["telephoneNumber"];
-            this.execContact = data["execContact"];
-            this.execEmailAddress = data["execEmailAddress"];
-            this.execPhoneNumber = data["execPhoneNumber"];
-            this.financeContact = data["financeContact"];
-            this.financeEmailAddress = data["financeEmailAddress"];
-            this.financePhoneNumber = data["financePhoneNumber"];
-            this.businessSector = data["businessSector"] ? BusinessSector.fromJS(data["businessSector"]) : <any>undefined;
-            this.businessSectorId = data["businessSectorId"];
-            this.creditDays = data["creditDays"];
-            this.otherInfo = data["otherInfo"];
-            this.preset = data["preset"];
-            this.inActive = data["inActive"];
-            this.tenantId = data["tenantId"];
-            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = data["lastModifierUserId"];
-            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = data["creatorUserId"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): Customer {
-        let result = new Customer();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["customerNumber"] = this.customerNumber;
-        data["name"] = this.name;
-        data["addressId"] = this.addressId;
-        data["address"] = this.address ? this.address.toJSON() : <any>undefined;
-        data["contact"] = this.contact;
-        data["emailAddress"] = this.emailAddress;
-        data["telephoneNumber"] = this.telephoneNumber;
-        data["execContact"] = this.execContact;
-        data["execEmailAddress"] = this.execEmailAddress;
-        data["execPhoneNumber"] = this.execPhoneNumber;
-        data["financeContact"] = this.financeContact;
-        data["financeEmailAddress"] = this.financeEmailAddress;
-        data["financePhoneNumber"] = this.financePhoneNumber;
-        data["businessSector"] = this.businessSector ? this.businessSector.toJSON() : <any>undefined;
-        data["businessSectorId"] = this.businessSectorId;
-        data["creditDays"] = this.creditDays;
-        data["otherInfo"] = this.otherInfo;
-        data["preset"] = this.preset;
-        data["inActive"] = this.inActive;
-        data["tenantId"] = this.tenantId;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface ICustomer {
-    customerNumber: string;
-    name: string;
-    addressId: number;
-    address: Address;
-    contact: string;
-    emailAddress: string;
-    telephoneNumber: string;
-    execContact: string;
-    execEmailAddress: string;
-    execPhoneNumber: string;
-    financeContact: string;
-    financeEmailAddress: string;
-    financePhoneNumber: string;
-    businessSector: BusinessSector;
-    businessSectorId: number;
-    creditDays: number;
-    otherInfo: string;
-    preset: boolean;
-    inActive: boolean;
-    tenantId: number;
-    lastModificationTime: moment.Moment;
-    lastModifierUserId: number;
-    creationTime: moment.Moment;
-    creatorUserId: number;
     id: number;
 }
 
@@ -21673,61 +22486,6 @@ export interface IPensionAdminListDto {
     id: number;
 }
 
-export class AddressOutputDto implements IAddressOutputDto {
-    streetLine1: string;
-    streetLine2: string;
-    cityName: string;
-    postalCode: string;
-    stateName: string;
-    countryName: string;
-
-    constructor(data?: IAddressOutputDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.streetLine1 = data["streetLine1"];
-            this.streetLine2 = data["streetLine2"];
-            this.cityName = data["cityName"];
-            this.postalCode = data["postalCode"];
-            this.stateName = data["stateName"];
-            this.countryName = data["countryName"];
-        }
-    }
-
-    static fromJS(data: any): AddressOutputDto {
-        let result = new AddressOutputDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["streetLine1"] = this.streetLine1;
-        data["streetLine2"] = this.streetLine2;
-        data["cityName"] = this.cityName;
-        data["postalCode"] = this.postalCode;
-        data["stateName"] = this.stateName;
-        data["countryName"] = this.countryName;
-        return data; 
-    }
-}
-
-export interface IAddressOutputDto {
-    streetLine1: string;
-    streetLine2: string;
-    cityName: string;
-    postalCode: string;
-    stateName: string;
-    countryName: string;
-}
-
 export class PensionAdminEditDto implements IPensionAdminEditDto {
     id: number;
     pensionAdminCode: string;
@@ -21777,65 +22535,6 @@ export interface IPensionAdminEditDto {
     name: string;
     address: AddressEditDto;
     custodianName: string;
-}
-
-export class AddressEditDto implements IAddressEditDto {
-    id: number;
-    streetLine1: string;
-    streetLine2: string;
-    cityId: number;
-    postalCode: string;
-    stateId: number;
-    countryId: number;
-
-    constructor(data?: IAddressEditDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-            this.streetLine1 = data["streetLine1"];
-            this.streetLine2 = data["streetLine2"];
-            this.cityId = data["cityId"];
-            this.postalCode = data["postalCode"];
-            this.stateId = data["stateId"];
-            this.countryId = data["countryId"];
-        }
-    }
-
-    static fromJS(data: any): AddressEditDto {
-        let result = new AddressEditDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["streetLine1"] = this.streetLine1;
-        data["streetLine2"] = this.streetLine2;
-        data["cityId"] = this.cityId;
-        data["postalCode"] = this.postalCode;
-        data["stateId"] = this.stateId;
-        data["countryId"] = this.countryId;
-        return data; 
-    }
-}
-
-export interface IAddressEditDto {
-    id: number;
-    streetLine1: string;
-    streetLine2: string;
-    cityId: number;
-    postalCode: string;
-    stateId: number;
-    countryId: number;
 }
 
 export class PensionAdministrator implements IPensionAdministrator {
