@@ -44,13 +44,13 @@ export class CustomerEditComponent extends PayrollComponentBase implements OnCha
             contact: [undefined, [Validators.required, Validators.maxLength(128)]],
             emailAddress: [undefined, [Validators.required, Validators.maxLength(128)]],
             telephoneNumber: [undefined, [Validators.required, Validators.maxLength(128)]],
-            execContact: [undefined, [Validators.required, Validators.maxLength(128)]],
-            execEmailAddress: [undefined, [Validators.required, Validators.maxLength(128)]],
-            execPhoneNumber: [undefined, [Validators.required, Validators.maxLength(128)]],
-            financeContact: [undefined, [Validators.required, Validators.maxLength(128)]],
-            financeEmailAddress: [undefined, [Validators.required, Validators.maxLength(128)]],
-            financePhoneNumber: [undefined, [Validators.required, Validators.maxLength(128)]],
-            businessSectorComboBox: [undefined, [Validators.required, Validators.maxLength(128)]],
+            execContact: [undefined, [Validators.maxLength(128)]],
+            execEmailAddress: [undefined, [Validators.maxLength(128)]],
+            execPhoneNumber: [undefined, [Validators.maxLength(128)]],
+            financeContact: [undefined, [Validators.maxLength(128)]],
+            financeEmailAddress: [undefined, [Validators.maxLength(128)]],
+            financePhoneNumber: [undefined, [Validators.maxLength(128)]],
+            businessSectorId: [undefined, [Validators.required, Validators.maxLength(128)]],
             address: this.createAddressForm()
         });
     }
@@ -75,7 +75,6 @@ export class CustomerEditComponent extends PayrollComponentBase implements OnCha
         this._customerService.getCustomerForEdit(id).subscribe(result => {
             this.setValues(result);
             this.businessSectorComboBoxItems = result.businessSectorComboBoxItems;
-            console.log(this.businessSectorComboBoxItems);
             this.loading = false;
             this.modal.show();
         });
@@ -97,32 +96,30 @@ export class CustomerEditComponent extends PayrollComponentBase implements OnCha
             $(this.nameInput.nativeElement).focus();
         else
             $(this.codeInput.nativeElement).focus();
-        console.log(this.businessSectorComboBoxItems);
     }
 
     save(): void {
         var input = this.customer;
         var address = this.address;
-
         const formModel = this.editForm.getRawValue(); //to include disabled controls
 
-        input.customerNumber = formModel.customerNumber as string;
-        input.name = formModel.name as string;
-        input.contact = formModel.contact as string;
-        input.emailAddress = formModel.emailAddress as string;
-        input.telephoneNumber = formModel.telephoneNumber as string;
-        input.execContact = formModel.execContact as string;
-        input.execEmailAddress = formModel.execEmailAddress as string;
-        input.execPhoneNumber = formModel.execPhoneNumber as string;
-        input.financeContact = formModel.financeContact as string;
-        input.financeEmailAddress = formModel.financeEmailAddress as string;
-        input.financePhoneNumber = formModel.financePhoneNumber as string;
-        input.businessSectorComboBoxItems = this.businessSectorComboBoxItems;
-        input.businessSectorId = formModel.businessSectorComboBox as number;
+        //input.customerNumber = formModel.customerNumber as string;
+        //input.name = formModel.name as string;
+        //input.contact = formModel.contact as string;
+        //input.emailAddress = formModel.emailAddress as string;
+        //input.telephoneNumber = formModel.telephoneNumber as string;
+        //input.execContact = formModel.execContact as string;
+        //input.execEmailAddress = formModel.execEmailAddress as string;
+        //input.execPhoneNumber = formModel.execPhoneNumber as string;
+        //input.financeContact = formModel.financeContact as string;
+        //input.financeEmailAddress = formModel.financeEmailAddress as string;
+        //input.financePhoneNumber = formModel.financePhoneNumber as string;
+        //input.businessSectorComboBoxItems = this.businessSectorComboBoxItems;
+        //input.businessSectorId = formModel.businessSectorComboBox as number;
 
+        input = Object.assign(this.customer, formModel as CustomerEditDto);
         address = Object.assign(address, formModel.address as AddressEditDto);
         input.address = address;
-        console.log(input);
 
         this.saving = true;
         this._customerService.createOrUpdateCustomer(input)
