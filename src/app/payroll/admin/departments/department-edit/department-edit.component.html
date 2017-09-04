@@ -1,4 +1,4 @@
-﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
      aria-hidden="true" [config]="{backdrop: 'static'}">
     <div class="modal-dialog">
         <div class="modal-content" [busyIf]="loading">
@@ -27,7 +27,7 @@
                         <select #departmentCostCenterCombo name="departmentCostCenterCombo" class="form-control edited" [ngClass]="{'edited':department.subType}" [(ngModel)]="department.costCenterId">
                             <option *ngFor="let costCenter of costCenterComboBoxItems" [value]="costCenter.value">{{costCenter.displayText}}</option>
                         </select>
-                        <label>{{l("AccountType")}}</label>
+                        <label>{{l("CostCenter")}}</label>
                     </div>
                 </div>
 

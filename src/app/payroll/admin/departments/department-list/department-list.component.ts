@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, AfterViewInit, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { DepartmentServiceProxy, DepartmentListDto } from '@shared/service-proxies/service-proxies';
@@ -38,7 +38,6 @@ export class DepartmentListComponent extends PayrollComponentBase {
             this.primengDatatableHelper.getMaxResultCount(this.paginator, event),
             this.primengDatatableHelper.getSkipCount(this.paginator, event)
         ).subscribe((data) => {
-            //this.gridData = data.items;
             this.primengDatatableHelper.totalRecordsCount = data.totalCount;
             this.primengDatatableHelper.records = data.items;
             this.primengDatatableHelper.hideLoadingIndicator();

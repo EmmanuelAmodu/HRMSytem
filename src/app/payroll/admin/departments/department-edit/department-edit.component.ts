@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ViewChild, Injector, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { DepartmentServiceProxy, DepartmentEditDto, ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
@@ -14,13 +14,12 @@ export class DepartmentEditComponent extends PayrollComponentBase {
     @ViewChild('nameInput') nameInput: ElementRef;
     @ViewChild('codeInput') codeInput: ElementRef;
     @ViewChild('editModal') modal: ModalDirective;
-    @ViewChild('accountTypeCombobox') accountTypeCombobox: ElementRef;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
-    private active: boolean = false;
-    private saving: boolean = false;
-    private loading: boolean = false;
+    public active: boolean = false;
+    public saving: boolean = false;
+    public loading: boolean = false;
 
     department: DepartmentEditDto = new DepartmentEditDto();
     costCenterComboBoxItems: ComboboxItemDto[] = [];
