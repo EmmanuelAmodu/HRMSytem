@@ -3434,6 +3434,418 @@ export class DemoUiComponentsServiceProxy {
 }
 
 @Injectable()
+export class DepartmentServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getDepartments(nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfDepartmentListDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/GetDepartments?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetDepartments(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetDepartments(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfDepartmentListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfDepartmentListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetDepartments(response: Response): Observable<PagedResultDtoOfDepartmentListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfDepartmentListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfDepartmentListDto.fromJS(resultData200) : new PagedResultDtoOfDepartmentListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfDepartmentListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getDepartmentComboBoxItems(): Observable<ComboboxItemDto[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/GetDepartmentComboBoxItems";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetDepartmentComboBoxItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetDepartmentComboBoxItems(response_);
+                } catch (e) {
+                    return <Observable<ComboboxItemDto[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ComboboxItemDto[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetDepartmentComboBoxItems(response: Response): Observable<ComboboxItemDto[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ComboboxItemDto[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(ComboboxItemDto.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ComboboxItemDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdateDepartment(input: DepartmentEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/CreateOrUpdateDepartment";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdateDepartment(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdateDepartment(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdateDepartment(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deleteDepartment(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/DeleteDepartment?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeleteDepartment(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteDepartment(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteDepartment(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllDepartments(): Observable<Department[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/GetAllDepartments";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAllDepartments(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAllDepartments(response_);
+                } catch (e) {
+                    return <Observable<Department[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<Department[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAllDepartments(response: Response): Observable<Department[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: Department[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Department.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<Department[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getDepartmentAsync(id: number): Observable<Department> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/GetDepartmentAsync?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetDepartmentAsync(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetDepartmentAsync(response_);
+                } catch (e) {
+                    return <Observable<Department>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<Department>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetDepartmentAsync(response: Response): Observable<Department> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: Department = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Department.fromJS(resultData200) : new Department();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<Department>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getDepartmentsToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/GetDepartmentsToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetDepartmentsToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetDepartmentsToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetDepartmentsToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getDepartmentForEdit(id: number): Observable<DepartmentEditDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Department/GetDepartmentForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetDepartmentForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetDepartmentForEdit(response_);
+                } catch (e) {
+                    return <Observable<DepartmentEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<DepartmentEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetDepartmentForEdit(response: Response): Observable<DepartmentEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: DepartmentEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? DepartmentEditDto.fromJS(resultData200) : new DepartmentEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<DepartmentEditDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class EditionServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -15177,6 +15589,234 @@ export interface IStringOutput {
     output: string;
 }
 
+export class PagedResultDtoOfDepartmentListDto implements IPagedResultDtoOfDepartmentListDto {
+    totalCount: number;
+    items: DepartmentListDto[];
+
+    constructor(data?: IPagedResultDtoOfDepartmentListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(DepartmentListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfDepartmentListDto {
+        let result = new PagedResultDtoOfDepartmentListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfDepartmentListDto {
+    totalCount: number;
+    items: DepartmentListDto[];
+}
+
+export class DepartmentListDto implements IDepartmentListDto {
+    departmentCode: string;
+    name: string;
+    costCenterName: number;
+    id: number;
+
+    constructor(data?: IDepartmentListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.departmentCode = data["departmentCode"];
+            this.name = data["name"];
+            this.costCenterName = data["costCenterName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): DepartmentListDto {
+        let result = new DepartmentListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["departmentCode"] = this.departmentCode;
+        data["name"] = this.name;
+        data["costCenterName"] = this.costCenterName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IDepartmentListDto {
+    departmentCode: string;
+    name: string;
+    costCenterName: number;
+    id: number;
+}
+
+export class DepartmentEditDto implements IDepartmentEditDto {
+    id: number;
+    departmentCode: string;
+    name: string;
+    costCenterId: number;
+    costCenterComboBoxItems: ComboboxItemDto[];
+    inActive: boolean;
+
+    constructor(data?: IDepartmentEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.departmentCode = data["departmentCode"];
+            this.name = data["name"];
+            this.costCenterId = data["costCenterId"];
+            if (data["costCenterComboBoxItems"] && data["costCenterComboBoxItems"].constructor === Array) {
+                this.costCenterComboBoxItems = [];
+                for (let item of data["costCenterComboBoxItems"])
+                    this.costCenterComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
+            this.inActive = data["inActive"];
+        }
+    }
+
+    static fromJS(data: any): DepartmentEditDto {
+        let result = new DepartmentEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["departmentCode"] = this.departmentCode;
+        data["name"] = this.name;
+        data["costCenterId"] = this.costCenterId;
+        if (this.costCenterComboBoxItems && this.costCenterComboBoxItems.constructor === Array) {
+            data["costCenterComboBoxItems"] = [];
+            for (let item of this.costCenterComboBoxItems)
+                data["costCenterComboBoxItems"].push(item.toJSON());
+        }
+        data["inActive"] = this.inActive;
+        return data; 
+    }
+}
+
+export interface IDepartmentEditDto {
+    id: number;
+    departmentCode: string;
+    name: string;
+    costCenterId: number;
+    costCenterComboBoxItems: ComboboxItemDto[];
+    inActive: boolean;
+}
+
+export class Department implements IDepartment {
+    departmentCode: string;
+    name: string;
+    costCenter: CostCenter;
+    costCenterId: number;
+    tenantId: number;
+    lastModificationTime: moment.Moment;
+    lastModifierUserId: number;
+    creationTime: moment.Moment;
+    creatorUserId: number;
+    id: number;
+
+    constructor(data?: IDepartment) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.departmentCode = data["departmentCode"];
+            this.name = data["name"];
+            this.costCenter = data["costCenter"] ? CostCenter.fromJS(data["costCenter"]) : <any>undefined;
+            this.costCenterId = data["costCenterId"];
+            this.tenantId = data["tenantId"];
+            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
+            this.lastModifierUserId = data["lastModifierUserId"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.creatorUserId = data["creatorUserId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): Department {
+        let result = new Department();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["departmentCode"] = this.departmentCode;
+        data["name"] = this.name;
+        data["costCenter"] = this.costCenter ? this.costCenter.toJSON() : <any>undefined;
+        data["costCenterId"] = this.costCenterId;
+        data["tenantId"] = this.tenantId;
+        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
+        data["lastModifierUserId"] = this.lastModifierUserId;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IDepartment {
+    departmentCode: string;
+    name: string;
+    costCenter: CostCenter;
+    costCenterId: number;
+    tenantId: number;
+    lastModificationTime: moment.Moment;
+    lastModifierUserId: number;
+    creationTime: moment.Moment;
+    creatorUserId: number;
+    id: number;
+}
+
 export class ListResultDtoOfEditionListDto implements IListResultDtoOfEditionListDto {
     items: EditionListDto[];
 
@@ -20194,7 +20834,7 @@ export class PayrollSummary implements IPayrollSummary {
     taxable: number;
     pmSgroup: PMSgroup;
     pmSgroupId: number;
-    department: StaffDepartment;
+    department: Department;
     departmentId: number;
     costCenter: CostCenter;
     costCenterId: number;
@@ -20240,7 +20880,7 @@ export class PayrollSummary implements IPayrollSummary {
             this.taxable = data["taxable"];
             this.pmSgroup = data["pmSgroup"] ? PMSgroup.fromJS(data["pmSgroup"]) : <any>undefined;
             this.pmSgroupId = data["pmSgroupId"];
-            this.department = data["department"] ? StaffDepartment.fromJS(data["department"]) : <any>undefined;
+            this.department = data["department"] ? Department.fromJS(data["department"]) : <any>undefined;
             this.departmentId = data["departmentId"];
             this.costCenter = data["costCenter"] ? CostCenter.fromJS(data["costCenter"]) : <any>undefined;
             this.costCenterId = data["costCenterId"];
@@ -20324,7 +20964,7 @@ export interface IPayrollSummary {
     taxable: number;
     pmSgroup: PMSgroup;
     pmSgroupId: number;
-    department: StaffDepartment;
+    department: Department;
     departmentId: number;
     costCenter: CostCenter;
     costCenterId: number;
@@ -20362,7 +21002,7 @@ export class PersonnelData implements IPersonnelData {
     mobilePhone: string;
     officePhone: string;
     departmentId: number;
-    department: StaffDepartment;
+    department: Department;
     departmentDate: moment.Moment;
     costCenterId: number;
     costCenter: CostCenter;
@@ -20401,7 +21041,8 @@ export class PersonnelData implements IPersonnelData {
     finalPayRef: string;
     salaryStopped: number;
     dateStopped: moment.Moment;
-    pmSgroupCode: string;
+    pmSgroup: PMSgroup;
+    pmSgroupId: number;
     pmSgroupCodeDate: moment.Moment;
     editStatus: number;
     dateCreated: moment.Moment;
@@ -20441,7 +21082,7 @@ export class PersonnelData implements IPersonnelData {
             this.mobilePhone = data["mobilePhone"];
             this.officePhone = data["officePhone"];
             this.departmentId = data["departmentId"];
-            this.department = data["department"] ? StaffDepartment.fromJS(data["department"]) : <any>undefined;
+            this.department = data["department"] ? Department.fromJS(data["department"]) : <any>undefined;
             this.departmentDate = data["departmentDate"] ? moment(data["departmentDate"].toString()) : <any>undefined;
             this.costCenterId = data["costCenterId"];
             this.costCenter = data["costCenter"] ? CostCenter.fromJS(data["costCenter"]) : <any>undefined;
@@ -20480,7 +21121,8 @@ export class PersonnelData implements IPersonnelData {
             this.finalPayRef = data["finalPayRef"];
             this.salaryStopped = data["salaryStopped"];
             this.dateStopped = data["dateStopped"] ? moment(data["dateStopped"].toString()) : <any>undefined;
-            this.pmSgroupCode = data["pmSgroupCode"];
+            this.pmSgroup = data["pmSgroup"] ? PMSgroup.fromJS(data["pmSgroup"]) : <any>undefined;
+            this.pmSgroupId = data["pmSgroupId"];
             this.pmSgroupCodeDate = data["pmSgroupCodeDate"] ? moment(data["pmSgroupCodeDate"].toString()) : <any>undefined;
             this.editStatus = data["editStatus"];
             this.dateCreated = data["dateCreated"] ? moment(data["dateCreated"].toString()) : <any>undefined;
@@ -20566,7 +21208,8 @@ export class PersonnelData implements IPersonnelData {
         data["finalPayRef"] = this.finalPayRef;
         data["salaryStopped"] = this.salaryStopped;
         data["dateStopped"] = this.dateStopped ? this.dateStopped.toISOString() : <any>undefined;
-        data["pmSgroupCode"] = this.pmSgroupCode;
+        data["pmSgroup"] = this.pmSgroup ? this.pmSgroup.toJSON() : <any>undefined;
+        data["pmSgroupId"] = this.pmSgroupId;
         data["pmSgroupCodeDate"] = this.pmSgroupCodeDate ? this.pmSgroupCodeDate.toISOString() : <any>undefined;
         data["editStatus"] = this.editStatus;
         data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
@@ -20607,7 +21250,7 @@ export interface IPersonnelData {
     mobilePhone: string;
     officePhone: string;
     departmentId: number;
-    department: StaffDepartment;
+    department: Department;
     departmentDate: moment.Moment;
     costCenterId: number;
     costCenter: CostCenter;
@@ -20646,7 +21289,8 @@ export interface IPersonnelData {
     finalPayRef: string;
     salaryStopped: number;
     dateStopped: moment.Moment;
-    pmSgroupCode: string;
+    pmSgroup: PMSgroup;
+    pmSgroupId: number;
     pmSgroupCodeDate: moment.Moment;
     editStatus: number;
     dateCreated: moment.Moment;
@@ -21039,77 +21683,6 @@ export interface IPayPeriod {
     canCompute: boolean;
     canClose: boolean;
     closeTag: string;
-    tenantId: number;
-    lastModificationTime: moment.Moment;
-    lastModifierUserId: number;
-    creationTime: moment.Moment;
-    creatorUserId: number;
-    id: number;
-}
-
-export class StaffDepartment implements IStaffDepartment {
-    departmentCode: string;
-    name: string;
-    costCenter: CostCenter;
-    costCenterId: number;
-    tenantId: number;
-    lastModificationTime: moment.Moment;
-    lastModifierUserId: number;
-    creationTime: moment.Moment;
-    creatorUserId: number;
-    id: number;
-
-    constructor(data?: IStaffDepartment) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.departmentCode = data["departmentCode"];
-            this.name = data["name"];
-            this.costCenter = data["costCenter"] ? CostCenter.fromJS(data["costCenter"]) : <any>undefined;
-            this.costCenterId = data["costCenterId"];
-            this.tenantId = data["tenantId"];
-            this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = data["lastModifierUserId"];
-            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = data["creatorUserId"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): StaffDepartment {
-        let result = new StaffDepartment();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["departmentCode"] = this.departmentCode;
-        data["name"] = this.name;
-        data["costCenter"] = this.costCenter ? this.costCenter.toJSON() : <any>undefined;
-        data["costCenterId"] = this.costCenterId;
-        data["tenantId"] = this.tenantId;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IStaffDepartment {
-    departmentCode: string;
-    name: string;
-    costCenter: CostCenter;
-    costCenterId: number;
     tenantId: number;
     lastModificationTime: moment.Moment;
     lastModifierUserId: number;

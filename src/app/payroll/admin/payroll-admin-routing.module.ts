@@ -10,6 +10,7 @@ import { PayrollRegionListComponent } from "app/payroll/admin/regions/payroll-re
 import { PayrollReportgroupListComponent } from "app/payroll/admin/payroll-report/payroll-reportgroup-list/payroll-reportgroup-list.component";
 import { PayrollReportitemListComponent } from "app/payroll/admin/payroll-report/payroll-reportitem-list/payroll-reportitem-list.component";
 import { CustomerListComponent } from "app/payroll/admin/customers/customer-list/customer-list.component";
+import { DepartmentListComponent } from "app/payroll/admin/departments/department-list/department-list.component";
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { CustomerListComponent } from "app/payroll/admin/customers/customer-list
                     { path: 'banks', component: BankListComponent, data: { permission: 'Payroll.Administration.SalaryBank' } },
                     { path: 'pension-admins', component: PensionAdminListComponent, data: { permission: 'Payroll.Administration.PensionAdministrator' } },
                     { path: 'payelements', component: PayelementListComponent, data: { permission: 'Payroll.Administration.PayElement' } },
+                    { path: 'departments', component: DepartmentListComponent, data: { permission: 'Payroll.Administration.Department' } },
                     { path: 'costcenters', component: CostCenterListComponent, data: { permission: 'Payroll.Administration.CostCenter' } },
                     { path: 'payrollregions', component: PayrollRegionListComponent, data: { permission: 'Payroll.Administration.Region' } },
                     { path: 'payrollreportsgroups', component: PayrollReportgroupListComponent, data: { permission: 'Payroll.Administration.PayrollReportGroup' } },
