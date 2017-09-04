@@ -1,3 +1,41 @@
-<p>
-  department-edit works!
-</p>
+﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+     aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content" [busyIf]="loading">
+            <form *ngIf="active" #departmentEditForm="ngForm" novalidate (submit)="save()">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <span *ngIf="department.id">{{l("EditDepartment")}}: {{department.name}}</span>
+                        <span *ngIf="!department.id">{{l("CreateNewDepartment")}}</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #codeInput type="text" name="DepartmentCode" [disabled]="department.id" class="form-control input-ltr" [ngClass]="{'edited':department.departmentCode}" [(ngModel)]="department.departmentCode" required maxlength="20">
+                        <label>{{l("DepartmentCode")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #nameInput type="text" name="Name" class="form-control input-ltr" [ngClass]="{'edited':department.name}" [(ngModel)]="department.name" required maxlength="128">
+                        <label>{{l("Name")}}</label>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #departmentCostCenterCombo name="departmentCostCenterCombo" class="form-control edited" [ngClass]="{'edited':department.subType}" [(ngModel)]="department.costCenterId">
+                            <option *ngFor="let costCenter of costCenterComboBoxItems" [value]="costCenter.value">{{costCenter.displayText}}</option>
+                        </select>
+                        <label>{{l("AccountType")}}</label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" class="btn btn-primary blue" [disabled]="!departmentEditForm.form.valid || saving"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

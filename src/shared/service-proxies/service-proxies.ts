@@ -15639,7 +15639,7 @@ export interface IPagedResultDtoOfDepartmentListDto {
 export class DepartmentListDto implements IDepartmentListDto {
     departmentCode: string;
     name: string;
-    costCenterName: number;
+    costCenterName: string;
     id: number;
 
     constructor(data?: IDepartmentListDto) {
@@ -15679,7 +15679,7 @@ export class DepartmentListDto implements IDepartmentListDto {
 export interface IDepartmentListDto {
     departmentCode: string;
     name: string;
-    costCenterName: number;
+    costCenterName: string;
     id: number;
 }
 
@@ -21315,8 +21315,6 @@ export class PMSgroup implements IPMSgroup {
     salaryModel: PMSgroupSalaryModel;
     staffLimit: number;
     annualLeaveRateOfGross: number;
-    taxState: State;
-    taxStateId: number;
     region: PayrollRegion;
     regionId: number;
     taxMode: PMSgroupTaxMode;
@@ -21357,8 +21355,6 @@ export class PMSgroup implements IPMSgroup {
             this.salaryModel = data["salaryModel"];
             this.staffLimit = data["staffLimit"];
             this.annualLeaveRateOfGross = data["annualLeaveRateOfGross"];
-            this.taxState = data["taxState"] ? State.fromJS(data["taxState"]) : <any>undefined;
-            this.taxStateId = data["taxStateId"];
             this.region = data["region"] ? PayrollRegion.fromJS(data["region"]) : <any>undefined;
             this.regionId = data["regionId"];
             this.taxMode = data["taxMode"];
@@ -21410,8 +21406,6 @@ export class PMSgroup implements IPMSgroup {
         data["salaryModel"] = this.salaryModel;
         data["staffLimit"] = this.staffLimit;
         data["annualLeaveRateOfGross"] = this.annualLeaveRateOfGross;
-        data["taxState"] = this.taxState ? this.taxState.toJSON() : <any>undefined;
-        data["taxStateId"] = this.taxStateId;
         data["region"] = this.region ? this.region.toJSON() : <any>undefined;
         data["regionId"] = this.regionId;
         data["taxMode"] = this.taxMode;
@@ -21457,8 +21451,6 @@ export interface IPMSgroup {
     salaryModel: PMSgroupSalaryModel;
     staffLimit: number;
     annualLeaveRateOfGross: number;
-    taxState: State;
-    taxStateId: number;
     region: PayrollRegion;
     regionId: number;
     taxMode: PMSgroupTaxMode;
@@ -21697,7 +21689,8 @@ export class StaffLocation implements IStaffLocation {
     locationCode: string;
     name: string;
     subDivisionCode: string;
-    taxCode: string;
+    taxState: State;
+    taxStateId: number;
     addressId: number;
     address: Address;
     tenantId: number;
@@ -21723,7 +21716,8 @@ export class StaffLocation implements IStaffLocation {
             this.locationCode = data["locationCode"];
             this.name = data["name"];
             this.subDivisionCode = data["subDivisionCode"];
-            this.taxCode = data["taxCode"];
+            this.taxState = data["taxState"] ? State.fromJS(data["taxState"]) : <any>undefined;
+            this.taxStateId = data["taxStateId"];
             this.addressId = data["addressId"];
             this.address = data["address"] ? Address.fromJS(data["address"]) : <any>undefined;
             this.tenantId = data["tenantId"];
@@ -21748,7 +21742,8 @@ export class StaffLocation implements IStaffLocation {
         data["locationCode"] = this.locationCode;
         data["name"] = this.name;
         data["subDivisionCode"] = this.subDivisionCode;
-        data["taxCode"] = this.taxCode;
+        data["taxState"] = this.taxState ? this.taxState.toJSON() : <any>undefined;
+        data["taxStateId"] = this.taxStateId;
         data["addressId"] = this.addressId;
         data["address"] = this.address ? this.address.toJSON() : <any>undefined;
         data["tenantId"] = this.tenantId;
@@ -21767,7 +21762,8 @@ export interface IStaffLocation {
     locationCode: string;
     name: string;
     subDivisionCode: string;
-    taxCode: string;
+    taxState: State;
+    taxStateId: number;
     addressId: number;
     address: Address;
     tenantId: number;
