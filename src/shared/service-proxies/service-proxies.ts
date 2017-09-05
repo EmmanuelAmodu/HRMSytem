@@ -2773,6 +2773,64 @@ export class CustomerServiceProxy {
     /**
      * @return Success
      */
+    getCustomerComboBoxItems(nameFilter: string, businessSectorId: number, sorting: string, maxResultCount: number, skipCount: number): Observable<ListResultDtoOfComboboxItemDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/Customer/GetCustomerComboBoxItems?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (businessSectorId !== undefined)
+            url_ += "BusinessSectorId=" + encodeURIComponent("" + businessSectorId) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetCustomerComboBoxItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetCustomerComboBoxItems(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetCustomerComboBoxItems(response: Response): Observable<ListResultDtoOfComboboxItemDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfComboboxItemDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfComboboxItemDto.fromJS(resultData200) : new ListResultDtoOfComboboxItemDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfComboboxItemDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     createOrUpdateCustomer(input: CustomerEditDto): Observable<void> {
         let url_ = this.baseUrl + "/api/services/payroll/Customer/CreateOrUpdateCustomer";
         url_ = url_.replace(/[?&]$/, "");
@@ -8316,6 +8374,416 @@ export class PermissionServiceProxy {
             return throwException("An unexpected server error occurred.", status, responseText);
         }
         return Observable.of<ListResultDtoOfFlatPermissionWithLevelDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class PMSgroupServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getPMSgroups(nameFilter: string, sorting: string, maxResultCount: number, skipCount: number): Observable<PagedResultDtoOfPMSgroupListDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/GetPMSgroups?";
+        if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPMSgroups(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPMSgroups(response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPMSgroupListDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPMSgroupListDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPMSgroups(response: Response): Observable<PagedResultDtoOfPMSgroupListDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PagedResultDtoOfPMSgroupListDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPMSgroupListDto.fromJS(resultData200) : new PagedResultDtoOfPMSgroupListDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PagedResultDtoOfPMSgroupListDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getGLAccountComboBoxItems(payItemGroupId: number): Observable<ListResultDtoOfComboboxItemDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/GetGLAccountComboBoxItems?";
+        if (payItemGroupId !== undefined)
+            url_ += "payItemGroupId=" + encodeURIComponent("" + payItemGroupId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetGLAccountComboBoxItems(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetGLAccountComboBoxItems(response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfComboboxItemDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetGLAccountComboBoxItems(response: Response): Observable<ListResultDtoOfComboboxItemDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: ListResultDtoOfComboboxItemDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ListResultDtoOfComboboxItemDto.fromJS(resultData200) : new ListResultDtoOfComboboxItemDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<ListResultDtoOfComboboxItemDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    createOrUpdatePMSgroup(input: PMSgroupEditDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/CreateOrUpdatePMSgroup";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input ? input.toJSON() : null);
+        
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processCreateOrUpdatePMSgroup(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateOrUpdatePMSgroup(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateOrUpdatePMSgroup(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    deletePMSgroup(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/DeletePMSgroup?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processDeletePMSgroup(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeletePMSgroup(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeletePMSgroup(response: Response): Observable<void> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPMSgroupsToExcel(): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/GetPMSgroupsToExcel";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPMSgroupsToExcel(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPMSgroupsToExcel(response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<FileDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPMSgroupsToExcel(response: Response): Observable<FileDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: FileDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<FileDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllPMSgroups(): Observable<PMSgroup[]> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/GetAllPMSgroups";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetAllPMSgroups(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetAllPMSgroups(response_);
+                } catch (e) {
+                    return <Observable<PMSgroup[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PMSgroup[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetAllPMSgroups(response: Response): Observable<PMSgroup[]> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PMSgroup[] = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(PMSgroup.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PMSgroup[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPMSgroupAsync(id: number): Observable<PMSgroup> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/GetPMSgroupAsync?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPMSgroupAsync(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPMSgroupAsync(response_);
+                } catch (e) {
+                    return <Observable<PMSgroup>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PMSgroup>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPMSgroupAsync(response: Response): Observable<PMSgroup> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PMSgroup = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PMSgroup.fromJS(resultData200) : new PMSgroup();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PMSgroup>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getPMSgroupForEdit(id: number): Observable<PMSgroupEditDto> {
+        let url_ = this.baseUrl + "/api/services/payroll/PMSgroup/GetPMSgroupForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = "";
+        
+        let options_ = {
+            body: content_,
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json; charset=UTF-8", 
+                "Accept": "application/json; charset=UTF-8"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.processGetPMSgroupForEdit(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetPMSgroupForEdit(response_);
+                } catch (e) {
+                    return <Observable<PMSgroupEditDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<PMSgroupEditDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetPMSgroupForEdit(response: Response): Observable<PMSgroupEditDto> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const responseText = response.text();
+            let result200: PMSgroupEditDto = null;
+            let resultData200 = responseText === "" ? null : JSON.parse(responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PMSgroupEditDto.fromJS(resultData200) : new PMSgroupEditDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, responseText);
+        }
+        return Observable.of<PMSgroupEditDto>(<any>null);
     }
 }
 
@@ -21321,8 +21789,10 @@ export class PMSgroup implements IPMSgroup {
     taxRate: number;
     monthlyWorkingDays: number;
     monthlyWorkingHours: number;
-    salaryAccount: string;
-    salaryCostCenter: string;
+    salaryAccount: GLAccount;
+    salaryAccountId: number;
+    salaryCostCenter: CostCenter;
+    salaryCostCenterId: number;
     inActive: boolean;
     preset: boolean;
     salaryGroups: SalaryGroup[];
@@ -21361,8 +21831,10 @@ export class PMSgroup implements IPMSgroup {
             this.taxRate = data["taxRate"];
             this.monthlyWorkingDays = data["monthlyWorkingDays"];
             this.monthlyWorkingHours = data["monthlyWorkingHours"];
-            this.salaryAccount = data["salaryAccount"];
-            this.salaryCostCenter = data["salaryCostCenter"];
+            this.salaryAccount = data["salaryAccount"] ? GLAccount.fromJS(data["salaryAccount"]) : <any>undefined;
+            this.salaryAccountId = data["salaryAccountId"];
+            this.salaryCostCenter = data["salaryCostCenter"] ? CostCenter.fromJS(data["salaryCostCenter"]) : <any>undefined;
+            this.salaryCostCenterId = data["salaryCostCenterId"];
             this.inActive = data["inActive"];
             this.preset = data["preset"];
             if (data["salaryGroups"] && data["salaryGroups"].constructor === Array) {
@@ -21412,8 +21884,10 @@ export class PMSgroup implements IPMSgroup {
         data["taxRate"] = this.taxRate;
         data["monthlyWorkingDays"] = this.monthlyWorkingDays;
         data["monthlyWorkingHours"] = this.monthlyWorkingHours;
-        data["salaryAccount"] = this.salaryAccount;
-        data["salaryCostCenter"] = this.salaryCostCenter;
+        data["salaryAccount"] = this.salaryAccount ? this.salaryAccount.toJSON() : <any>undefined;
+        data["salaryAccountId"] = this.salaryAccountId;
+        data["salaryCostCenter"] = this.salaryCostCenter ? this.salaryCostCenter.toJSON() : <any>undefined;
+        data["salaryCostCenterId"] = this.salaryCostCenterId;
         data["inActive"] = this.inActive;
         data["preset"] = this.preset;
         if (this.salaryGroups && this.salaryGroups.constructor === Array) {
@@ -21457,8 +21931,10 @@ export interface IPMSgroup {
     taxRate: number;
     monthlyWorkingDays: number;
     monthlyWorkingHours: number;
-    salaryAccount: string;
-    salaryCostCenter: string;
+    salaryAccount: GLAccount;
+    salaryAccountId: number;
+    salaryCostCenter: CostCenter;
+    salaryCostCenterId: number;
     inActive: boolean;
     preset: boolean;
     salaryGroups: SalaryGroup[];
@@ -23289,6 +23765,323 @@ export interface IFlatPermissionWithLevelDto {
     displayName: string;
     description: string;
     isGrantedByDefault: boolean;
+}
+
+export class PagedResultDtoOfPMSgroupListDto implements IPagedResultDtoOfPMSgroupListDto {
+    totalCount: number;
+    items: PMSgroupListDto[];
+
+    constructor(data?: IPagedResultDtoOfPMSgroupListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [];
+                for (let item of data["items"])
+                    this.items.push(PMSgroupListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPMSgroupListDto {
+        let result = new PagedResultDtoOfPMSgroupListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPMSgroupListDto {
+    totalCount: number;
+    items: PMSgroupListDto[];
+}
+
+export class PMSgroupListDto implements IPMSgroupListDto {
+    pmSgroupCode: string;
+    name: string;
+    customerId: number;
+    staffMode: PMSgroupListDtoStaffMode;
+    staffModeName: string;
+    salaryModel: PMSgroupListDtoSalaryModel;
+    salaryModelName: string;
+    staffLimit: number;
+    annualLeaveRateOfGross: number;
+    regionId: number;
+    taxMode: PMSgroupListDtoTaxMode;
+    taxModeName: string;
+    taxRate: number;
+    monthlyWorkingDays: number;
+    monthlyWorkingHours: number;
+    salaryAccountName: string;
+    salaryCostCenterName: string;
+    preset: boolean;
+    inActive: boolean;
+    id: number;
+
+    constructor(data?: IPMSgroupListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.pmSgroupCode = data["pmSgroupCode"];
+            this.name = data["name"];
+            this.customerId = data["customerId"];
+            this.staffMode = data["staffMode"];
+            this.staffModeName = data["staffModeName"];
+            this.salaryModel = data["salaryModel"];
+            this.salaryModelName = data["salaryModelName"];
+            this.staffLimit = data["staffLimit"];
+            this.annualLeaveRateOfGross = data["annualLeaveRateOfGross"];
+            this.regionId = data["regionId"];
+            this.taxMode = data["taxMode"];
+            this.taxModeName = data["taxModeName"];
+            this.taxRate = data["taxRate"];
+            this.monthlyWorkingDays = data["monthlyWorkingDays"];
+            this.monthlyWorkingHours = data["monthlyWorkingHours"];
+            this.salaryAccountName = data["salaryAccountName"];
+            this.salaryCostCenterName = data["salaryCostCenterName"];
+            this.preset = data["preset"];
+            this.inActive = data["inActive"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PMSgroupListDto {
+        let result = new PMSgroupListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["pmSgroupCode"] = this.pmSgroupCode;
+        data["name"] = this.name;
+        data["customerId"] = this.customerId;
+        data["staffMode"] = this.staffMode;
+        data["staffModeName"] = this.staffModeName;
+        data["salaryModel"] = this.salaryModel;
+        data["salaryModelName"] = this.salaryModelName;
+        data["staffLimit"] = this.staffLimit;
+        data["annualLeaveRateOfGross"] = this.annualLeaveRateOfGross;
+        data["regionId"] = this.regionId;
+        data["taxMode"] = this.taxMode;
+        data["taxModeName"] = this.taxModeName;
+        data["taxRate"] = this.taxRate;
+        data["monthlyWorkingDays"] = this.monthlyWorkingDays;
+        data["monthlyWorkingHours"] = this.monthlyWorkingHours;
+        data["salaryAccountName"] = this.salaryAccountName;
+        data["salaryCostCenterName"] = this.salaryCostCenterName;
+        data["preset"] = this.preset;
+        data["inActive"] = this.inActive;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPMSgroupListDto {
+    pmSgroupCode: string;
+    name: string;
+    customerId: number;
+    staffMode: PMSgroupListDtoStaffMode;
+    staffModeName: string;
+    salaryModel: PMSgroupListDtoSalaryModel;
+    salaryModelName: string;
+    staffLimit: number;
+    annualLeaveRateOfGross: number;
+    regionId: number;
+    taxMode: PMSgroupListDtoTaxMode;
+    taxModeName: string;
+    taxRate: number;
+    monthlyWorkingDays: number;
+    monthlyWorkingHours: number;
+    salaryAccountName: string;
+    salaryCostCenterName: string;
+    preset: boolean;
+    inActive: boolean;
+    id: number;
+}
+
+export class PMSgroupEditDto implements IPMSgroupEditDto {
+    id: number;
+    pmSgroupCode: string;
+    name: string;
+    customerId: number;
+    staffMode: PMSgroupEditDtoStaffMode;
+    staffModeComboBoxItems: ComboboxItemDto[];
+    salaryModel: PMSgroupEditDtoSalaryModel;
+    salaryModelComboBoxItems: ComboboxItemDto[];
+    staffLimit: number;
+    annualLeaveRateOfGross: number;
+    regionId: number;
+    taxMode: PMSgroupEditDtoTaxMode;
+    taxModeComboBoxItems: ComboboxItemDto[];
+    taxRate: number;
+    monthlyWorkingDays: number;
+    monthlyWorkingHours: number;
+    salaryAccountId: number;
+    salaryAccountComboBoxItems: ComboboxItemDto[];
+    salaryCostCenterId: number;
+    salaryCostCenterComboBoxItems: ComboboxItemDto[];
+    inActive: boolean;
+    preset: boolean;
+
+    constructor(data?: IPMSgroupEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.pmSgroupCode = data["pmSgroupCode"];
+            this.name = data["name"];
+            this.customerId = data["customerId"];
+            this.staffMode = data["staffMode"];
+            if (data["staffModeComboBoxItems"] && data["staffModeComboBoxItems"].constructor === Array) {
+                this.staffModeComboBoxItems = [];
+                for (let item of data["staffModeComboBoxItems"])
+                    this.staffModeComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
+            this.salaryModel = data["salaryModel"];
+            if (data["salaryModelComboBoxItems"] && data["salaryModelComboBoxItems"].constructor === Array) {
+                this.salaryModelComboBoxItems = [];
+                for (let item of data["salaryModelComboBoxItems"])
+                    this.salaryModelComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
+            this.staffLimit = data["staffLimit"];
+            this.annualLeaveRateOfGross = data["annualLeaveRateOfGross"];
+            this.regionId = data["regionId"];
+            this.taxMode = data["taxMode"];
+            if (data["taxModeComboBoxItems"] && data["taxModeComboBoxItems"].constructor === Array) {
+                this.taxModeComboBoxItems = [];
+                for (let item of data["taxModeComboBoxItems"])
+                    this.taxModeComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
+            this.taxRate = data["taxRate"];
+            this.monthlyWorkingDays = data["monthlyWorkingDays"];
+            this.monthlyWorkingHours = data["monthlyWorkingHours"];
+            this.salaryAccountId = data["salaryAccountId"];
+            if (data["salaryAccountComboBoxItems"] && data["salaryAccountComboBoxItems"].constructor === Array) {
+                this.salaryAccountComboBoxItems = [];
+                for (let item of data["salaryAccountComboBoxItems"])
+                    this.salaryAccountComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
+            this.salaryCostCenterId = data["salaryCostCenterId"];
+            if (data["salaryCostCenterComboBoxItems"] && data["salaryCostCenterComboBoxItems"].constructor === Array) {
+                this.salaryCostCenterComboBoxItems = [];
+                for (let item of data["salaryCostCenterComboBoxItems"])
+                    this.salaryCostCenterComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
+            this.inActive = data["inActive"];
+            this.preset = data["preset"];
+        }
+    }
+
+    static fromJS(data: any): PMSgroupEditDto {
+        let result = new PMSgroupEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["pmSgroupCode"] = this.pmSgroupCode;
+        data["name"] = this.name;
+        data["customerId"] = this.customerId;
+        data["staffMode"] = this.staffMode;
+        if (this.staffModeComboBoxItems && this.staffModeComboBoxItems.constructor === Array) {
+            data["staffModeComboBoxItems"] = [];
+            for (let item of this.staffModeComboBoxItems)
+                data["staffModeComboBoxItems"].push(item.toJSON());
+        }
+        data["salaryModel"] = this.salaryModel;
+        if (this.salaryModelComboBoxItems && this.salaryModelComboBoxItems.constructor === Array) {
+            data["salaryModelComboBoxItems"] = [];
+            for (let item of this.salaryModelComboBoxItems)
+                data["salaryModelComboBoxItems"].push(item.toJSON());
+        }
+        data["staffLimit"] = this.staffLimit;
+        data["annualLeaveRateOfGross"] = this.annualLeaveRateOfGross;
+        data["regionId"] = this.regionId;
+        data["taxMode"] = this.taxMode;
+        if (this.taxModeComboBoxItems && this.taxModeComboBoxItems.constructor === Array) {
+            data["taxModeComboBoxItems"] = [];
+            for (let item of this.taxModeComboBoxItems)
+                data["taxModeComboBoxItems"].push(item.toJSON());
+        }
+        data["taxRate"] = this.taxRate;
+        data["monthlyWorkingDays"] = this.monthlyWorkingDays;
+        data["monthlyWorkingHours"] = this.monthlyWorkingHours;
+        data["salaryAccountId"] = this.salaryAccountId;
+        if (this.salaryAccountComboBoxItems && this.salaryAccountComboBoxItems.constructor === Array) {
+            data["salaryAccountComboBoxItems"] = [];
+            for (let item of this.salaryAccountComboBoxItems)
+                data["salaryAccountComboBoxItems"].push(item.toJSON());
+        }
+        data["salaryCostCenterId"] = this.salaryCostCenterId;
+        if (this.salaryCostCenterComboBoxItems && this.salaryCostCenterComboBoxItems.constructor === Array) {
+            data["salaryCostCenterComboBoxItems"] = [];
+            for (let item of this.salaryCostCenterComboBoxItems)
+                data["salaryCostCenterComboBoxItems"].push(item.toJSON());
+        }
+        data["inActive"] = this.inActive;
+        data["preset"] = this.preset;
+        return data; 
+    }
+}
+
+export interface IPMSgroupEditDto {
+    id: number;
+    pmSgroupCode: string;
+    name: string;
+    customerId: number;
+    staffMode: PMSgroupEditDtoStaffMode;
+    staffModeComboBoxItems: ComboboxItemDto[];
+    salaryModel: PMSgroupEditDtoSalaryModel;
+    salaryModelComboBoxItems: ComboboxItemDto[];
+    staffLimit: number;
+    annualLeaveRateOfGross: number;
+    regionId: number;
+    taxMode: PMSgroupEditDtoTaxMode;
+    taxModeComboBoxItems: ComboboxItemDto[];
+    taxRate: number;
+    monthlyWorkingDays: number;
+    monthlyWorkingHours: number;
+    salaryAccountId: number;
+    salaryAccountComboBoxItems: ComboboxItemDto[];
+    salaryCostCenterId: number;
+    salaryCostCenterComboBoxItems: ComboboxItemDto[];
+    inActive: boolean;
+    preset: boolean;
 }
 
 export class CurrentUserProfileEditDto implements ICurrentUserProfileEditDto {
@@ -27673,6 +28466,42 @@ export enum ExecutePaymentDtoEditionPaymentType {
 export enum ExecutePaymentDtoPaymentPeriodType {
     _30 = 30, 
     _365 = 365, 
+}
+
+export enum PMSgroupListDtoStaffMode {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+}
+
+export enum PMSgroupListDtoSalaryModel {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum PMSgroupListDtoTaxMode {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
+}
+
+export enum PMSgroupEditDtoStaffMode {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+}
+
+export enum PMSgroupEditDtoSalaryModel {
+    _1 = 1, 
+    _2 = 2, 
+}
+
+export enum PMSgroupEditDtoTaxMode {
+    _1 = 1, 
+    _2 = 2, 
+    _3 = 3, 
+    _4 = 4, 
 }
 
 export enum TenantLoginInfoDtoPaymentPeriodType {

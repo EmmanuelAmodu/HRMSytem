@@ -33,6 +33,8 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
 import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
 import { DepartmentListComponent } from './departments/department-list/department-list.component';
 import { DepartmentEditComponent } from './departments/department-edit/department-edit.component';
+import { PmsgroupListComponent } from './pmsgroups/pmsgroup-list/pmsgroup-list.component';
+import { PmsgroupEditComponent } from './pmsgroups/pmsgroup-edit/pmsgroup-edit.component';
 
 @NgModule({
     imports: [
@@ -76,7 +78,9 @@ import { DepartmentEditComponent } from './departments/department-edit/departmen
         CustomerListComponent,
         CustomerEditComponent,
         DepartmentListComponent,
-        DepartmentEditComponent
+        DepartmentEditComponent,
+        PmsgroupListComponent,
+        PmsgroupEditComponent
     ],
     providers: [
     ]

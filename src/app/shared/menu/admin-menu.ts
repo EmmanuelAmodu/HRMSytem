@@ -23,7 +23,7 @@ export class AdminMenu {
             new SideBarMenuItem("Payroll Regions", "Payroll.Administration.Region", "fa fa-circle-o", "/app/payroll/admin/payrollregions"),
             new SideBarMenuItem("Payroll Reports", "", "fa fa-circle-o", "/app/payroll/admin/payrollreportsgroups"),
             new SideBarMenuItem("Customers", "Payroll.Administration.Customer", "icon-people", "/app/payroll/admin/customers"),
-            new SideBarMenuItem("Personnel Group", "Payroll.Administration.PersonnelGroup", "fa fa-users", "/app/admin/organization-units"),
+            new SideBarMenuItem("Personnel Group", "Payroll.Administration.PersonnelGroup", "fa fa-users", "/app/payroll/admin/pmsgroups"),
             new SideBarMenuItem("Pension Administrators", "Payroll.Administration.PensionAdministrator", "icon-settings", "/app/payroll/admin/pension-admins"),
             new SideBarMenuItem("Personnel Data", "Payroll.Administration.Personnel", "icon-people", "/app/admin/organization-units")
         ]),

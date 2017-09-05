@@ -11,6 +11,7 @@ import { PayrollReportgroupListComponent } from "app/payroll/admin/payroll-repor
 import { PayrollReportitemListComponent } from "app/payroll/admin/payroll-report/payroll-reportitem-list/payroll-reportitem-list.component";
 import { CustomerListComponent } from "app/payroll/admin/customers/customer-list/customer-list.component";
 import { DepartmentListComponent } from "app/payroll/admin/departments/department-list/department-list.component";
+import { PmsgroupListComponent } from "app/payroll/admin/pmsgroups/pmsgroup-list/pmsgroup-list.component";
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { DepartmentListComponent } from "app/payroll/admin/departments/departmen
                     { path: 'payrollregions', component: PayrollRegionListComponent, data: { permission: 'Payroll.Administration.Region' } },
                     { path: 'payrollreportsgroups', component: PayrollReportgroupListComponent, data: { permission: 'Payroll.Administration.PayrollReportGroup' } },
                     { path: 'payrollreportsitems/:id', component: PayrollReportitemListComponent, data: { permission: 'Payroll.Administration.PayrollReportItem' } },
-                    { path: 'customers', component: CustomerListComponent, data: { permission: 'Payroll.Administration.Customer' } }
+                    { path: 'customers', component: CustomerListComponent, data: { permission: 'Payroll.Administration.Customer' } },
+                    { path: 'pmsgroups', component: PmsgroupListComponent, data: { permission: 'Payroll.Administration.PersonnelGroup' } }
                     //{ path: 'maintenance', component: MaintenanceComponent, data: { permission: 'Common.Administration.Host.Maintenance' } },
                     //{ path: 'hostSettings', component: HostSettingsComponent, data: { permission: 'Common.Administration.Host.Settings' } },
                     //{ path: 'editions', component: EditionsComponent, data: { permission: 'Common.Editions' } },
