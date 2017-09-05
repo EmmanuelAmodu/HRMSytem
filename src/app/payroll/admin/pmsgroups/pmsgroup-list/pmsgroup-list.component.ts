@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, AfterViewInit, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { PMSgroupServiceProxy , PMSgroupListDto } from '@shared/service-proxies/service-proxies';
@@ -14,8 +14,7 @@ import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base"
     templateUrl: './pmsgroup-list.component.html',
     styleUrls: ['./pmsgroup-list.component.css'],
     encapsulation: ViewEncapsulation.None,
-    animations: [appModuleAnimation()],
-    providers: [PMSgroupServiceProxy]
+    animations: [appModuleAnimation()]
 })
 export class PmsgroupListComponent extends PayrollComponentBase {
 

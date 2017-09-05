@@ -1,4 +1,4 @@
-﻿import { Component, AfterViewInit, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppConsts } from '@shared/AppConsts';
 import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base";
