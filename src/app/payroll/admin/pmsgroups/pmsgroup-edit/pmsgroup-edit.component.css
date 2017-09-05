@@ -1,3 +1,8 @@
 ﻿.col-md-6 label {
     text-align:center;
 }
+
+.reset-margin {
+    margin-left: 0;
+    margin-right: 0;
+}

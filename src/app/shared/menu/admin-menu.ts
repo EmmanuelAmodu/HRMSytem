@@ -1,4 +1,4 @@
-import { SideBarMenu } from '@app/shared/layout/side-bar-menu';
+﻿import { SideBarMenu } from '@app/shared/layout/side-bar-menu';
 import { SideBarMenuItem } from '@app/shared/layout/side-bar-menu-item';
 
 export class AdminMenu {
