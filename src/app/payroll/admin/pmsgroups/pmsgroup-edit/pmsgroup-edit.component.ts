@@ -3,6 +3,8 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { PMSgroupServiceProxy, CustomerServiceProxy, PMSgroupEditDto, ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 import { AppConsts } from '@shared/AppConsts';
 import { PayrollComponentBase } from "app/payroll/shared/payroll-component-base";
+import { FormControl } from "@angular/forms";
+import { DataTable } from 'primeng/components/datatable/datatable';
 
 @Component({
     selector: 'pmsgroup-edit',
@@ -20,8 +22,11 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     public active: boolean = false;
     public saving: boolean = false;
     public loading: boolean = false;
+    public showAutocomplete: boolean = false;
 
+    filterCustomerText: string;
     customerComboboxItems: ComboboxItemDto[] = [];
+
     pmsgroup: PMSgroupEditDto = new PMSgroupEditDto();
     salaryCostCenterComboBoxItems: ComboboxItemDto[] = [];
     staffModeComboBoxItems: ComboboxItemDto[] = [];
@@ -38,7 +43,7 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
         super(injector);
     }
 
-    getCustomerComboboxItems(NameFilter: string, BusinessSectorId: number, Sorting?: string, MaxResultCount?: number, SkipCount?: number) {
+    getCustomerComboboxItems(NameFilter: string, BusinessSectorId?: number, Sorting?: string, MaxResultCount?: number, SkipCount?: number) {
         this.loading = true;
         this._customerService.getCustomerComboBoxItems(
             NameFilter, BusinessSectorId, Sorting, MaxResultCount, SkipCount
@@ -47,6 +52,21 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
             console.log(result.items);
             this.loading = false;
         });
+    }
+
+    loadCustomerAutocomplete(businessSectorIdInput: FormControl) {
+        this.showAutocomplete = true; 
+        console.log(businessSectorIdInput.value);
+        let value = businessSectorIdInput.value;
+        if (value.length > 1)
+            this.getCustomerComboboxItems(value);
+        this.showAutocomplete = true;
+    }
+
+    selectCustomer(event) {
+        this.pmsgroup.customerId = event.data.id;
+        this.customerComboboxItems = [];
+        this.showAutocomplete = false;
     }
 
     show(accountId?: number): void {
