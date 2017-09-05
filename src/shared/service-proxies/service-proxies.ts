@@ -23937,6 +23937,7 @@ export class PMSgroupEditDto implements IPMSgroupEditDto {
     staffLimit: number;
     annualLeaveRateOfGross: number;
     regionId: number;
+    regionComboBoxItems: ComboboxItemDto[];
     taxMode: PMSgroupEditDtoTaxMode;
     taxModeComboBoxItems: ComboboxItemDto[];
     taxRate: number;
@@ -23979,6 +23980,11 @@ export class PMSgroupEditDto implements IPMSgroupEditDto {
             this.staffLimit = data["staffLimit"];
             this.annualLeaveRateOfGross = data["annualLeaveRateOfGross"];
             this.regionId = data["regionId"];
+            if (data["regionComboBoxItems"] && data["regionComboBoxItems"].constructor === Array) {
+                this.regionComboBoxItems = [];
+                for (let item of data["regionComboBoxItems"])
+                    this.regionComboBoxItems.push(ComboboxItemDto.fromJS(item));
+            }
             this.taxMode = data["taxMode"];
             if (data["taxModeComboBoxItems"] && data["taxModeComboBoxItems"].constructor === Array) {
                 this.taxModeComboBoxItems = [];
@@ -24032,6 +24038,11 @@ export class PMSgroupEditDto implements IPMSgroupEditDto {
         data["staffLimit"] = this.staffLimit;
         data["annualLeaveRateOfGross"] = this.annualLeaveRateOfGross;
         data["regionId"] = this.regionId;
+        if (this.regionComboBoxItems && this.regionComboBoxItems.constructor === Array) {
+            data["regionComboBoxItems"] = [];
+            for (let item of this.regionComboBoxItems)
+                data["regionComboBoxItems"].push(item.toJSON());
+        }
         data["taxMode"] = this.taxMode;
         if (this.taxModeComboBoxItems && this.taxModeComboBoxItems.constructor === Array) {
             data["taxModeComboBoxItems"] = [];
@@ -24071,6 +24082,7 @@ export interface IPMSgroupEditDto {
     staffLimit: number;
     annualLeaveRateOfGross: number;
     regionId: number;
+    regionComboBoxItems: ComboboxItemDto[];
     taxMode: PMSgroupEditDtoTaxMode;
     taxModeComboBoxItems: ComboboxItemDto[];
     taxRate: number;
