@@ -28,6 +28,7 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     salaryAccountComboBoxItems: ComboboxItemDto[] = [];
     salaryModelComboBoxItems: ComboboxItemDto[] = [];
     taxModeComboBoxItems: ComboboxItemDto[] = []; 
+    regionComboBoxItems: ComboboxItemDto[] = [];
 
     constructor(
         injector: Injector,
@@ -58,6 +59,7 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
             this.salaryAccountComboBoxItems = result.salaryAccountComboBoxItems;
             this.salaryModelComboBoxItems = result.salaryModelComboBoxItems;
             this.taxModeComboBoxItems = result.taxModeComboBoxItems;
+            this.regionComboBoxItems = result.regionComboBoxItems;
             this.loading = false;
             this.modal.show();
         });

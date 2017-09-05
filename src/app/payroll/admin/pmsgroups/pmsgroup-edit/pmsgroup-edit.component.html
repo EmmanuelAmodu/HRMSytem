@@ -44,26 +44,33 @@
                         <label>{{l("MonthlyWorkingHours")}}</label>
                     </div>
 
-                        <div class="row">
-                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
-                                <input #nameFilterInput type="number" name="nameFilter" class="form-control input-ltr" [ngClass]="{'edited':nameFilterInput.value}" required maxlength="128">
-                                <label>{{l("CustomerNameFilter")}}</label>
-                            </div>
-
-                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
-                                <input #businessSectorIdInput type="number" name="BusinessSectorId" class="form-control input-ltr" [ngClass]="{'edited':businessSectorIdInput.value}" (blur)="getCustomerComboboxItems(nameFilterInput.value, businessSectorIdInput.value)" required maxlength="128">
-                                <label>{{l("CustomerBusinessSectorId")}}</label>
-                            </div>
+                    <div class="row">
+                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
+                            <input #nameFilterInput type="number" name="nameFilter" class="form-control input-ltr" [ngClass]="{'edited':nameFilterInput.value}" required maxlength="128">
+                            <label>{{l("CustomerNameFilter")}}</label>
                         </div>
 
-                        <div class="row">
-                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-12">
-                                <select #staffModeCombo name="staffModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.customerId">
-                                    <option *ngFor="let customer of customerComboboxItems" [value]="customer.value">{{customer.displayText}}</option>
-                                </select>
-                                <label>{{l("Customers")}}</label>
-                            </div>
+                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
+                            <input #businessSectorIdInput type="number" name="BusinessSectorId" class="form-control input-ltr" [ngClass]="{'edited':businessSectorIdInput.value}" (blur)="getCustomerComboboxItems(nameFilterInput.value, businessSectorIdInput.value)" required maxlength="128">
+                            <label>{{l("CustomerBusinessSectorId")}}</label>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-12">
+                            <select #staffModeCombo name="staffModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.customerId">
+                                <option *ngFor="let customer of customerComboboxItems" [value]="customer.value">{{customer.displayText}}</option>
+                            </select>
+                            <label>{{l("Customers")}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #regionCombo name="regionCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.regionId">
+                            <option *ngFor="let region of regionComboBoxItems" [value]="region.value">{{region.displayText}}</option>
+                        </select>
+                        <label>{{l("PayrollRegion")}}</label>
+                    </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                         <select #costCenterCombo name="costCenterCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryCostCenterId">
