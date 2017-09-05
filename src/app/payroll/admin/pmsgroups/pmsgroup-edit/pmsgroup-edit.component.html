@@ -1,3 +1,111 @@
-<p>
-  pmsgroup-edit works!
-</p>
+﻿<div bsModal #editModal="bs-modal" (onShown)="setFocus()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModal"
+     aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog">
+        <div class="modal-content" [busyIf]="loading">
+            <form *ngIf="active" #pmsgroupEditForm="ngForm" novalidate (submit)="save()">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <span *ngIf="pmsgroup.id">{{l("EditPMSgroup")}}: {{pmsgroup.name}}</span>
+                        <span *ngIf="!pmsgroup.id">{{l("CreateNewPMSgroup")}}</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #codeInput type="text" name="PMSgroupCode" [disabled]="pmsgroup.id" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.pmsgroupCode}" [(ngModel)]="pmsgroup.pmSgroupCode" required maxlength="20">
+                        <label>{{l("PMSgroupCode")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #nameInput type="text" name="Name" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.name}" [(ngModel)]="pmsgroup.name" required maxlength="128">
+                        <label>{{l("Name")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #annualLeaveRateOfGrossInput type="number" name="AnnualLeaveRateOfGross" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.annualLeaveRateOfGross}" [(ngModel)]="pmsgroup.annualLeaveRateOfGross" required maxlength="128">
+                        <label>{{l("AnnualLeaveRateOfGross")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #taxRateInput type="number" name="taxRate" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.taxRate}" [(ngModel)]="pmsgroup.taxRate" required maxlength="128">
+                        <label>{{l("TaxRate")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #monthlyWorkingDaysInput type="number" name="monthlyWorkingDays" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.monthlyWorkingDays}" [(ngModel)]="pmsgroup.monthlyWorkingDays" required maxlength="128">
+                        <label>{{l("MonthlyWorkingDays")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #monthlyWorkingHoursInput type="number" name="monthlyWorkingHours" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.monthlyWorkingHours}" [(ngModel)]="pmsgroup.monthlyWorkingHours" required maxlength="128">
+                        <label>{{l("MonthlyWorkingHours")}}</label>
+                    </div>
+
+                        <div class="row">
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
+                                <input #nameFilterInput type="number" name="nameFilter" class="form-control input-ltr" [ngClass]="{'edited':nameFilterInput.value}" required maxlength="128">
+                                <label>{{l("CustomerNameFilter")}}</label>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
+                                <input #businessSectorIdInput type="number" name="BusinessSectorId" class="form-control input-ltr" [ngClass]="{'edited':businessSectorIdInput.value}" (blur)="getCustomerComboboxItems(nameFilterInput.value, businessSectorIdInput.value)" required maxlength="128">
+                                <label>{{l("CustomerBusinessSectorId")}}</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-12">
+                                <select #staffModeCombo name="staffModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.customerId">
+                                    <option *ngFor="let customer of customerComboboxItems" [value]="customer.value">{{customer.displayText}}</option>
+                                </select>
+                                <label>{{l("Customers")}}</label>
+                            </div>
+                        </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #costCenterCombo name="costCenterCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryCostCenterId">
+                            <option *ngFor="let salaryCostCenter of salaryCostCenterComboBoxItems" [value]="salaryCostCenter.value">{{salaryCostCenter.displayText}}</option>
+                        </select>
+                        <label>{{l("SalaryCostCenter")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #staffModeCombo name="staffModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.staffMode">
+                            <option *ngFor="let staffMode of staffModeComboBoxItems" [value]="staffMode.value">{{staffMode.displayText}}</option>
+                        </select>
+                        <label>{{l("StaffMode")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #salaryAccountCombo name="salaryAccountCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryAccountId">
+                            <option *ngFor="let salaryAccount of salaryAccountComboBoxItems" [value]="salaryAccount.value">{{salaryAccount.displayText}}</option>
+                        </select>
+                        <label>{{l("SalaryAccount")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #salaryModelCombo name="salaryModelCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryModel">
+                            <option *ngFor="let salaryModel of salaryModelComboBoxItems" [value]="salaryModel.value">{{salaryModel.displayText}}</option>
+                        </select>
+                        <label>{{l("SalaryModel")}}</label>
+                    </div>
+
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <select #taxModeCombo name="taxModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.taxMode">
+                            <option *ngFor="let taxMode of taxModeComboBoxItems" [value]="taxMode.value">{{taxMode.displayText}}</option>
+                        </select>
+                        <label>{{l("CostCenter")}}</label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" [disabled]="saving" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')" class="btn btn-primary blue" [disabled]="!pmsgroupEditForm.form.valid || saving"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
