@@ -82,6 +82,7 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
 
     purgeValuesForZeros(pmsgroup, accountId?: number): void {
         if (!accountId) {
+            this.customerItem = new ComboboxItemDto();
             for (let i in pmsgroup) {
                 if (pmsgroup[i] === 0)
                     pmsgroup[i] = undefined;
