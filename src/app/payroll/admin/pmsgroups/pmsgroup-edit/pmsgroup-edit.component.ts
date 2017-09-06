@@ -83,7 +83,7 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     purgeValuesForZeros(pmsgroup, accountId?: number): void {
         if (!accountId) {
             for (let i in pmsgroup) {
-                if (pmsgroup[i] == 0)
+                if (pmsgroup[i] === 0)
                     pmsgroup[i] = undefined;
             }
         }
