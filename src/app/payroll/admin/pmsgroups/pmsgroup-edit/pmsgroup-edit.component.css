@@ -6,3 +6,31 @@
     margin-left: 0;
     margin-right: 0;
 }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:nth-child(even):hover {
+    background-color: #808080;
+}
+
+tr:nth-child(odd):hover {
+    background-color: #dddddd;
+}
+
+tr:nth-child(1):hover {
+    background-color: #ffffff;
+}

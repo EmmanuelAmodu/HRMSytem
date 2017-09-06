@@ -22,7 +22,6 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     public active: boolean = false;
     public saving: boolean = false;
     public loading: boolean = false;
-    public showAutocomplete: boolean = false;
 
     filterCustomerText: string;
     customerComboboxItems: ComboboxItemDto[] = [];
@@ -55,18 +54,15 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     }
 
     loadCustomerAutocomplete(businessSectorIdInput: FormControl) {
-        this.showAutocomplete = true; 
         console.log(businessSectorIdInput.value);
         let value = businessSectorIdInput.value;
         if (value.length > 1)
             this.getCustomerComboboxItems(value);
-        this.showAutocomplete = true;
     }
 
-    selectCustomer(event) {
-        this.pmsgroup.customerId = event.data.id;
+    selectCustomer(value) {
+        this.pmsgroup.customerId = value;
         this.customerComboboxItems = [];
-        this.showAutocomplete = false;
     }
 
     show(accountId?: number): void {

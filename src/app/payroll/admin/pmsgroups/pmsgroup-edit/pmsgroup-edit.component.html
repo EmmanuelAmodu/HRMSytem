@@ -53,10 +53,17 @@
                         <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
                             <input #businessSectorIdInput type="number" name="BusinessSectorId" class="form-control input-ltr" [ngClass]="{'edited':businessSectorIdInput.value}" (keypress)="loadCustomerAutocomplete(businessSectorIdInput)" required maxlength="128">
                             <label>{{l("CustomerBusinessSectorId")}}</label>
-                            <p-dataTable *ngIf="showAutocomplete" [value]="customerComboboxItems" (onRowClick)="selectCustomer($event)">
-                                <p-column field="value" header="ID"></p-column>
-                                <p-column field="displayText" header="Name"></p-column>
-                            </p-dataTable>
+
+                            <table *ngIf="customerComboboxItems.length" style="width:100%">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                            <tr *ngFor="customer of customerComboboxItems" (click)="selectCustomer(customer.value)">
+                                <td>{{ customer.value }}</td>
+                                <td>{{ customer.displayText }}</td>
+                            </tr>
+                            </table>
                         </div>
                     </div>
 
