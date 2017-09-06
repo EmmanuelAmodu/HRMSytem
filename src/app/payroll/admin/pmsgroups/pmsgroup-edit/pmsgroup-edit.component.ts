@@ -76,7 +76,17 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
             this.regionComboBoxItems = result.regionComboBoxItems;
             this.loading = false;
             this.modal.show();
+            this.purgeValuesForZeros(this.pmsgroup, accountId);
         });
+    }
+
+    purgeValuesForZeros(pmsgroup, accountId?: number): void {
+        if (!accountId) {
+            for (let i in pmsgroup) {
+                if (pmsgroup[i] == 0)
+                    pmsgroup[i] = undefined;
+            }
+        }
     }
 
     setFocus(): void {
@@ -89,7 +99,6 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     save(): void {
         var input = new PMSgroupEditDto();
         input = this.pmsgroup;
-        console.log(input);
         this.saving = true;
         this._pmsgroupService.createOrUpdatePMSgroup(input)
             .finally(() => this.saving = false)

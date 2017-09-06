@@ -15,7 +15,7 @@
                 <div class="modal-body">
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <input #codeInput type="text" name="PMSgroupCode" [disabled]="pmsgroup.id" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.pmsgroupCode}" [(ngModel)]="pmsgroup.pmSgroupCode" required maxlength="20">
+                        <input #codeInput type="text" name="PMSgroupCode" [disabled]="pmsgroup.id" class="form-control input-ltr" [ngClass]="{'edited':pmsgroup.pmSgroupCode}" [(ngModel)]="pmsgroup.pmSgroupCode" required maxlength="20">
                         <label>{{l("PMSgroupCode")}}</label>
                     </div>
 
@@ -67,35 +67,35 @@
                     </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #costCenterCombo name="costCenterCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryCostCenterId">
+                        <select #costCenterCombo name="costCenterCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.salaryCostCenterId}" [(ngModel)]="pmsgroup.salaryCostCenterId">
                             <option *ngFor="let salaryCostCenter of salaryCostCenterComboBoxItems" [value]="salaryCostCenter.value">{{salaryCostCenter.displayText}}</option>
                         </select>
                         <label>{{l("SalaryCostCenter")}}</label>
                     </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #staffModeCombo name="staffModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.staffMode">
+                        <select #staffModeCombo name="staffModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.staffMode}" [(ngModel)]="pmsgroup.staffMode">
                             <option *ngFor="let staffMode of staffModeComboBoxItems" [value]="staffMode.value">{{staffMode.displayText}}</option>
                         </select>
                         <label>{{l("StaffMode")}}</label>
                     </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #salaryAccountCombo name="salaryAccountCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryAccountId">
+                        <select #salaryAccountCombo name="salaryAccountCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.salaryAccountId}" [(ngModel)]="pmsgroup.salaryAccountId">
                             <option *ngFor="let salaryAccount of salaryAccountComboBoxItems" [value]="salaryAccount.value">{{salaryAccount.displayText}}</option>
                         </select>
                         <label>{{l("SalaryAccount")}}</label>
                     </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #salaryModelCombo name="salaryModelCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.salaryModel">
+                        <select #salaryModelCombo name="salaryModelCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.salaryModel}" [(ngModel)]="pmsgroup.salaryModel">
                             <option *ngFor="let salaryModel of salaryModelComboBoxItems" [value]="salaryModel.value">{{salaryModel.displayText}}</option>
                         </select>
                         <label>{{l("SalaryModel")}}</label>
                     </div>
 
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <select #taxModeCombo name="taxModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.subType}" [(ngModel)]="pmsgroup.taxMode">
+                        <select #taxModeCombo name="taxModeCombo" class="form-control edited" [ngClass]="{'edited':pmsgroup.taxMode}" [(ngModel)]="pmsgroup.taxMode">
                             <option *ngFor="let taxMode of taxModeComboBoxItems" [value]="taxMode.value">{{taxMode.displayText}}</option>
                         </select>
                         <label>{{l("CostCenter")}}</label>
