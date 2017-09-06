@@ -25,6 +25,7 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
 
     filterCustomerText: string;
     customerComboboxItems: ComboboxItemDto[] = [];
+    customerItem: ComboboxItemDto = new ComboboxItemDto();
 
     pmsgroup: PMSgroupEditDto = new PMSgroupEditDto();
     salaryCostCenterComboBoxItems: ComboboxItemDto[] = [];
@@ -43,25 +44,22 @@ export class PmsgroupEditComponent extends PayrollComponentBase {
     }
 
     getCustomerComboboxItems(NameFilter: string, BusinessSectorId?: number, Sorting?: string, MaxResultCount?: number, SkipCount?: number) {
-        this.loading = true;
         this._customerService.getCustomerComboBoxItems(
             NameFilter, BusinessSectorId, Sorting, MaxResultCount, SkipCount
         ).subscribe(result => {
             this.customerComboboxItems = result.items;
-            console.log(result.items);
-            this.loading = false;
         });
     }
 
     loadCustomerAutocomplete(businessSectorIdInput: FormControl) {
-        console.log(businessSectorIdInput.value);
         let value = businessSectorIdInput.value;
-        if (value.length > 1)
+        if (value.length > 0)
             this.getCustomerComboboxItems(value);
     }
 
-    selectCustomer(value) {
-        this.pmsgroup.customerId = value;
+    selectCustomer(customer: ComboboxItemDto) {
+        this.customerItem = customer;
+        this.pmsgroup.customerId = Number(this.customerItem.value);
         this.customerComboboxItems = [];
     }
 
