@@ -34,3 +34,11 @@ tr:nth-child(odd):hover {
 tr:nth-child(1):hover {
     background-color: #ffffff;
 }
+
+.table-container > table {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
