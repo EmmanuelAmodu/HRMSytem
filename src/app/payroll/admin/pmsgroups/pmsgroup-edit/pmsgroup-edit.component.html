@@ -49,22 +49,20 @@
                         <label>{{l("StaffLimit")}}</label>
                     </div>
 
-                    <div class="row reset-margin">
-                        <div class="form-group form-md-line-input form-md-floating-label no-hint col-md-6">
-                            <input #businessSectorIdInput type="text" name="BusinessSectorId" class="form-control input-ltr" [ngClass]="{'edited':businessSectorIdInput.value}" (keypress)="loadCustomerAutocomplete(businessSectorIdInput)" required maxlength="128" [(ngModel)]="customerItem.displayText">
-                            <label>{{l("CustomerBusinessSectorId")}}</label>
-                            <div class="table-container">
-                                <table *ngIf="customerComboboxItems.length" style="width:100%">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                    </tr>
-                                    <tr *ngFor="let customer of customerComboboxItems" (click)="selectCustomer(customer)">
-                                        <td>{{ customer.value }}</td>
-                                        <td>{{ customer.displayText }}</td>
-                                    </tr>
-                                </table>
-                            </div>
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <input #businessSectorIdInput type="text" name="BusinessSectorId" class="form-control input-ltr" [ngClass]="{'edited':businessSectorIdInput.value}" (keypress)="loadCustomerAutocomplete(businessSectorIdInput)" required maxlength="128" [(ngModel)]="customerItem.displayText">
+                        <label>{{l("CustomerBusinessSectorId")}}</label>
+                        <div class="table-container">
+                            <table *ngIf="customerComboboxItems.length" style="width:100%">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                </tr>
+                                <tr *ngFor="let customer of customerComboboxItems" (click)="selectCustomer(customer)">
+                                    <td>{{ customer.value }}</td>
+                                    <td>{{ customer.displayText }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
