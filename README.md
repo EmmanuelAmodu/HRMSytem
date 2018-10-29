@@ -1,3 +1,3 @@
-﻿## ASP.NET ZERO - Angular UI
+﻿## Angular UI for a HRM System
 
-See documentation: https://www.aspnetzero.com/Documents/Getting-Started-Angular
+Coming soon...
